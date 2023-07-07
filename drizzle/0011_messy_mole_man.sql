@@ -1,0 +1,1 @@
+ALTER TABLE `products` MODIFY COLUMN `category` enum('Detección de Incendio','Extinción de Incendio','Electrónica','Ferretería','Canalización','Electricidad') NOT NULL DEFAULT 'Detección de Incendio';

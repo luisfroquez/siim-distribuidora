@@ -1,0 +1,1 @@
+ALTER TABLE `iws_products` ADD `id` serial PRIMARY KEY AUTO_INCREMENT NOT NULL;

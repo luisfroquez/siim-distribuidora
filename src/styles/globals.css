@@ -1,0 +1,86 @@
+@import url(./scrollbar.css);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 242 242 242;
+    --foreground: 2 18 49;
+
+    --muted: 219 219 219;
+    --muted-foreground: 102 102 102;
+
+    --popover: 242 242 242;
+    --popover-foreground: 2 18 49;
+
+    --card: 242 242 242;
+    --card-foreground: 2 18 49;
+
+    --border: 219 219 219;
+    --input: 219 219 219;
+
+    --primary: 10 91 245;
+    --primary-foreground: 242 242 242;
+
+    --secondary: 219 219 219;
+    --secondary-foreground: 10 91 245;
+
+    --accent: 219 219 219;
+    --accent-foreground: 10 91 245;
+
+    --destructive: 141 12 20;
+    --destructive-foreground: 242 242 242;
+
+    --ring: 173 173 173;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 2 18 49;
+    --foreground: 242 242 242;
+
+    --muted: 220 92% 30%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --popover: 2 18 49;
+    --popover-foreground: 242 242 242;
+
+    --card: 2 18 49;
+    --card-foreground: 242 242 242;
+
+    --border: 220 92% 30%;
+    --input: 220 92% 30%;
+
+    --primary: 10 91 245;
+    --primary-foreground: 242 242 242;
+
+    --secondary: 219 219 219;
+    --secondary-foreground: 10 91 245;
+
+    --accent: 220 92% 30%;
+    --accent-foreground: ;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+
+    --ring: 220 92% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+}
