@@ -104,11 +104,11 @@ export const HorizontalLogo = (props: React.SVGProps<SVGSVGElement>) => {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#0048D0" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
-          <stop offset="0.55" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.74" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.9" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="1" stopColor="#0048D0" stop-opacity="0" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
+          <stop offset="0.55" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.74" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.9" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="1" stopColor="#0048D0" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_8_2"
@@ -118,11 +118,11 @@ export const HorizontalLogo = (props: React.SVGProps<SVGSVGElement>) => {
           y2="382.46"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#0048D0" stop-opacity="0" />
-          <stop offset="0.1" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="0.26" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.45" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
+          <stop stopColor="#0048D0" stopOpacity="0" />
+          <stop offset="0.1" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="0.26" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.45" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
           <stop offset="1" stopColor="#0048D0" />
         </linearGradient>
         <linearGradient
@@ -134,11 +134,11 @@ export const HorizontalLogo = (props: React.SVGProps<SVGSVGElement>) => {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#0048D0" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
-          <stop offset="0.55" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.74" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.9" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="1" stopColor="#0048D0" stop-opacity="0" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
+          <stop offset="0.55" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.74" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.9" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="1" stopColor="#0048D0" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_8_2"
@@ -148,11 +148,11 @@ export const HorizontalLogo = (props: React.SVGProps<SVGSVGElement>) => {
           y2="438.87"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#0048D0" stop-opacity="0" />
-          <stop offset="0.1" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="0.26" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.45" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
+          <stop stopColor="#0048D0" stopOpacity="0" />
+          <stop offset="0.1" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="0.26" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.45" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
           <stop offset="1" stopColor="#0048D0" />
         </linearGradient>
         <linearGradient
@@ -163,10 +163,10 @@ export const HorizontalLogo = (props: React.SVGProps<SVGSVGElement>) => {
           y2="283.55"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#0047D1" stop-opacity="0.9" />
-          <stop offset="0.33" stopColor="#0049D1" stop-opacity="0.1" />
-          <stop offset="0.66" stopColor="#0048CF" stop-opacity="0.9" />
-          <stop offset="1" stopColor="#0047CF" stop-opacity="0.1" />
+          <stop stopColor="#0047D1" stopOpacity="0.9" />
+          <stop offset="0.33" stopColor="#0049D1" stopOpacity="0.1" />
+          <stop offset="0.66" stopColor="#0048CF" stopOpacity="0.9" />
+          <stop offset="1" stopColor="#0047CF" stopOpacity="0.1" />
         </linearGradient>
       </defs>
     </svg>
@@ -216,11 +216,11 @@ export const Isologo = (props: React.SVGProps<SVGSVGElement>) => {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#0048D0" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
-          <stop offset="0.55" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.74" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.9" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="1" stopColor="#0048D0" stop-opacity="0" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
+          <stop offset="0.55" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.74" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.9" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="1" stopColor="#0048D0" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_7_50"
@@ -230,11 +230,11 @@ export const Isologo = (props: React.SVGProps<SVGSVGElement>) => {
           y2="382.46"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#0048D0" stop-opacity="0" />
-          <stop offset="0.1" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="0.26" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.45" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
+          <stop stopColor="#0048D0" stopOpacity="0" />
+          <stop offset="0.1" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="0.26" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.45" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
           <stop offset="1" stopColor="#0048D0" />
         </linearGradient>
         <linearGradient
@@ -246,11 +246,11 @@ export const Isologo = (props: React.SVGProps<SVGSVGElement>) => {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#0048D0" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
-          <stop offset="0.55" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.74" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.9" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="1" stopColor="#0048D0" stop-opacity="0" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
+          <stop offset="0.55" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.74" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.9" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="1" stopColor="#0048D0" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_7_50"
@@ -260,11 +260,11 @@ export const Isologo = (props: React.SVGProps<SVGSVGElement>) => {
           y2="438.87"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#0048D0" stop-opacity="0" />
-          <stop offset="0.1" stopColor="#0048CF" stop-opacity="0.04" />
-          <stop offset="0.26" stopColor="#0048CF" stop-opacity="0.16" />
-          <stop offset="0.45" stopColor="#0048CF" stop-opacity="0.35" />
-          <stop offset="0.5" stopColor="#0048CF" stop-opacity="0.4" />
+          <stop stopColor="#0048D0" stopOpacity="0" />
+          <stop offset="0.1" stopColor="#0048CF" stopOpacity="0.04" />
+          <stop offset="0.26" stopColor="#0048CF" stopOpacity="0.16" />
+          <stop offset="0.45" stopColor="#0048CF" stopOpacity="0.35" />
+          <stop offset="0.5" stopColor="#0048CF" stopOpacity="0.4" />
           <stop offset="1" stopColor="#0048D0" />
         </linearGradient>
         <linearGradient
@@ -275,10 +275,10 @@ export const Isologo = (props: React.SVGProps<SVGSVGElement>) => {
           y2="283.55"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#0047D1" stop-opacity="0.9" />
-          <stop offset="0.33" stopColor="#0049D1" stop-opacity="0.1" />
-          <stop offset="0.66" stopColor="#0048CF" stop-opacity="0.9" />
-          <stop offset="1" stopColor="#0047CF" stop-opacity="0.1" />
+          <stop stopColor="#0047D1" stopOpacity="0.9" />
+          <stop offset="0.33" stopColor="#0049D1" stopOpacity="0.1" />
+          <stop offset="0.66" stopColor="#0048CF" stopOpacity="0.9" />
+          <stop offset="1" stopColor="#0047CF" stopOpacity="0.1" />
         </linearGradient>
       </defs>
     </svg>

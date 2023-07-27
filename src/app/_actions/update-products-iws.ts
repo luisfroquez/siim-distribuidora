@@ -1,31 +1,45 @@
 'use server'
 
 import { db } from '@/db'
-import { iwsProducts, products } from '@/db/schema'
-import { getCatalog } from '@/iws/get-products-list'
-import { ProductsList } from '@/iws/types'
+import { iwsProductImages, iwsProducts, products } from '@/db/schema'
+import { getCatalog } from '@/iws/get-catalog'
+import { getExtendedCatalog } from '@/iws/get-extended-catalog'
+import { ExtendedProduct, Product } from '@/iws/types'
 
-import {
-  getSubcategories,
-  productCategories,
-  productTags,
-} from '@/config/products'
+export async function updateIwsProducts() {
+  await db.delete(iwsProducts)
+  await db.delete(iwsProductImages)
 
-export async function updateProducts() {
+  // PRODUCTS
+
   const data = await getCatalog()
+  const hikOnly = data.filter((d) => d.Brand.BrandId === 'hik')
 
-  const hikProductsOnly = data.filter((d) => d.Brand.BrandId === 'hik')
-
-  for (let i = 0; i < hikProductsOnly.length; i++) {
-    const item = hikProductsOnly[i] as ProductsList
+  for (let i = 0; i < hikOnly.length; i++) {
+    const item = hikOnly[i] as Product
 
     await db.insert(iwsProducts).values({
       Sku: item.Sku,
-      BrandId: item.Brand.BrandId,
-      CategoryId: item.Category.CategoryId,
       Mpn: item.Mpn,
-      Description: item.Mpn,
-      Images: undefined,
+      Type: item.Type,
+      Description: item.Description,
+      Brand: item.Brand,
+      Category: item.Category,
+    })
+  }
+
+  // IMAGES
+  const extendedData = await getExtendedCatalog()
+  const extendedHikOnly = extendedData.filter(
+    (e) => e.DescripcionFabrica === 'Hikvision'
+  )
+
+  for (let i = 0; i < extendedHikOnly.length; i++) {
+    const item = extendedHikOnly[i]
+
+    await db.insert(iwsProductImages).values({
+      productSku: item.localSku,
+      images: item.Imagenes,
     })
   }
 }

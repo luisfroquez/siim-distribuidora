@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { isClerkAPIResponseError, useSignIn } from "@clerk/nextjs"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import type { z } from "zod"
+import * as React from 'react'
+import { useRouter } from 'next/navigation'
+import { isClerkAPIResponseError, useSignIn } from '@clerk/nextjs'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import type { z } from 'zod'
 
-import { authSchema } from "@/lib/validations/auth"
-import { Button } from "@/components/ui/button"
+import { authSchema } from '@/lib/validations/auth'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -17,10 +17,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Icons } from "@/components/icons"
-import { PasswordInput } from "@/components/password-input"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Icons } from '@/components/icons'
+import { PasswordInput } from '@/components/password-input'
 
 type Inputs = z.infer<typeof authSchema>
 
@@ -33,8 +33,8 @@ export function SignInForm() {
   const form = useForm<Inputs>({
     resolver: zodResolver(authSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   })
 
@@ -48,7 +48,7 @@ export function SignInForm() {
           password: data.password,
         })
 
-        if (result.status === "complete") {
+        if (result.status === 'complete') {
           await setActive({ session: result.createdSessionId })
 
           router.push(`${window.location.origin}/`)
@@ -57,7 +57,7 @@ export function SignInForm() {
           console.log(result)
         }
       } catch (error) {
-        const unknownError = "Something went wrong, please try again."
+        const unknownError = 'Ocurrió un error, por favor intenta de nuevo.'
 
         isClerkAPIResponseError(error)
           ? toast.error(error.errors[0]?.longMessage ?? unknownError)
@@ -79,7 +79,7 @@ export function SignInForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="rodneymullen180@gmail.com" {...field} />
+                <Input placeholder="info@siim.cl" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -105,8 +105,8 @@ export function SignInForm() {
               aria-hidden="true"
             />
           )}
-          Sign in
-          <span className="sr-only">Sign in</span>
+          Iniciar sesión
+          <span className="sr-only">Iniciar sesión</span>
         </Button>
       </form>
     </Form>

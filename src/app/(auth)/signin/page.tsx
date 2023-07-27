@@ -1,5 +1,5 @@
-import { type Metadata } from "next"
-import Link from "next/link"
+import { type Metadata } from 'next'
+import Link from 'next/link'
 
 import {
   Card,
@@ -8,14 +8,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { OAuthSignIn } from "@/components/auth/oauth-signin"
-import { SignInForm } from "@/components/forms/signin-form"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
+import { OAuthSignIn } from '@/components/auth/oauth-signin'
+import { SignInForm } from '@/components/forms/signin-form'
+import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
-  title: "Sign In",
-  description: "Sign in to your account",
+  title: 'Iniciar sesión',
+  description: 'Ingresa a tu cuenta',
 }
 
 export default function SignInPage() {
@@ -23,9 +23,9 @@ export default function SignInPage() {
     <Shell layout="auth">
       <Card>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Sign in</CardTitle>
+          <CardTitle className="text-2xl">Iniciar sesión</CardTitle>
           <CardDescription>
-            Choose your preferred sign in method
+            Elige el método de inicio de sesión que prefieras
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -36,7 +36,7 @@ export default function SignInPage() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                O ingresa con
               </span>
             </div>
           </div>
@@ -44,21 +44,21 @@ export default function SignInPage() {
         </CardContent>
         <CardFooter className="flex flex-wrap items-center space-x-2">
           <div className="flex-1 text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
+            ¿No tienes cuenta?{' '}
             <Link
-              aria-label="Sign up"
+              aria-label="Registrate"
               href="/signup"
               className="text-primary underline-offset-4 transition-colors hover:underline"
             >
-              Sign up
+              Regístrate
             </Link>
           </div>
           <Link
-            aria-label="Reset password"
+            aria-label="Recuperar contraseña"
             href="/signin/reset-password"
             className="text-sm text-primary underline-offset-4 transition-colors hover:underline"
           >
-            Reset password
+            Recuperar contraseña
           </Link>
         </CardFooter>
       </Card>

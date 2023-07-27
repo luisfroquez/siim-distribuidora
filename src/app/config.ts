@@ -1,0 +1,2 @@
+export const { NEXT_PUBLIC_WORDPRESS_API_URL, NEXT_PUBLIC_MAPBOX_API_TOKEN } =
+  process.env

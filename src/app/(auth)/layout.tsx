@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { siteConfig } from "@/config/site"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Icons } from "@/components/icons"
+import { siteConfig } from '@/config/site'
+import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Icons } from '@/components/icons'
 
 interface AuthLayoutProps {
   children: React.ReactNode
@@ -26,17 +26,17 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           className="absolute left-8 top-8 z-20 flex items-center text-lg font-bold tracking-tight"
         >
           <Icons.logo className="mr-2 h-6 w-6" aria-hidden="true" />
-          <span>{siteConfig.name}</span>
+          <span>{siteConfig.title}</span>
         </Link>
         <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-base">
-          Photo by{" "}
+          Photo by{' '}
           <a
             href="https://unsplash.com/ja/@pixelperfektion?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
             className="hover:underline"
           >
             pixelperfektion
           </a>
-          {" on "}
+          {' on '}
           <a
             href="https://unsplash.com/photos/OS2WODdxy1A?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
             className="hover:underline"

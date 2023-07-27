@@ -1,7 +1,16 @@
-import { type Product } from "@/db/schema"
-import { type FileWithPath } from "react-dropzone"
+import { type Product } from '@/db/schema'
+import { type FileWithPath } from 'react-dropzone'
 
-import { type Icons } from "@/components/icons"
+import { type Icons } from '@/components/icons'
+
+export interface WPProductCategories {
+  ID: number
+  title: string
+  url: string
+  children?: WPProductCategories[]
+  pageSlug: string
+  pageID: number
+}
 
 export interface NavItem {
   title: string
@@ -25,7 +34,7 @@ export type MainNavItem = NavItemWithOptionalChildren
 
 export type SidebarNavItem = NavItemWithChildren
 
-export type UserRole = "user" | "admin" | "superadmin"
+export type UserRole = 'user' | 'admin' | 'superadmin'
 
 export type Option = {
   label: string
@@ -55,14 +64,14 @@ export interface CheckoutItem extends CartItem {
 export interface CartLineItem
   extends Pick<
     Product,
-    | "id"
-    | "name"
-    | "images"
-    | "category"
-    | "subcategory"
-    | "price"
-    | "inventory"
-    | "storeId"
+    | 'id'
+    | 'name'
+    | 'images'
+    | 'category'
+    | 'subcategory'
+    | 'price'
+    | 'inventory'
+    | 'storeId'
   > {
   quantity?: number
   storeName: string | null

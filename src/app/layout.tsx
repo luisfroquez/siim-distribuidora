@@ -1,54 +1,57 @@
 import '@/styles/globals.css'
 
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { siteConfig } from '@/config/site'
+import { ApolloClientProvider } from '@/lib/apollo/apollo-client-provider'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/toaster'
+import { NavigationEvents } from '@/components/navigation-events'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: siteConfig.title,
+    template: `%s - ${siteConfig.title}`,
   },
   description: siteConfig.description,
   keywords: [
-    'Next.js',
-    'React',
-    'Tailwind CSS',
-    'Server Components',
-    'Server Actions',
-    'Skateshop',
-    'Skateboard',
-    'Skateboarding',
-    'Kickflip',
+    'Siim',
+    'Siim Distribuidora',
+    'Siim Ingeniería',
+    'Siim Group',
+    'Ingeniería',
+    'Distribuidora de Materiales Contra Incendios',
+    'Incendio',
+    'Protección contra incendios',
+    'Ecommerce',
   ],
   authors: [
     {
-      name: 'sadmann7',
-      url: 'https://github.com/sadmann7',
+      name: 'Luis Roque',
+      url: 'https://github.com/luisfroquez',
     },
   ],
-  creator: 'sadmann7',
+  creator: 'luisfroquez',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'es_CL',
     url: siteConfig.url,
-    title: siteConfig.name,
+    title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.name,
+    siteName: siteConfig.title,
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.name,
+    title: siteConfig.title,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
     creator: '@sadmann7',
@@ -67,24 +70,34 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <ClerkProvider>
-        <html lang="en" suppressHydrationWarning>
-          <head />
-          <body
-            className={cn(
-              'min-h-screen bg-background font-sans antialiased',
-              fontSans.variable,
-              fontMono.variable
-            )}
-          >
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              {children}
-              <TailwindIndicator />
-            </ThemeProvider>
-            <Toaster />
-          </body>
-        </html>
-      </ClerkProvider>
+      <ApolloClientProvider>
+        <ClerkProvider>
+          <html lang="en" suppressHydrationWarning>
+            <head />
+            <body
+              className={cn(
+                'min-h-screen bg-background font-sans antialiased',
+                fontSans.variable,
+                fontMono.variable
+              )}
+              suppressHydrationWarning={true}
+            >
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+              >
+                {children}
+                <Suspense fallback={null}>
+                  <NavigationEvents />
+                </Suspense>
+                <TailwindIndicator />
+              </ThemeProvider>
+              <Toaster />
+            </body>
+          </html>
+        </ClerkProvider>
+      </ApolloClientProvider>
     </>
   )
 }

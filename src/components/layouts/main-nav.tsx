@@ -54,7 +54,7 @@ export function MainNav({ items }: MainNavProps) {
                       >
                         <Isologo className="w-16" aria-hidden="true" />
                         <div className="mb-2 mt-4 text-lg font-medium">
-                          {siteConfig.name}
+                          {siteConfig.title}
                         </div>
                         <p className="text-sm leading-tight text-muted-foreground">
                           {siteConfig.description}

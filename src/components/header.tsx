@@ -1,4 +1,6 @@
-import { cn } from "@/lib/utils"
+import { ReactNode } from 'react'
+
+import { cn } from '@/lib/utils'
 
 interface HeaderProps
   extends React.DetailedHTMLProps<
@@ -7,36 +9,43 @@ interface HeaderProps
   > {
   title: string
   description?: string | null
-  size?: "default" | "sm"
+  size?: 'default' | 'sm'
+  descriptionClassName?: string
+  topComponent?: ReactNode
 }
 
 export function Header({
   title,
   description,
-  size = "default",
+  size = 'default',
   className,
+  descriptionClassName,
+  topComponent,
   ...props
 }: HeaderProps) {
   return (
-    <div className={cn("grid gap-1", className)} {...props}>
-      <h1
-        className={cn(
-          "line-clamp-1 text-3xl font-bold tracking-tight",
-          size === "default" && "md:text-4xl"
-        )}
-      >
-        {title}
-      </h1>
-      {description ? (
-        <p
+    <>
+      <div className={cn('grid gap-1', className)} {...props}>
+        <h1
           className={cn(
-            "line-clamp-2 text-muted-foreground",
-            size === "default" && "text-lg"
+            'line-clamp-1 text-3xl font-bold tracking-tight',
+            size === 'default' && 'md:text-4xl'
           )}
         >
-          {description}
-        </p>
-      ) : null}
-    </div>
+          {title}
+        </h1>
+        {description ? (
+          <p
+            className={cn(
+              'line-clamp-2 text-muted-foreground',
+              size === 'default' && 'text-lg',
+              descriptionClassName
+            )}
+          >
+            {description}
+          </p>
+        ) : null}
+      </div>
+    </>
   )
 }

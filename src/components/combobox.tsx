@@ -1,8 +1,12 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { type Product } from '@/db/schema'
+import { SEARCH_PRODUCTS_CATEGORIES_TAGS } from '@/wp/queries'
+import { WpProduct, WpSearchResult } from '@/wp/types'
+import { useQuery } from '@apollo/client'
 
 import { cn } from '@/lib/utils'
 import { useDebounce } from '@/hooks/use-debounce'
@@ -18,29 +22,34 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { Icons } from '@/components/icons'
 import { filterProductsAction } from '@/app/_actions/product'
+import Categories from '@/app/(lobby)/(modules)/Categories'
+
+import ComboboxSearchResult from './combobox-search-result'
 
 export function Combobox() {
   const router = useRouter()
   const [isOpen, setIsOpen] = React.useState(false)
   const [query, setQuery] = React.useState('')
   const debouncedQuery = useDebounce(query, 300)
-  const [data, setData] = React.useState<
-    | {
-        category: Product['category']
-        products: Pick<Product, 'id' | 'name' | 'category'>[]
-      }[]
-    | null
-  >(null)
-  const [isPending, startTransition] = React.useTransition()
+  // const [data, setData] = React.useState<WpSearchResult | null>(null)
+  // const [isPending, startTransition] = React.useTransition()
+
+  const {
+    loading: isPending,
+    error,
+    data,
+    refetch,
+  } = useQuery<WpSearchResult>(SEARCH_PRODUCTS_CATEGORIES_TAGS, {
+    variables: { search: debouncedQuery },
+  })
 
   React.useEffect(() => {
-    if (debouncedQuery.length === 0) setData(null)
+    // if (debouncedQuery.length === 0) setData(null)
 
     if (debouncedQuery.length > 0) {
-      startTransition(async () => {
-        const data = await filterProductsAction(debouncedQuery)
-        setData(data)
-      })
+      refetch()
+      // result ? setData(result) : setData(null)
+      console.log('data', data)
     }
   }, [debouncedQuery])
 
@@ -66,6 +75,14 @@ export function Combobox() {
     }
   }, [isOpen])
 
+  const resultHasCategories = data?.productCategories?.nodes
+    ? data?.productCategories?.nodes?.length > 0
+    : false
+
+  const resultHasProducts = data?.products?.nodes
+    ? data?.products?.nodes?.length > 0
+    : false
+
   return (
     <>
       <Button
@@ -86,39 +103,49 @@ export function Combobox() {
           value={query}
           onValueChange={setQuery}
         />
-        <CommandList>
-          <CommandEmpty
-            className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
-          >
-            No products found.
-          </CommandEmpty>
+
+        <div className="flex flex-col p-2">
           {isPending ? (
-            <div className="space-y-1 overflow-hidden px-1 py-2">
-              <Skeleton className="h-4 w-10 rounded" />
-              <Skeleton className="h-8 rounded-sm" />
-              <Skeleton className="h-8 rounded-sm" />
+            <div className="flex flex-col">
+              <Skeleton className="h-7 w-24 rounded-sm" />
+              <div className="flex flex-col gap-1 p-1 px-2">
+                <Skeleton className="h-8 rounded-sm" />
+                <Skeleton className="h-8 rounded-sm" />
+                <Skeleton className="h-8 rounded-sm" />
+              </div>
             </div>
           ) : (
-            data?.map((group) => (
-              <CommandGroup
-                key={group.category}
-                className="capitalize"
-                heading={group.category}
-              >
-                {group.products.map((item) => (
-                  <CommandItem
-                    key={item.id}
-                    onSelect={() =>
-                      handleSelect(() => router.push(`/product/${item.id}`))
-                    }
-                  >
-                    {item.name}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            ))
+            // <div className="space-y-1 overflow-hidden ">
+            //   <Skeleton className="h-4 w-10 rounded" />
+            //   <Skeleton className="h-8 rounded-sm" />
+            //   <Skeleton className="h-8 rounded-sm" />
+            // </div>
+            <>
+              {resultHasProducts && (
+                <ComboboxSearchResult
+                  title="Productos"
+                  nodes={data?.products?.nodes ?? []}
+                />
+              )}
+              {resultHasCategories && (
+                <ComboboxSearchResult
+                  title="Categorías"
+                  nodes={data?.productCategories?.nodes ?? []}
+                />
+              )}
+            </>
           )}
-        </CommandList>
+
+          <p
+            className={cn(
+              isPending || resultHasProducts || resultHasCategories
+                ? 'hidden'
+                : 'py-6 text-center text-sm'
+            )}
+          >
+            No encontramos resultados.
+          </p>
+        </div>
       </CommandDialog>
     </>
   )

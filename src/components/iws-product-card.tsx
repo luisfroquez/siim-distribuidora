@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { IwsProduct, type Product } from '@/db/schema'
+import { IwsProduct, IwsProductImages } from '@/db/schema'
 
 import { formatPrice } from '@/lib/utils'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
@@ -20,34 +20,38 @@ import { Icons } from '@/components/icons'
 import { addToCartAction } from '@/app/_actions/cart'
 
 interface IwsProductCardProps {
-  product: IwsProduct
+  productWithImage: {
+    iws_products: IwsProduct | null
+    iws_product_images: IwsProductImages | null
+  }
   variant?: 'default' | 'switchable'
   isAddedToCart?: boolean
   onSwitch?: () => Promise<void>
 }
 
 export function IwsProductCard({
-  product,
+  productWithImage,
   variant = 'default',
   isAddedToCart = false,
   onSwitch,
 }: IwsProductCardProps) {
   const [isPending, startTransition] = React.useTransition()
 
+  const { iws_products: product } = productWithImage
+  const images = productWithImage?.iws_product_images?.images
+
   return (
     <Card className="h-full overflow-hidden rounded-sm">
       <Link
-        aria-label={`View ${product.Description} details`}
-        href={`/product/${product.Sku}`}
+        aria-label={`View ${product?.Description} details`}
+        href={`/product/${product?.Sku}`}
       >
         <CardHeader className="border-b p-0">
           <AspectRatio ratio={4 / 3}>
-            {product?.Images?.length ? (
+            {images?.[0]?.url ? (
               <Image
-                src={
-                  product.Images[0]?.url ?? '/images/product-placeholder.webp'
-                }
-                alt={product.Images[0]?.name || product.Description || 'alt'}
+                src={images[0]?.url ?? '/images/product-placeholder.webp'}
+                alt={product?.Description || 'alt'}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
@@ -65,11 +69,11 @@ export function IwsProductCard({
         </CardHeader>
       </Link>
       <Link
-        aria-label={`Ver detalles del producto ${product.Description}`}
-        href={`/products/${product.Sku}`}
+        aria-label={`Ver detalles del producto ${product?.Description}`}
+        href={`/products/${product?.Sku}`}
       >
         <CardContent className="grid gap-2.5 p-4">
-          <CardTitle className="line-clamp-1">{product.Description}</CardTitle>
+          <CardTitle className="line-clamp-1">{product?.Description}</CardTitle>
           {/* <CardDescription className="line-clamp-2">
             {formatPrice(product.price)}
           </CardDescription> */}
@@ -80,14 +84,14 @@ export function IwsProductCard({
           <div className="flex w-full flex-col items-center gap-2 sm:flex-row sm:justify-between">
             <Link
               aria-label="Preview"
-              href={`/preview/product/${product.Sku}`}
+              href={`/preview/product/${product?.Sku}`}
               className={buttonVariants({
                 variant: 'outline',
                 size: 'sm',
                 className: 'h-8 w-full rounded-sm',
               })}
             >
-              Previsualizar
+              Ver producto
             </Link>
             <Button
               aria-label="Add to cart"

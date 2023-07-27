@@ -1,3 +1,4 @@
+import { Brand, Category, ProductImage } from '@/iws/types'
 import type { CartItem, StoredFile } from '@/types'
 import { relations, sql, type InferModel } from 'drizzle-orm'
 import {
@@ -16,54 +17,61 @@ import {
 
 // IWS TABLES:
 // Brands
-export const brands = mysqlTable('brands', {
-  id: serial('id').primaryKey(),
-  ManufacturerId: varchar('manufacturer_id', { length: 12 }).notNull(),
-  BrandId: varchar('brand_id', { length: 12 }).notNull(),
-  description: text('description').notNull(),
-})
-export type Brands = InferModel<typeof brands>
+// export const brands = mysqlTable('brands', {
+//   id: serial('id').primaryKey(),
+//   ManufacturerId: varchar('manufacturer_id', { length: 12 }).notNull(),
+//   BrandId: varchar('brand_id', { length: 12 }).notNull(),
+//   description: text('description').notNull(),
+// })
+// export type Brands = InferModel<typeof brands>
 
 // Categories
-export const categories = mysqlTable('categories', {
-  id: serial('id').primaryKey(),
-  CategoryId: varchar('category_id', { length: 12 }).notNull(),
-  Description: text('description').notNull(),
-  Path: json('path').$type<string[] | null>().default(null),
-})
-export type Categories = InferModel<typeof categories>
+// export const categories = mysqlTable('categories', {
+//   id: serial('id').primaryKey(),
+//   CategoryId: varchar('category_id', { length: 12 }).notNull(),
+//   Description: text('description').notNull(),
+//   Path: json('path').$type<string[] | null>().default(null),
+// })
+// export type Categories = InferModel<typeof categories>
 
 // IwsProducts
 export const iwsProducts = mysqlTable('iws_products', {
   id: serial('id').primaryKey(),
-  Sku: varchar('Sku', { length: 12 }).notNull(),
-  Mpn: varchar('Sku', { length: 12 }).notNull(),
+  Sku: varchar('sku', { length: 24 }).notNull(),
+  Mpn: text('mpn').notNull(),
   Description: text('description'),
-  Images: json('images').$type<StoredFile[] | null>().default(null),
-  BrandId: varchar('brand_id', { length: 12 }).notNull(),
-  CategoryId: varchar('category_id', { length: 12 }).notNull(),
+  Type: varchar('type', { length: 24 }).notNull(),
+  Brand: json('brand').$type<Brand | null>().default(null),
+  Category: json('category').$type<Category | null>().default(null),
 })
 export type IwsProduct = InferModel<typeof iwsProducts>
 
+export const iwsProductImages = mysqlTable('iws_product_images', {
+  id: serial('id').primaryKey(),
+  productSku: varchar('product_sku', { length: 24 }).notNull(),
+  images: json('images').$type<ProductImage[] | null>().default(null),
+})
+export type IwsProductImages = InferModel<typeof iwsProductImages>
+
 // IWS RELATIONS:
-export const brandsRelations = relations(brands, ({ many }) => ({
-  iwsProducts: many(iwsProducts),
-}))
+// export const brandsRelations = relations(brands, ({ many }) => ({
+//   iwsProducts: many(iwsProducts),
+// }))
 
-export const categoriesRelations = relations(categories, ({ many }) => ({
-  iwsProducts: many(iwsProducts),
-}))
+// export const categoriesRelations = relations(categories, ({ many }) => ({
+//   iwsProducts: many(iwsProducts),
+// }))
 
-export const iwsProductsRelations = relations(iwsProducts, ({ one }) => ({
-  brands: one(brands, {
-    fields: [iwsProducts.BrandId],
-    references: [brands.BrandId],
-  }),
-  categories: one(categories, {
-    fields: [iwsProducts.CategoryId],
-    references: [categories.CategoryId],
-  }),
-}))
+// export const iwsProductsRelations = relations(iwsProducts, ({ one }) => ({
+//   brands: one(brands, {
+//     fields: [iwsProducts.BrandId],
+//     references: [brands.BrandId],
+//   }),
+//   categories: one(categories, {
+//     fields: [iwsProducts.CategoryId],
+//     references: [categories.CategoryId],
+//   }),
+// }))
 
 // OTHERS
 

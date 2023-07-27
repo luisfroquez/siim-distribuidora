@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { darkModeDetector } from '@/utils/darkModeDetector'
 import type { User } from '@clerk/nextjs/dist/types/server'
 
 import { dashboardConfig } from '@/config/dashboard'
@@ -22,6 +21,8 @@ import { Icons } from '@/components/icons'
 import { MainNav } from '@/components/layouts/main-nav'
 import { MobileNav } from '@/components/layouts/mobile-nav'
 
+import TopBanner from './top-banner'
+
 interface SiteHeaderProps {
   user: User | null
 }
@@ -35,7 +36,8 @@ export function SiteHeader({ user }: SiteHeaderProps) {
       ?.emailAddress ?? ''
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="sticky top-0 z-40 flex w-full flex-col border-b bg-background">
+      <TopBanner />
       <div className="container flex h-16 items-center">
         <MainNav items={siteConfig.mainNav} />
         <MobileNav

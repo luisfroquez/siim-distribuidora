@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { type Product } from "@/db/schema"
-import { toast } from "sonner"
+import * as React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { type Product } from '@/db/schema'
+import { toast } from 'sonner'
 
-import { formatPrice } from "@/lib/utils"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { formatPrice } from '@/lib/utils'
+import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -16,20 +16,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Icons } from "@/components/icons"
-import { addToCartAction } from "@/app/_actions/cart"
+} from '@/components/ui/card'
+import { Icons } from '@/components/icons'
+import { addToCartAction } from '@/app/_actions/cart'
 
 interface ProductCardProps {
   product: Product
-  variant?: "default" | "switchable"
+  variant?: 'default' | 'switchable'
   isAddedToCart?: boolean
   onSwitch?: () => Promise<void>
 }
 
 export function ProductCard({
   product,
-  variant = "default",
+  variant = 'default',
   isAddedToCart = false,
   onSwitch,
 }: ProductCardProps) {
@@ -46,7 +46,7 @@ export function ProductCard({
             {product?.images?.length ? (
               <Image
                 src={
-                  product.images[0]?.url ?? "/images/product-placeholder.webp"
+                  product.images[0]?.url ?? '/images/product-placeholder.webp'
                 }
                 alt={product.images[0]?.name ?? product.name}
                 fill
@@ -77,15 +77,15 @@ export function ProductCard({
         </CardContent>
       </Link>
       <CardFooter className="p-4">
-        {variant === "default" ? (
+        {variant === 'default' ? (
           <div className="flex w-full flex-col items-center gap-2 sm:flex-row sm:justify-between">
             <Link
               aria-label="Preview"
               href={`/preview/product/${product.id}`}
               className={buttonVariants({
-                variant: "outline",
-                size: "sm",
-                className: "h-8 w-full rounded-sm",
+                variant: 'outline',
+                size: 'sm',
+                className: 'h-8 w-full rounded-sm',
               })}
             >
               Preview
@@ -101,11 +101,11 @@ export function ProductCard({
                       productId: product.id,
                       quantity: 1,
                     })
-                    toast.success("Added to cart.")
+                    toast.success('Added to cart.')
                   } catch (error) {
                     error instanceof Error
                       ? toast.error(error.message)
-                      : toast.error("Something went wrong, please try again.")
+                      : toast.error('Something went wrong, please try again.')
                   }
                 })
               }}
@@ -122,7 +122,7 @@ export function ProductCard({
           </div>
         ) : (
           <Button
-            aria-label={isAddedToCart ? "Remove from cart" : "Add to cart"}
+            aria-label={isAddedToCart ? 'Remove from cart' : 'Add to cart'}
             size="sm"
             className="h-8 w-full rounded-sm"
             onClick={() => {
@@ -142,7 +142,7 @@ export function ProductCard({
             ) : (
               <Icons.add className="mr-2 h-4 w-4" aria-hidden="true" />
             )}
-            {isAddedToCart ? "Added" : "Add to cart"}
+            {isAddedToCart ? 'Added' : 'Add to cart'}
           </Button>
         )}
       </CardFooter>

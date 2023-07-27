@@ -1,16 +1,17 @@
 import type { MainNavItem } from '@/types'
 
-import { productCategories } from '@/config/products'
-import { slugify } from '@/lib/utils'
-
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: 'SIIM Distribuidora',
+  title: 'SIIM Distribuidora',
   description:
     'Distribuidora de materiales y equipos en las áreas de detección y extinción de incendios, seguridad electrónica, ferretería y electricidad.',
   url: 'https://distribuidora.siim.cl/',
   ogImage: 'https://skateshop.sadmn.com/opengraph-image.png',
+  links: {
+    linkedin: 'https://www.linkedin.com/company/siim-group/',
+    instagram: 'https://www.instagram.com/siim_spa/',
+  },
   mainNav: [
     {
       title: 'Productos',
@@ -21,27 +22,41 @@ export const siteConfig = {
           description: 'Ver todos los productos que ofrecemos.',
           items: [],
         },
-        ...productCategories.map((category) => ({
-          title: category.title,
-          description: category.description,
-          items: [
-            {
-              title: 'All',
-              href: `/categories/${slugify(category.title)}`,
-              description: `All ${category.title}.`,
-              items: [],
-            },
-            ...category.subcategories.map((subcategory) => ({
-              title: subcategory.title,
-              href: `/categories/${slugify(category.title)}/${
-                subcategory.slug
-              }`,
-              description: subcategory.description,
-              items: [],
-            })),
-          ],
-        })),
+        {
+          title: 'Electricidad',
+          description: 'Ver todos los productos de electricidad',
+          href: '/shop/categoria-producto/electricidad/',
+          items: [],
+        },
+        {
+          title: 'Electrónica',
+          description: 'Ver todos los productos de electrónica',
+          href: '/shop/categoria-producto/electronica/',
+          items: [],
+        },
+        {
+          title: 'Ferretería',
+          description: 'Ver todos los productos de Ferretería',
+          href: '/shop/categoria-producto/ferreteria/',
+          items: [],
+        },
+        {
+          title: 'Medicina',
+          description: 'Ver todos los productos de Medicina',
+          href: '/shop/categoria-producto/medicina/',
+          items: [],
+        },
+        {
+          title: 'Sistemas de Protección Contra Incendio',
+          description: 'Ver todos los productos contra incendios',
+          href: '/shop/categoria-producto/sistemas-de-proteccion-contra-incendio/',
+          items: [],
+        },
       ],
+    },
+    {
+      title: 'Hikvision',
+      href: '/hikvision',
     },
     {
       title: 'Instalaciones y Proyectos',
@@ -52,16 +67,8 @@ export const siteConfig = {
       href: '/blog',
     },
     {
-      title: 'Cotizaciones',
-      href: '/cotizaciones',
-    },
-    {
       title: 'Contacto',
       href: '/contacto',
     },
   ] satisfies MainNavItem[],
-  links: {
-    linkedin: 'https://www.linkedin.com/company/siim-group/',
-    instagram: 'https://www.instagram.com/siim_spa/',
-  },
 }
