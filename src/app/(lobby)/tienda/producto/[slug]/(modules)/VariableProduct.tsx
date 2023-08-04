@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
 import { convertVariationsToAttributeNode } from '@/utils/convert-variations-to-attribute-node'
 import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
 import parse from 'html-react-parser'
+import Link from 'next/link'
+import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text/Text'
@@ -119,7 +119,7 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
             <div className="flex w-full content-start gap-1">
               <p className="font-bold">Categoría:</p>
               <Link
-                href={`/shop${category.uri}`}
+                href={`/tienda${category.uri}`}
                 aria-label={`Ir a ${category.name}`}
                 className="hover:underline"
               >

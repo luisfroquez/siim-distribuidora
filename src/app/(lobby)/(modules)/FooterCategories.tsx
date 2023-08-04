@@ -17,7 +17,7 @@ export default async function FooterCategories() {
     <div className="grid w-full grid-cols-2 gap-y-4 py-8 md:grid-cols-3 xl:grid-cols-5">
       {categories.map((c, i) => (
         <div key={i} className=" flex flex-col text-sm">
-          <Link href={`/shop${c.uri}`} className="w-fit py-1">
+          <Link href={`/tienda${c.uri}`} className="w-fit py-1">
             <h3 className="smooth-700 w-fit rounded-md px-2 py-1 font-bold leading-[14px] text-primary hover:bg-border">
               {c.name}
             </h3>
@@ -25,7 +25,7 @@ export default async function FooterCategories() {
 
           <div className="flex flex-col pl-2">
             {c.children?.nodes.map((sc, i) => (
-              <Link href={`/shop${sc.uri}`} key={i}>
+              <Link href={`/tienda${sc.uri}`} key={i}>
                 <p className="hover:underline">{sc.name}</p>
               </Link>
             ))}

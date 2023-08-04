@@ -94,15 +94,17 @@ export function Combobox() {
               {resultHasProducts && (
                 <ComboboxSearchResult
                   action={() => setIsOpen(false)}
-                  title="Productos"
                   nodes={data?.products?.nodes ?? []}
+                  path="/tienda/producto/"
+                  title="Productos"
                 />
               )}
               {resultHasCategories && (
                 <ComboboxSearchResult
                   action={() => setIsOpen(false)}
-                  title="Categorías"
                   nodes={data?.productCategories?.nodes ?? []}
+                  path="/tienda/categoria-producto/"
+                  title="Categorías"
                 />
               )}
             </>

@@ -1,16 +1,13 @@
-import Link from 'next/link'
 import { type WpCategoryWithAncestors } from '@/wp/types'
+import Link from 'next/link'
 
 const ProductCategoryBreadcrumb = ({
   category,
 }: {
   category: WpCategoryWithAncestors
 }) => {
-  console.log('category', category)
-  const categories = [
-    ...category.ancestors.nodes.map((a) => a),
-    { name: category.name, uri: category.uri },
-  ]
+  const ancestors = category.ancestors?.nodes.map((a) => a) ?? []
+  const categories = [...ancestors, { name: category.name, uri: category.uri }]
 
   return (
     <div className="flex w-full gap-2 text-xs">
@@ -20,7 +17,7 @@ const ProductCategoryBreadcrumb = ({
         return (
           <>
             <Link
-              href={`/shop${c.uri}`}
+              href={`/tienda${c.uri}`}
               aria-label={`Ir a ${c.name}`}
               key={i}
               className="hover:underline"

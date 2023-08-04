@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 interface ComboboxSearchResultProps {
   title: string
+  path: string
   nodes: { name: string; slug: string }[]
   action: () => void
 }
@@ -9,6 +10,7 @@ interface ComboboxSearchResultProps {
 const ComboboxSearchResult = ({
   title,
   nodes,
+  path,
   action = () => null,
 }: ComboboxSearchResultProps) => {
   return (
@@ -21,7 +23,7 @@ const ComboboxSearchResult = ({
         {nodes.map((node, i) => (
           <Link
             key={i}
-            href={`/shop/producto/${node.slug}`}
+            href={`${path}${node.slug}`}
             className="smooth-500 flex h-8 items-center rounded-sm p-2 px-3 hover:bg-border"
             onClick={action}
           >

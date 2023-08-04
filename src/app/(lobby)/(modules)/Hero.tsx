@@ -1,8 +1,7 @@
-import React from 'react'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const Hero = () => {
   return (
@@ -30,7 +29,7 @@ const Hero = () => {
               <span className="sr-only">Contáctanos</span>
             </div>
           </Link>
-          <Link href="/products">
+          <Link href="/tienda">
             <div
               className={cn(
                 buttonVariants({

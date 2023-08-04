@@ -41,6 +41,19 @@ export interface WpProducts {
   }
 }
 
+export interface WpGetAllProducts {
+  products: {
+    pageInfo: {
+      hasNextPage: boolean
+      hasPreviousPage: boolean
+      total: number
+      startCursor: string
+      endCursor: string
+    }
+    edges: { cursor: string; node: WpProduct }[]
+  }
+}
+
 export interface WpSearchResult {
   products: {
     nodes: [

@@ -38,7 +38,7 @@ const Categories = () => {
         <Link
           aria-label={`Go to ${category.name}`}
           key={i}
-          href={`/shop${category.uri}`}
+          href={`/tienda${category.uri}`}
           className={`${i === 0 ? 'xl:col-span-2 xl:row-span-2' : ''} ${
             i === 1 ? 'xl:col-span-3' : ''
           }`}

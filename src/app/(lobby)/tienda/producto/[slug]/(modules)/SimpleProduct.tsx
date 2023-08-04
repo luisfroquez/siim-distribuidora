@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
 import parse from 'html-react-parser'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text'
@@ -62,7 +62,7 @@ const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
             <div className="flex w-full content-start gap-1">
               <p className="font-bold">Categoría:</p>
               <Link
-                href={`/shop${category.uri}`}
+                href={`/tienda${category.uri}`}
                 aria-label={`Ir a ${category.name}`}
                 className="hover:underline"
               >

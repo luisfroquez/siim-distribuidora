@@ -33,7 +33,7 @@ const CategoryBreadcrumb = async ({ category }: CategoryBreadcrumbProps) => {
         return (
           <>
             <Link
-              href={`/shop${c.uri}`}
+              href={`/tienda${c.uri}`}
               aria-label={`Ir a ${c.name}`}
               key={i}
               className="hover:underline"

@@ -48,7 +48,7 @@ export default async function IndexPage() {
         <div className="space-y-5 pt-8">
           <div className="flex items-center">
             <h2 className="flex-1 text-2xl font-medium">Selección SIIM</h2>
-            <Link href="/products">
+            <Link href="/tienda">
               <div
                 className={cn(
                   buttonVariants({
@@ -68,7 +68,7 @@ export default async function IndexPage() {
         <div className="space-y-5 pt-8">
           <div className="flex items-center">
             <h2 className="flex-1 text-2xl font-medium">Hikvision</h2>
-            <Link href="/products">
+            <Link href="/tienda/hikvision">
               <div
                 className={cn(
                   buttonVariants({

@@ -89,7 +89,7 @@ export default async function Page({ params }: Params) {
               <Link
                 aria-label={`Go to ${subCategory.name}`}
                 key={i}
-                href={`/shop${subCategory.uri}`}
+                href={`/tienda${subCategory.uri}`}
               >
                 <Badge
                   variant="secondary"

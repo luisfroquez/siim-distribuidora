@@ -36,7 +36,7 @@ export function WpProductCard({
     <Card className="smooth-700 flex h-full flex-col justify-between overflow-hidden rounded-xl hover:bg-border/20">
       <Link
         aria-label={`Ver detalles del producto:  ${product.name}`}
-        href={`/shop/producto/${product.slug}`}
+        href={`/tienda/producto/${product.slug}`}
       >
         <CardHeader className="border-b bg-white p-0">
           <AspectRatio ratio={4 / 3}>
@@ -61,7 +61,7 @@ export function WpProductCard({
           <div className="flex w-full flex-col items-center gap-2 sm:flex-row sm:justify-between">
             <Link
               aria-label="Ver detalles"
-              href={`/shop/producto/${product.slug}`}
+              href={`/tienda/producto/${product.slug}`}
               className={buttonVariants({
                 variant: 'outline',
                 size: 'sm',
