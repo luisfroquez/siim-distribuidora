@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use client'
 
 import { WpProductCard } from '@/components/wp-product-card'
@@ -16,6 +17,8 @@ const FeaturedProducts = () => {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {featuredProducts?.map((fp, i) => (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         <WpProductCard product={fp} key={i} />
       ))}
     </div>

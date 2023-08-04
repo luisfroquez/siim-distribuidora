@@ -67,7 +67,7 @@ export function IwsProductCard({
       </Link>
       <Link
         aria-label={`Ver detalles del producto ${product?.Description ?? ''}`}
-        href={`/products/${product?.Sku}`}
+        href={`/products/${product?.Sku ?? ''}`}
       >
         <CardContent className="grid gap-2.5 p-4">
           <CardTitle className="line-clamp-1">{product?.Description}</CardTitle>

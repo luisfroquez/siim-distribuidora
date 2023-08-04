@@ -1,9 +1,6 @@
 'use client'
-
-import { SEARCH_PRODUCTS_CATEGORIES_TAGS } from '@/wp/queries'
-import type { WpSearchResult } from '@/wp/types'
-import { useQuery } from '@apollo/client'
-import * as React from 'react'
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
@@ -11,7 +8,10 @@ import { CommandDialog, CommandInput } from '@/components/ui/command'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useDebounce } from '@/hooks/use-debounce'
 import { cn } from '@/lib/utils'
-
+import { SEARCH_PRODUCTS_CATEGORIES_TAGS } from '@/wp/queries'
+import type { WpSearchResult } from '@/wp/types'
+import { useQuery } from '@apollo/client'
+import * as React from 'react'
 import ComboboxSearchResult from './combobox-search-result'
 
 export function Combobox() {

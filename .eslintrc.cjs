@@ -39,8 +39,6 @@ const config = {
     'react/jsx-key': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
-    // '@typescript-eslint/no-explicit-any': 'warn',
-    // '@typescript-eslint/no-unsafe-assignment': 'warn',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },

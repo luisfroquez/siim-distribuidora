@@ -1,5 +1,3 @@
-import { type ReactNode } from 'react'
-
 import { cn } from '@/lib/utils'
 
 interface HeaderProps
@@ -11,7 +9,6 @@ interface HeaderProps
   description?: string | null
   size?: 'default' | 'sm'
   descriptionClassName?: string
-  topComponent?: ReactNode
 }
 
 export function Header({
@@ -20,7 +17,6 @@ export function Header({
   size = 'default',
   className,
   descriptionClassName,
-  topComponent,
   ...props
 }: HeaderProps) {
   return (
