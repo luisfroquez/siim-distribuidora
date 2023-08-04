@@ -1,13 +1,9 @@
 'use client'
 
-import * as React from 'react'
-import Link from 'next/link'
 import type { MainNavItem } from '@/types'
-import { useTheme } from 'next-themes'
+import Link from 'next/link'
+import * as React from 'react'
 
-import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
-import { useDarkModeDetector } from '@/hooks/use-darkmode-detector'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,6 +13,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 
 // import { Icons } from '@/components/icons'
 

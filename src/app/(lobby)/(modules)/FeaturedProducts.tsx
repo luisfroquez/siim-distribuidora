@@ -1,12 +1,9 @@
 'use client'
 
-import { GET_FEATURED_PRODUCTS } from '@/wp/queries'
-import { WpProducts } from '@/wp/types'
-import { useQuery } from '@apollo/client'
-
-import { Card } from '@/components/ui/card'
 import { WpProductCard } from '@/components/wp-product-card'
-
+import { GET_FEATURED_PRODUCTS } from '@/wp/queries'
+import type { WpProducts } from '@/wp/types'
+import { useQuery } from '@apollo/client'
 import FeaturedProductsSkeleton from './FeaturedProductsSkeleton'
 
 const FeaturedProducts = () => {

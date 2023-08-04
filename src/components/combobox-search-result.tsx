@@ -3,9 +3,14 @@ import Link from 'next/link'
 interface ComboboxSearchResultProps {
   title: string
   nodes: { name: string; slug: string }[]
+  action: () => void
 }
 
-const ComboboxSearchResult = ({ title, nodes }: ComboboxSearchResultProps) => {
+const ComboboxSearchResult = ({
+  title,
+  nodes,
+  action = () => null,
+}: ComboboxSearchResultProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-2 p-2">
@@ -18,6 +23,7 @@ const ComboboxSearchResult = ({ title, nodes }: ComboboxSearchResultProps) => {
             key={i}
             href={`/shop/producto/${node.slug}`}
             className="smooth-500 flex h-8 items-center rounded-sm p-2 px-3 hover:bg-border"
+            onClick={action}
           >
             <p className="line-clamp-1">{node.name}</p>
           </Link>

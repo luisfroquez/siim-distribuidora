@@ -1,23 +1,20 @@
 'use client'
 
-import * as React from 'react'
+import { type IwsProduct, type IwsProductImages } from '@/db/schema'
 import Image from 'next/image'
 import Link from 'next/link'
-import { IwsProduct, IwsProductImages } from '@/db/schema'
+import * as React from 'react'
 
-import { formatPrice } from '@/lib/utils'
+import { Icons } from '@/components/icons'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Icons } from '@/components/icons'
-import { addToCartAction } from '@/app/_actions/cart'
 
 interface IwsProductCardProps {
   productWithImage: {
@@ -43,8 +40,8 @@ export function IwsProductCard({
   return (
     <Card className="h-full overflow-hidden rounded-sm">
       <Link
-        aria-label={`View ${product?.Description} details`}
-        href={`/product/${product?.Sku}`}
+        aria-label={`View ${product?.Description ?? ''} details`}
+        href={`/product/${product?.Sku ?? ''}`}
       >
         <CardHeader className="border-b p-0">
           <AspectRatio ratio={4 / 3}>
@@ -69,7 +66,7 @@ export function IwsProductCard({
         </CardHeader>
       </Link>
       <Link
-        aria-label={`Ver detalles del producto ${product?.Description}`}
+        aria-label={`Ver detalles del producto ${product?.Description ?? ''}`}
         href={`/products/${product?.Sku}`}
       >
         <CardContent className="grid gap-2.5 p-4">
@@ -84,7 +81,7 @@ export function IwsProductCard({
           <div className="flex w-full flex-col items-center gap-2 sm:flex-row sm:justify-between">
             <Link
               aria-label="Preview"
-              href={`/preview/product/${product?.Sku}`}
+              href={`/preview/product/${product?.Sku ?? ''}`}
               className={buttonVariants({
                 variant: 'outline',
                 size: 'sm',

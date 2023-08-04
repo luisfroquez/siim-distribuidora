@@ -1,5 +1,4 @@
 import * as SlotPrimitive from '@radix-ui/react-slot';
-import classnames from 'classnames';
 import * as React from 'react';
 import { As, unreachable } from '../utils';
 

@@ -1,7 +1,6 @@
 'use client'
 
 // import PinIcon from "public/icons/PinIcon";
-import Link from 'next/link'
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -10,19 +9,13 @@ import {
   PhoneOutlined,
   PushpinOutlined,
 } from '@ant-design/icons'
-import {
-  GeolocateControl,
-  Map,
-  Marker,
-  NavigationControl,
-  Popup,
-  ScaleControl,
-} from 'react-map-gl'
+import Link from 'next/link'
+import { Map, Marker, NavigationControl } from 'react-map-gl'
 
+import { NEXT_PUBLIC_MAPBOX_API_TOKEN } from '@/app/config'
+import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text'
-import { Icons } from '@/components/icons'
-import { NEXT_PUBLIC_MAPBOX_API_TOKEN } from '@/app/config'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -113,7 +106,7 @@ const Contacto = () => {
         <div className=" flex flex-col items-start gap-6 md:items-end md:gap-6">
           <Text variant="heading">¡CONTÁCTANOS!</Text>
 
-          <p className="text-md max-w-xl text-end md:text-xl xl:text-xl">
+          <p className="max-w-xl text-end text-base md:text-xl xl:text-xl">
             Conversar es la mejor manera de manifestar su necesidad y nosotros
             aportar la solución.
           </p>

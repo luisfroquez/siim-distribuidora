@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { convertVariationsToAttributeNode } from '@/utils/convert-variations-to-attribute-node'
-import { WpCategoryWithAncestors, WpProductBySlug } from '@/wp/types'
+import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
 import parse from 'html-react-parser'
 
 import { Button } from '@/components/ui/button'

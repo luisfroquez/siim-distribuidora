@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getProducts } from '@/iws/get-products'
+import { NextResponse } from 'next/server'
 
 import { updateIwsProducts } from '@/app/_actions/update-products-iws'
 
@@ -20,7 +19,7 @@ export function GET(request: NextRequest) {
         }
       )
     })
-    .catch((e) => {
+    .catch((e: unknown) => {
       return NextResponse.json(
         {
           body: request.body,

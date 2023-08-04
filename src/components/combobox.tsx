@@ -1,42 +1,26 @@
 'use client'
 
-import * as React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { type Product } from '@/db/schema'
 import { SEARCH_PRODUCTS_CATEGORIES_TAGS } from '@/wp/queries'
-import { WpProduct, WpSearchResult } from '@/wp/types'
+import type { WpSearchResult } from '@/wp/types'
 import { useQuery } from '@apollo/client'
+import * as React from 'react'
 
-import { cn } from '@/lib/utils'
-import { useDebounce } from '@/hooks/use-debounce'
-import { Button } from '@/components/ui/button'
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Icons } from '@/components/icons'
-import { filterProductsAction } from '@/app/_actions/product'
-import Categories from '@/app/(lobby)/(modules)/Categories'
+import { Button } from '@/components/ui/button'
+import { CommandDialog, CommandInput } from '@/components/ui/command'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useDebounce } from '@/hooks/use-debounce'
+import { cn } from '@/lib/utils'
 
 import ComboboxSearchResult from './combobox-search-result'
 
 export function Combobox() {
-  const router = useRouter()
   const [isOpen, setIsOpen] = React.useState(false)
   const [query, setQuery] = React.useState('')
   const debouncedQuery = useDebounce(query, 300)
-  // const [data, setData] = React.useState<WpSearchResult | null>(null)
-  // const [isPending, startTransition] = React.useTransition()
 
   const {
     loading: isPending,
-    error,
     data,
     refetch,
   } = useQuery<WpSearchResult>(SEARCH_PRODUCTS_CATEGORIES_TAGS, {
@@ -44,12 +28,8 @@ export function Combobox() {
   })
 
   React.useEffect(() => {
-    // if (debouncedQuery.length === 0) setData(null)
-
     if (debouncedQuery.length > 0) {
       refetch()
-      // result ? setData(result) : setData(null)
-      console.log('data', data)
     }
   }, [debouncedQuery])
 
@@ -62,11 +42,6 @@ export function Combobox() {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  const handleSelect = React.useCallback((callback: () => unknown) => {
-    setIsOpen(false)
-    callback()
   }, [])
 
   React.useEffect(() => {
@@ -115,20 +90,17 @@ export function Combobox() {
               </div>
             </div>
           ) : (
-            // <div className="space-y-1 overflow-hidden ">
-            //   <Skeleton className="h-4 w-10 rounded" />
-            //   <Skeleton className="h-8 rounded-sm" />
-            //   <Skeleton className="h-8 rounded-sm" />
-            // </div>
             <>
               {resultHasProducts && (
                 <ComboboxSearchResult
+                  action={() => setIsOpen(false)}
                   title="Productos"
                   nodes={data?.products?.nodes ?? []}
                 />
               )}
               {resultHasCategories && (
                 <ComboboxSearchResult
+                  action={() => setIsOpen(false)}
                   title="Categorías"
                   nodes={data?.productCategories?.nodes ?? []}
                 />

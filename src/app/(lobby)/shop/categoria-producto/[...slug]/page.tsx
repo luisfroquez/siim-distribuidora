@@ -1,14 +1,13 @@
-import { Metadata, ResolvingMetadata } from 'next'
+import { getCategoryBySlug } from '@/wp/get-category-by-slug'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getCategoryBySlug } from '@/wp/get-category-by-slug'
-import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
-import { toTitleCase } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
-import CategoryBreadcrumb from '@/components/ui/category-breadcrumb'
 import { Header } from '@/components/header'
 import { Shell } from '@/components/shell'
+import { Badge } from '@/components/ui/badge'
+import CategoryBreadcrumb from '@/components/ui/category-breadcrumb'
+import { toTitleCase } from '@/lib/utils'
 
 interface Params {
   params: { slug: string[] }
@@ -20,9 +19,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return {
     title: category?.name,
-    description: `Consigue lo mejor en ${category?.name} con SIIM Distribuidora`,
+    description: `Consigue lo mejor en ${
+      category?.name ?? '---'
+    } con SIIM Distribuidora`,
     openGraph: {
-      images: [`https://source.unsplash.com/featured/?${category?.name}`],
+      images: [`https://source.unsplash.com/featured/?${category?.name ?? ''}`],
     },
   }
 }
@@ -43,9 +44,11 @@ export default async function Page({ params }: Params) {
           <CategoryBreadcrumb category={category} />
           <Header
             title={category?.name || 'Not found'}
-            description={`Consigue lo mejor en ${category?.name} con SIIM Distribuidora`}
+            description={`Consigue lo mejor en ${
+              category?.name ?? '---'
+            } con SIIM Distribuidora`}
             size="sm"
-            className="place-items-left -mt-10 rounded-md bg-border p-12 text-left"
+            className="-mt-10 place-items-start rounded-md bg-border p-12 text-left"
           />
         </>
       ) : (
@@ -54,7 +57,9 @@ export default async function Page({ params }: Params) {
           <div className="h-40 w-full">
             <div className="absolute inset-0 z-10 bg-blue-900/50 transition-colors group-hover:bg-blue-900/70" />
             <Image
-              src={`https://source.unsplash.com/featured/?${category?.name}`}
+              src={`https://source.unsplash.com/featured/?${
+                category?.name ?? ''
+              }`}
               alt={category?.name || 'Categoría'}
               fill
               className="object-cover transition-transform group-hover:scale-105"
@@ -64,7 +69,9 @@ export default async function Page({ params }: Params) {
           <div className="absolute inset-0 z-20 flex items-center  p-12">
             <Header
               title={toTitleCase(category?.name || '')}
-              description={`Consigue lo mejor en ${category?.name} con SIIM Distribuidora`}
+              description={`Consigue lo mejor en ${
+                category?.name ?? '---'
+              } con SIIM Distribuidora`}
               size="sm"
               className="text-white"
               descriptionClassName="text-gray-200"

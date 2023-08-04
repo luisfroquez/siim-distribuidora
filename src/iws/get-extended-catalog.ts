@@ -1,8 +1,8 @@
 import { fetchApiData } from './api'
-import { GetCatalogParams, ProductsList } from './types'
+import type { ExtendedProduct, GetCatalogParams } from './types'
 
-export const getExtendedCatalog = async (): Promise<any[]> => {
-  const data = await fetchApiData<any[], GetCatalogParams>(
+export const getExtendedCatalog = async (): Promise<ExtendedProduct[]> => {
+  const data = await fetchApiData<ExtendedProduct[], GetCatalogParams>(
     'downloadextendedcatalog',
     { locale: 'es' }
   )

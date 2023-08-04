@@ -1,7 +1,7 @@
 import React, {
-  CSSProperties,
-  FunctionComponent,
-  JSXElementConstructor,
+  type CSSProperties,
+  type FunctionComponent,
+  type JSXElementConstructor,
 } from 'react'
 import cn from 'clsx'
 
@@ -39,7 +39,7 @@ const Text: FunctionComponent<TextProps> = ({
     | JSXElementConstructor<any>
     | React.ReactElement<any>
     | React.ComponentType<any>
-    | string = componentsMap![variant!]
+    | string = componentsMap[variant]
 
   const htmlContentProps = html
     ? {
@@ -52,10 +52,10 @@ const Text: FunctionComponent<TextProps> = ({
       className={cn(
         s.root,
         {
-          [s.body]: variant === 'body',
-          [s.heading]: variant === 'heading',
-          [s.pageHeading]: variant === 'pageHeading',
-          [s.sectionHeading]: variant === 'sectionHeading',
+          [s.body as string]: variant === 'body',
+          [s.heading as string]: variant === 'heading',
+          [s.pageHeading as string]: variant === 'pageHeading',
+          [s.sectionHeading as string]: variant === 'sectionHeading',
         },
         className
       )}

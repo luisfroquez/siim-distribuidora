@@ -1,4 +1,4 @@
-import { Attributes, Variations } from '@/wp/types'
+import type { Attributes, Variations } from '@/wp/types'
 
 // export function convertVariationsToAttributeNode(
 //   variations: Variations

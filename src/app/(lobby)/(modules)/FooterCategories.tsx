@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { GET_CATEGORIES } from '@/wp/queries'
-import { WpCategories } from '@/wp/types'
+import type { WpCategories } from '@/wp/types'
+import Link from 'next/link'
 
 import { client } from '@/lib/apollo/apollo'
 
@@ -25,7 +25,7 @@ export default async function FooterCategories() {
 
           <div className="flex flex-col pl-2">
             {c.children?.nodes.map((sc, i) => (
-              <Link href={`/shop${sc.uri}`}>
+              <Link href={`/shop${sc.uri}`} key={i}>
                 <p className="hover:underline">{sc.name}</p>
               </Link>
             ))}

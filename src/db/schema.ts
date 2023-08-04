@@ -1,4 +1,4 @@
-import { Brand, Category, ProductImage } from '@/iws/types'
+import { type Brand, type Category, type ProductImage } from '@/iws/types'
 import type { CartItem, StoredFile } from '@/types'
 import { relations, sql, type InferModel } from 'drizzle-orm'
 import {

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { WpCategoryWithAncestors } from '@/wp/types'
+import { type WpCategoryWithAncestors } from '@/wp/types'
 
 const ProductCategoryBreadcrumb = ({
   category,

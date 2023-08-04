@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { WpCategoryWithAncestors, WpProductBySlug } from '@/wp/types'
+import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
 import parse from 'html-react-parser'
 
 import { Button } from '@/components/ui/button'

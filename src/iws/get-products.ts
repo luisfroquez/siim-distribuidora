@@ -1,5 +1,5 @@
 import { fetchApiData } from './api'
-import { GetProductsParams, Product } from './types'
+import type { GetProductsParams, Product } from './types'
 
 export const getProducts = async (
   params?: GetProductsParams

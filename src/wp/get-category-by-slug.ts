@@ -1,7 +1,7 @@
 import findSlug from '@/utils/find-slug'
 
 import { getCategories } from './get-categories'
-import { WpCategories } from './types'
+import type { WpCategories } from './types'
 
 export async function getCategoryBySlug(
   slug: string

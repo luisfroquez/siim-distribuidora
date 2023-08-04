@@ -1,11 +1,5 @@
 'use client'
 
-import React from 'react'
-import { NodeByUri } from '@/wp/get-node-by-uri'
-import { useQuery } from '@apollo/client'
-
-import ProductListing from './ProductListing'
-
 const ShopPage = () => {
   // const { loading, error, data } = useQuery(NodeByUri, {
   //   variables: { uri: '/shop' },

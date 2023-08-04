@@ -1,6 +1,5 @@
 import { type Metadata } from 'next'
 
-import { Header } from '@/components/header'
 import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {

@@ -1,8 +1,8 @@
-import { Suspense } from 'react'
+import { GET_PRODUCT_BY_SLUG } from '@/wp/queries'
+import { type WpProductBySlug } from '@/wp/types'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { GET_PRODUCT_BY_SLUG } from '@/wp/queries'
-import { WpProductBySlug } from '@/wp/types'
+import { Suspense } from 'react'
 
 import { client } from '@/lib/apollo/apollo'
 
@@ -41,7 +41,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="blue-900 flex flex-1">
+    <div className="flex flex-1">
       <Suspense fallback={<ProductPageSkeleton />}>
         {isVariable ? (
           <VariableProduct product={data} />

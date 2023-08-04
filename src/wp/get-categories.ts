@@ -2,7 +2,7 @@ import { gql, NetworkStatus } from '@apollo/client'
 
 import { client } from '@/lib/apollo/apollo'
 
-import { WpCategories } from './types'
+import type { WpCategories } from './types'
 
 const GET_CATEGORIES = gql`
   query GetCategories {
@@ -49,20 +49,29 @@ const GET_CATEGORIES = gql`
   }
 `
 
+interface GetCategoriesResponse {
+  productCategories: {
+    nodes: WpCategories[]
+  }
+}
+
 export async function getCategories() {
-  return client
-    .query({
+  try {
+    const response = await client.query<GetCategoriesResponse>({
       query: GET_CATEGORIES,
     })
-    .then((d) => ({
-      isLoading: d.loading,
-      isSuccess: d.networkStatus === NetworkStatus.ready,
-      data: d.data?.productCategories?.nodes as WpCategories[],
-      error: d.error,
-    }))
-    .catch((e) => ({
+
+    return {
+      isLoading: response.loading,
+      isSuccess: response.networkStatus === NetworkStatus.ready,
+      data: response.data?.productCategories?.nodes,
+      error: response.error ?? undefined, // Safe handling of error
+    }
+  } catch (e) {
+    return {
       isSuccess: false,
       data: undefined,
       error: e,
-    }))
+    }
+  }
 }

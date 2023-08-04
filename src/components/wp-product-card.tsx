@@ -1,24 +1,19 @@
 'use client'
 
-import { useTransition } from 'react'
-import Link from 'next/link'
-import { getWpImageUrl } from '@/utils/get-wp-image-url'
-import { WpProduct } from '@/wp/types'
-import { toast } from 'sonner'
-
-import { formatPrice } from '@/lib/utils'
+import { Icons } from '@/components/icons'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Icons } from '@/components/icons'
-import { addToCartAction } from '@/app/_actions/cart'
+import { getWpImageUrl } from '@/utils/get-wp-image-url'
+import type { WpProduct } from '@/wp/types'
+import Link from 'next/link'
+import { useTransition } from 'react'
 
 interface WpProductCardProps {
   product: WpProduct

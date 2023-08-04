@@ -1,10 +1,10 @@
 'use server'
 
 import { db } from '@/db'
-import { iwsProductImages, iwsProducts, products } from '@/db/schema'
+import { iwsProductImages, iwsProducts } from '@/db/schema'
 import { getCatalog } from '@/iws/get-catalog'
 import { getExtendedCatalog } from '@/iws/get-extended-catalog'
-import { ExtendedProduct, Product } from '@/iws/types'
+import type { Product } from '@/iws/types'
 
 export async function updateIwsProducts() {
   await db.delete(iwsProducts)
@@ -36,10 +36,11 @@ export async function updateIwsProducts() {
 
   for (let i = 0; i < extendedHikOnly.length; i++) {
     const item = extendedHikOnly[i]
-
-    await db.insert(iwsProductImages).values({
-      productSku: item.localSku,
-      images: item.Imagenes,
-    })
+    if (item) {
+      await db.insert(iwsProductImages).values({
+        productSku: item.localSku,
+        images: item.Imagenes,
+      })
+    }
   }
 }

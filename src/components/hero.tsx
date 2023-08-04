@@ -1,25 +1,24 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import Image from "next/image"
+import Image from 'next/image'
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
+import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const heroImages = [
   {
-    title: "Hero Image One",
-    src: "/images/hero-image-one.webp",
+    title: 'Hero Image One',
+    src: '/images/hero-image-one.webp',
   },
   {
-    title: "Hero Image Two",
-    src: "/images/hero-image-two.webp",
+    title: 'Hero Image Two',
+    src: '/images/hero-image-two.webp',
   },
   {
-    title: "Hero Image Three",
-    src: "/images/hero-image-three.webp",
+    title: 'Hero Image Three',
+    src: '/images/hero-image-three.webp',
   },
 ]
 
@@ -57,8 +56,8 @@ export function Hero() {
       <AspectRatio ratio={16 / 9}>
         <div className="absolute inset-0 z-10 bg-black/60" />
         <Image
-          src={heroImages[currentImage]?.src ?? "/images/hero-image-one.webp"}
-          alt={heroImages[currentImage]?.title ?? "Hero Image One"}
+          src={heroImages[currentImage]?.src ?? '/images/hero-image-one.webp'}
+          alt={heroImages[currentImage]?.title ?? 'Hero Image One'}
           fill
           className="object-cover"
         />
@@ -68,8 +67,8 @@ export function Hero() {
           <Button
             key={image.title}
             className={cn(
-              "h-1.5 w-10 rounded-none p-0 hover:bg-white",
-              index === currentImage ? "bg-white" : "bg-zinc-500"
+              'h-1.5 w-10 rounded-none p-0 hover:bg-white',
+              index === currentImage ? 'bg-white' : 'bg-zinc-500'
             )}
             onClick={() => setCurrentImage(index)}
           >

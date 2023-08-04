@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { useDarkModeDetector } from '@/hooks/use-darkmode-detector'
-
 const textFill = 'currentColor'
 
 export const HorizontalLogo = (props: React.SVGProps<SVGSVGElement>) => {

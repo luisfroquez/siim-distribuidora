@@ -47,7 +47,7 @@ export function MobileNav({ mainNavItems, sidebarNavItems }: MobileNavProps) {
             onClick={() => setIsOpen(false)}
           >
             <Icons.logo className="mr-2 h-4 w-4" aria-hidden="true" />
-            <span className="font-bold">{siteConfig.name}</span>
+            <span className="font-bold">{siteConfig.title}</span>
           </Link>
         </div>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">

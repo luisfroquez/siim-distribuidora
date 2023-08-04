@@ -46,7 +46,7 @@ const Categories = () => {
           <div className="group relative h-full overflow-hidden rounded-xl ">
             {i < 2 ? (
               <>
-                <div className="t-blue-900/10 smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 group-hover:bg-blue-900/90 " />
+                <div className="smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 to-blue-900/10 group-hover:bg-blue-900/90 " />
                 <Image
                   src={`https://source.unsplash.com/featured/?${category.name}`}
                   alt={category.name}
@@ -57,7 +57,7 @@ const Categories = () => {
               </>
             ) : (
               <AspectRatio ratio={4 / 5}>
-                <div className="t-blue-900/10 smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 group-hover:bg-blue-900/90 " />
+                <div className="smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 to-blue-900/10 group-hover:bg-blue-900/90 " />
                 <Image
                   src={`https://source.unsplash.com/featured/?${category.name}`}
                   alt={category.name}

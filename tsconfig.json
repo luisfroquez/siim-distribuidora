@@ -34,7 +34,9 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    "src/app/loading.js"
+    "src/app/loading.js",
+    "src/wp/get-categories.js",
+    "src/app/(lobby)/shop/loading.js"
   ],
   "exclude": ["node_modules"]
 }

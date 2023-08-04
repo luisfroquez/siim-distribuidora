@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { getCategoryBySlug } from '@/wp/get-category-by-slug'
-import { WpCategories } from '@/wp/types'
+import { type WpCategories } from '@/wp/types'
+import Link from 'next/link'
 
 interface CategoryBreadcrumbProps {
   category: WpCategories | null
@@ -14,12 +13,13 @@ const CategoryBreadcrumb = async ({ category }: CategoryBreadcrumbProps) => {
     .filter((e) => e !== '/')
     .filter(Boolean)
 
-  let promisesArray: any[] = []
+  const promisesArray: Promise<WpCategories>[] = []
 
   if (items) {
     items?.forEach((e) => {
       const promise = getCategoryBySlug(e)
-      promisesArray.push(promise)
+
+      promisesArray.push(promise as Promise<WpCategories>)
     })
   }
 
