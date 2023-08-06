@@ -1,6 +1,6 @@
 # [SIIM Distribuidora](https://siim-distribuidora.vercel.app/)
 
-This is an open source e-commerce skateshop build with everything new in Next.js 13. It is bootstrapped with `create-t3-app`.
+This is an open-source e-commerce build with everything new in Next.js 13. It is bootstrapped with `create-t3-app`.
 
 <!-- [![Skateshop13](./public/screenshot.png)](https://skateshop13.vercel.app/) -->
 
@@ -28,43 +28,3 @@ This is an open source e-commerce skateshop build with everything new in Next.js
 - Storefront with products and categories
 - Seller and customer workflows
 - Admin dashboard with stores, products, orders, subscriptions, and payments
-
-## Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/sadmann7/skateshop
-```
-
-### 2. Install dependencies
-
-```bash
-pnpm install
-```
-
-### 3. Create a `.env` file
-
-Create a `.env` file in the root directory and add the environment variables as shown in the `.env.example` file.
-
-### 4. Run the application
-
-```bash
-pnpm run dev
-```
-
-### 5. Push database
-
-```bash
-pnpm run db:push
-```
-
-### 6. Listen for stripe events
-
-```bash
-pnpm run stripe:listen
-```
-
-## How do I deploy this?
-
-Follow the deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
