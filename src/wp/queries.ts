@@ -21,7 +21,7 @@ export const GET_FEATURED_PRODUCTS = gql`
 `
 
 export const GET_ALL_PRODUCTS = gql`
-  query GetAllProducts($first: [Number], $after: [String]) {
+  query GetAllProducts($first: Int!, $after: String) {
     products(first: $first, after: $after) {
       pageInfo {
         hasNextPage
