@@ -49,6 +49,7 @@ specifiers:
   clsx: ^1.2.1
   cmdk: ^0.2.0
   crypto-js: ^4.1.1
+  date-fns: ^2.30.0
   dayjs: ^1.11.8
   dotenv: ^16.3.1
   drizzle-kit: ^0.19.2
@@ -126,6 +127,7 @@ dependencies:
   clsx: 1.2.1
   cmdk: 0.2.0_203ae7369c339bd84fc33ab2e9dadaab
   crypto-js: 4.1.1
+  date-fns: 2.30.0
   dayjs: 1.11.9
   drizzle-orm: 0.27.2_@planetscale+database@1.10.0
   graphql: 16.7.1
@@ -139,7 +141,7 @@ dependencies:
   nprogress: 0.2.0
   react: 18.2.0
   react-cropper: 2.3.3_react@18.2.0
-  react-day-picker: 8.8.0_react@18.2.0
+  react-day-picker: 8.8.0_date-fns@2.30.0+react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.3_react@18.2.0
   react-email: 1.9.4
@@ -4124,6 +4126,13 @@ packages:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
     dev: true
 
+  /date-fns/2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.22.6
+    dev: false
+
   /dayjs/1.11.9:
     resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
     dev: false
@@ -6974,12 +6983,13 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-day-picker/8.8.0_react@18.2.0:
+  /react-day-picker/8.8.0_date-fns@2.30.0+react@18.2.0:
     resolution: {integrity: sha512-QIC3uOuyGGbtypbd5QEggsCSqVaPNu8kzUWquZ7JjW9fuWB9yv7WyixKmnaFelTLXFdq7h7zU6n/aBleBqe/dA==}
     peerDependencies:
       date-fns: ^2.28.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
+      date-fns: 2.30.0
       react: 18.2.0
     dev: false
 
