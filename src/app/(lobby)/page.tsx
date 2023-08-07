@@ -1,6 +1,3 @@
-import { db } from '@/db'
-import { iwsProductImages, iwsProducts } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 
 import { SubscribeToNewsletterForm } from '@/components/forms/subscribe-to-newsletter-form'
@@ -10,6 +7,8 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
+import { getExtendedCatalog } from '@/iws/get-extended-catalog'
+import { createTwoAleatoryNumbers } from '@/utils/create-two-aleatory-numbers'
 import Categories from './(modules)/Categories'
 import FeaturedProducts from './(modules)/FeaturedProducts'
 import Features from './(modules)/Features'
@@ -20,14 +19,16 @@ import Hero from './(modules)/Hero'
 // export const runtime = "edge"
 
 export default async function IndexPage() {
-  const allIwsProductsWithImages = await db
-    .select()
-    .from(iwsProducts)
-    .leftJoin(
-      iwsProductImages,
-      eq(iwsProducts.Sku, iwsProductImages.productSku)
-    )
-    .limit(8)
+  const extendedData = await getExtendedCatalog()
+  const allIwsProductsWithImages = extendedData
+    .filter((e) => e.DescripcionFabrica === 'Hikvision')
+    .filter((e) => e.Imagenes.length > 0)
+
+  const lenght = allIwsProductsWithImages.length ?? 0
+
+  const [min, max] = createTwoAleatoryNumbers(lenght, 8)
+
+  const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
 
   return (
     <div>
@@ -82,8 +83,8 @@ export default async function IndexPage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {allIwsProductsWithImages.map((iwsProduct, i) => (
-              <IwsProductCard key={i} productWithImage={iwsProduct} />
+            {slicedIwsProductsWithImages.map((iwsProduct, i) => (
+              <IwsProductCard key={i} product={iwsProduct} />
             ))}
           </div>
           {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

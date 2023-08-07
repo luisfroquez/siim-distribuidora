@@ -11,12 +11,9 @@ export default authMiddleware({
     '/signup(.*)',
     '/sso-callback(.*)',
     '/api(.*)',
-    '/categories(.*)',
+    '/contacto(.*)',
     '/tienda(.*)',
     '/blog(.*)',
-    '/product(.*)',
-    '/products(.*)',
-    '/build-a-board(.*)',
     '/email-preferences(.*)',
   ],
   async afterAuth(auth, req) {

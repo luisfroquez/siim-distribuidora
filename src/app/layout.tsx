@@ -1,17 +1,16 @@
 import '@/styles/globals.css'
 
-import { Suspense } from 'react'
-import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
+import { NavigationEvents } from '@/components/navigation-events'
+import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 import { siteConfig } from '@/config/site'
 import { ApolloClientProvider } from '@/lib/apollo/apollo-client-provider'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
-import { Toaster } from '@/components/ui/toaster'
-import { NavigationEvents } from '@/components/navigation-events'
-import { TailwindIndicator } from '@/components/tailwind-indicator'
-import { ThemeProvider } from '@/components/theme-provider'
 
 export const metadata: Metadata = {
   title: {
@@ -91,7 +90,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <Suspense fallback={null}>
                   <NavigationEvents />
                 </Suspense>
-                <TailwindIndicator />
+                {/* <TailwindIndicator /> */}
               </ThemeProvider>
               <Toaster />
             </body>
