@@ -1,12 +1,13 @@
 import Link from 'next/link'
 
 import { SubscribeToNewsletterForm } from '@/components/forms/subscribe-to-newsletter-form'
-import { IwsProductCard } from '@/components/iws-product-card'
+
 import { Shell } from '@/components/shell'
 import { buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
+import { IwsProductCard } from '@/components/product-card/iws-product-card'
 import { getExtendedCatalog } from '@/iws/get-extended-catalog'
 import { createTwoAleatoryNumbers } from '@/utils/create-two-aleatory-numbers'
 import Categories from './(modules)/Categories'
@@ -19,16 +20,16 @@ import Hero from './(modules)/Hero'
 // export const runtime = "edge"
 
 export default async function IndexPage() {
-  const extendedData = await getExtendedCatalog()
-  const allIwsProductsWithImages = extendedData
-    .filter((e) => e.DescripcionFabrica === 'Hikvision')
-    .filter((e) => e.Imagenes.length > 0)
+  // const extendedData = await getExtendedCatalog()
+  // const allIwsProductsWithImages = extendedData
+  //   .filter((e) => e.DescripcionFabrica === 'Hikvision')
+  //   .filter((e) => e.Imagenes.length > 0)
 
-  const lenght = allIwsProductsWithImages.length ?? 0
+  // const lenght = allIwsProductsWithImages.length ?? 0
 
-  const [min, max] = createTwoAleatoryNumbers(lenght, 8)
+  // const [min, max] = createTwoAleatoryNumbers(lenght, 8)
 
-  const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
+  // const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
 
   return (
     <div>
@@ -83,9 +84,9 @@ export default async function IndexPage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {slicedIwsProductsWithImages.map((iwsProduct, i) => (
+            {/* {slicedIwsProductsWithImages.map((iwsProduct, i) => (
               <IwsProductCard key={i} product={iwsProduct} />
-            ))}
+            ))} */}
           </div>
           {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {allProducts.map((product) => (

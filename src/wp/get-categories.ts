@@ -1,53 +1,9 @@
-import { gql, NetworkStatus } from '@apollo/client'
+import { NetworkStatus } from '@apollo/client'
 
 import { client } from '@/lib/apollo/apollo'
 
+import { GET_CATEGORIES } from './queries'
 import type { WpCategories } from './types'
-
-const GET_CATEGORIES = gql`
-  query GetCategories {
-    productCategories(where: { parent: null }) {
-      nodes {
-        name
-        parentDatabaseId
-        databaseId
-        description
-        slug
-        uri
-        children {
-          nodes {
-            name
-            parentDatabaseId
-            databaseId
-            description
-            slug
-            uri
-            children {
-              nodes {
-                name
-                parentDatabaseId
-                databaseId
-                description
-                slug
-                uri
-                children {
-                  nodes {
-                    name
-                    parentDatabaseId
-                    databaseId
-                    description
-                    slug
-                    uri
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
 
 interface GetCategoriesResponse {
   productCategories: {

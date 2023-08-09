@@ -4,4 +4,5 @@ export const {
   NEXT_PUBLIC_API_KEY,
   NEXT_PUBLIC_ACCESS_KEY,
   NEXT_PUBLIC_IWS_TEST_API_URL,
+  DATABASE_URL,
 } = process.env

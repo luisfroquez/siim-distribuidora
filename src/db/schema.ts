@@ -1,5 +1,4 @@
-import { type Brand, type Category, type ProductImage } from '@/iws/types'
-import type { CartItem, StoredFile } from '@/types'
+import type { CartItem, QuoteItem, StoredFile } from '@/types'
 import { relations, sql, type InferModel } from 'drizzle-orm'
 import {
   boolean,
@@ -35,23 +34,23 @@ import {
 // export type Categories = InferModel<typeof categories>
 
 // IwsProducts
-export const iwsProducts = mysqlTable('iws_products', {
-  id: serial('id').primaryKey(),
-  Sku: varchar('sku', { length: 24 }).notNull(),
-  Mpn: text('mpn').notNull(),
-  Description: text('description'),
-  Type: varchar('type', { length: 24 }).notNull(),
-  Brand: json('brand').$type<Brand | null>().default(null),
-  Category: json('category').$type<Category | null>().default(null),
-})
-export type IwsProduct = InferModel<typeof iwsProducts>
+// export const iwsProducts = mysqlTable('iws_products', {
+//   id: serial('id').primaryKey(),
+//   Sku: varchar('sku', { length: 24 }).notNull(),
+//   Mpn: text('mpn').notNull(),
+//   Description: text('description'),
+//   Type: varchar('type', { length: 24 }).notNull(),
+//   Brand: json('brand').$type<Brand | null>().default(null),
+//   Category: json('category').$type<Category | null>().default(null),
+// })
+// export type IwsProduct = InferModel<typeof iwsProducts>
 
-export const iwsProductImages = mysqlTable('iws_product_images', {
-  id: serial('id').primaryKey(),
-  productSku: varchar('product_sku', { length: 24 }).notNull(),
-  images: json('images').$type<ProductImage[] | null>().default(null),
-})
-export type IwsProductImages = InferModel<typeof iwsProductImages>
+// export const iwsProductImages = mysqlTable('iws_product_images', {
+//   id: serial('id').primaryKey(),
+//   productSku: varchar('product_sku', { length: 24 }).notNull(),
+//   images: json('images').$type<ProductImage[] | null>().default(null),
+// })
+// export type IwsProductImages = InferModel<typeof iwsProductImages>
 
 // IWS RELATIONS:
 // export const brandsRelations = relations(brands, ({ many }) => ({
@@ -134,6 +133,15 @@ export const carts = mysqlTable('carts', {
 })
 
 export type Cart = InferModel<typeof carts>
+
+export const quotes = mysqlTable('quotes', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId', { length: 191 }),
+  items: json('items').$type<QuoteItem[] | null>().default(null),
+  createdAt: timestamp('createdAt').defaultNow(),
+})
+
+export type Quote = InferModel<typeof quotes>
 
 export const emailPreferences = mysqlTable('email_preferences', {
   id: serial('id').primaryKey(),

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use client'
 
-import { WpProductCard } from '@/components/wp-product-card'
+import { WpProductCard } from '@/components/product-card/wp-product-card'
 import { GET_FEATURED_PRODUCTS } from '@/wp/queries'
 import type { WpProducts } from '@/wp/types'
 import { useQuery } from '@apollo/client'

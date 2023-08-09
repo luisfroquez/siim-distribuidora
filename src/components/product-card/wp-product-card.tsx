@@ -1,5 +1,6 @@
 'use client'
 
+import { addToQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button, buttonVariants } from '@/components/ui/button'
@@ -14,18 +15,19 @@ import { getWpImageUrl } from '@/utils/get-wp-image-url'
 import type { WpProduct } from '@/wp/types'
 import Link from 'next/link'
 import { useTransition } from 'react'
+import { toast } from 'sonner'
 
 interface WpProductCardProps {
   product: WpProduct
   variant?: 'default' | 'switchable'
-  isAddedToCart?: boolean
+  isAddedToQuoter?: boolean
   onSwitch?: () => Promise<void>
 }
 
 export function WpProductCard({
   product,
   variant = 'default',
-  isAddedToCart = false,
+  isAddedToQuoter = false,
   onSwitch,
 }: WpProductCardProps) {
   const [isPending, startTransition] = useTransition()
@@ -70,39 +72,57 @@ export function WpProductCard({
             >
               Ver detalles
             </Link>
-            <Button
-              aria-label="Añadir al cotizador"
-              size="sm"
-              className="h-8 w-full rounded-sm"
-              // onClick={() => {
-              //   startTransition(async () => {
-              //     try {
-              //       await addToCartAction({
-              //         productId: product.sku,
-              //         quantity: 1,
-              //       })
-              //       toast.success("Added to cart.")
-              //     } catch (error) {
-              //       error instanceof Error
-              //         ? toast.error(error.message)
-              //         : toast.error("Something went wrong, please try again.")
-              //     }
-              //   })
-              // }}
-              disabled={isPending}
-            >
-              {isPending && (
-                <Icons.spinner
-                  className="mr-2 h-4 w-4 animate-spin"
-                  aria-hidden="true"
-                />
-              )}
-              Añadir al cotizador
-            </Button>
+            {product.attributes ? (
+              <Link
+                aria-label="Seleccionar una opción"
+                href={`/tienda/producto/${product.slug}`}
+                className={buttonVariants({
+                  variant: 'default',
+                  size: 'sm',
+                  className: 'h-8 w-full rounded-sm',
+                })}
+              >
+                Seleccionar opción
+              </Link>
+            ) : (
+              <Button
+                aria-label="Añadir al cotizador"
+                size="sm"
+                className="h-8 w-full rounded-sm"
+                onClick={() => {
+                  startTransition(async () => {
+                    try {
+                      await addToQuoteAction({
+                        productId: product.id,
+                        quantity: 1,
+                      })
+                      toast.success('¡Agregado al Cotizador!')
+                    } catch (error) {
+                      error instanceof Error
+                        ? toast.error(error.message)
+                        : toast.error(
+                            'Ocurrió un error, por favor intente nuevamente.'
+                          )
+                    }
+                  })
+                }}
+                disabled={isPending}
+              >
+                {isPending && (
+                  <Icons.spinner
+                    className="mr-2 h-4 w-4 animate-spin"
+                    aria-hidden="true"
+                  />
+                )}
+                Añadir al cotizador
+              </Button>
+            )}
           </div>
         ) : (
           <Button
-            aria-label={isAddedToCart ? 'Remove from cart' : 'Add to cart'}
+            aria-label={
+              isAddedToQuoter ? 'Eliminar del cotizador' : 'Añadir al cotizador'
+            }
             size="sm"
             className="h-8 w-full rounded-sm"
             onClick={() => {
@@ -117,12 +137,12 @@ export function WpProductCard({
                 className="mr-2 h-4 w-4 animate-spin"
                 aria-hidden="true"
               />
-            ) : isAddedToCart ? (
+            ) : isAddedToQuoter ? (
               <Icons.check className="mr-2 h-4 w-4" aria-hidden="true" />
             ) : (
               <Icons.add className="mr-2 h-4 w-4" aria-hidden="true" />
             )}
-            {isAddedToCart ? 'Added' : 'Add to cart'}
+            {isAddedToQuoter ? 'Añadido al cotizador' : 'Añadir al cotizador'}
           </Button>
         )}
       </CardFooter>

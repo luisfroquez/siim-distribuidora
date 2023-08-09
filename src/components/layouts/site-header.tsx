@@ -1,8 +1,11 @@
-import Link from 'next/link'
 import type { User } from '@clerk/nextjs/dist/types/server'
+import Link from 'next/link'
 
-import { dashboardConfig } from '@/config/dashboard'
-import { siteConfig } from '@/config/site'
+import { CartSheet } from '@/components/cart/cart-sheet'
+import { Combobox } from '@/components/combobox'
+import { Icons } from '@/components/icons'
+import { MainNav } from '@/components/layouts/main-nav'
+import { MobileNav } from '@/components/layouts/mobile-nav'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
@@ -15,12 +18,10 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { CartSheet } from '@/components/cart/cart-sheet'
-import { Combobox } from '@/components/combobox'
-import { Icons } from '@/components/icons'
-import { MainNav } from '@/components/layouts/main-nav'
-import { MobileNav } from '@/components/layouts/mobile-nav'
+import { dashboardConfig } from '@/config/dashboard'
+import { siteConfig } from '@/config/site'
 
+import { QuoteSheet } from '../quoter/quote-sheet'
 import TopBanner from './top-banner'
 
 interface SiteHeaderProps {
@@ -48,6 +49,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
           <nav className="flex items-center space-x-2">
             <Combobox />
             <CartSheet />
+            <QuoteSheet />
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

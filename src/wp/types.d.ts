@@ -26,6 +26,17 @@ export interface WpProduct {
   name: string
   sku: string
   slug: string
+  attributes: {
+    nodes: {
+      attributeId: number
+    }[]
+  }
+  productCategories: {
+    nodes: {
+      name
+      uri
+    }[]
+  }
   featuredImage: {
     node: {
       id: string
@@ -91,6 +102,7 @@ export interface WpImageNode {
   altText: string
   guid: string
 }
+
 export interface WpAttributeNode {
   name: string
 }
@@ -155,15 +167,4 @@ export interface Variations {
 
 export interface Attributes {
   nodes: AttributeNode[]
-}
-
-type IDs = string[]
-
-interface SKUs {
-  sku: string
-  attributes: {
-    nodes: {
-      attributeId: string
-    }[]
-  }
 }

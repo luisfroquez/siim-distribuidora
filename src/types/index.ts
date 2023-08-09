@@ -2,6 +2,7 @@ import { type Product } from '@/db/schema'
 import { type FileWithPath } from 'react-dropzone'
 
 import { type Icons } from '@/components/icons'
+import { WpProduct } from '@/wp/types'
 
 export interface WPProductCategories {
   ID: number
@@ -75,6 +76,16 @@ export interface CartLineItem
   > {
   quantity?: number
   storeName: string | null
+}
+
+// QUOTES
+export type QuoteItem = {
+  productId: string
+  quantity: number
+}
+
+export interface QuoteLineItem extends WpProduct {
+  quantity?: number
 }
 
 export type SubscriptionPlan = {

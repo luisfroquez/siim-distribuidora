@@ -1,5 +1,49 @@
 import { gql } from '@apollo/client'
 
+export const GET_CATEGORIES = gql`
+  query GetCategories {
+    productCategories(where: { parent: null }) {
+      nodes {
+        name
+        parentDatabaseId
+        databaseId
+        description
+        slug
+        uri
+        children {
+          nodes {
+            name
+            parentDatabaseId
+            databaseId
+            description
+            slug
+            uri
+            children {
+              nodes {
+                name
+                parentDatabaseId
+                databaseId
+                description
+                slug
+                uri
+                children {
+                  nodes {
+                    name
+                    parentDatabaseId
+                    databaseId
+                    description
+                    slug
+                    uri
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
 export const GET_FEATURED_PRODUCTS = gql`
   query GetFeaturedProducts {
     products(where: { featured: true }, first: 8) {
@@ -8,6 +52,17 @@ export const GET_FEATURED_PRODUCTS = gql`
         name
         sku
         slug
+        attributes {
+          nodes {
+            attributeId
+          }
+        }
+        productCategories {
+          nodes {
+            name
+            uri
+          }
+        }
         featuredImage {
           node {
             id
@@ -19,7 +74,6 @@ export const GET_FEATURED_PRODUCTS = gql`
     }
   }
 `
-
 export const GET_ALL_PRODUCTS = gql`
   query GetAllProducts($first: Int!, $after: String) {
     products(first: $first, after: $after) {
@@ -37,6 +91,17 @@ export const GET_ALL_PRODUCTS = gql`
           name
           sku
           slug
+          attributes {
+            nodes {
+              attributeId
+            }
+          }
+          productCategories {
+            nodes {
+              name
+              uri
+            }
+          }
           featuredImage {
             node {
               id
@@ -57,6 +122,17 @@ export const SEARCH_PRODUCTS = gql`
         name
         sku
         slug
+        attributes {
+          nodes {
+            attributeId
+          }
+        }
+        productCategories {
+          nodes {
+            name
+            uri
+          }
+        }
         featuredImage {
           node {
             id
@@ -92,6 +168,34 @@ export const SEARCH_PRODUCTS_CATEGORIES_TAGS = gql`
       nodes {
         name
         slug
+      }
+    }
+  }
+`
+export const GET_PRODUCT_BY_ID = gql`
+  query ProductById($id: ID!) {
+    product(id: $id) {
+      id
+      name
+      sku
+      slug
+      attributes {
+        nodes {
+          attributeId
+        }
+      }
+      productCategories {
+        nodes {
+          name
+          uri
+        }
+      }
+      featuredImage {
+        node {
+          id
+          altText
+          guid
+        }
       }
     }
   }
@@ -158,50 +262,6 @@ export const GET_PRODUCT_BY_SLUG = gql`
                   attributeId
                   value
                   label
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-export const GET_CATEGORIES = gql`
-  query GetCategories {
-    productCategories(where: { parent: null }) {
-      nodes {
-        name
-        parentDatabaseId
-        databaseId
-        description
-        slug
-        uri
-        children {
-          nodes {
-            name
-            parentDatabaseId
-            databaseId
-            description
-            slug
-            uri
-            children {
-              nodes {
-                name
-                parentDatabaseId
-                databaseId
-                description
-                slug
-                uri
-                children {
-                  nodes {
-                    name
-                    parentDatabaseId
-                    databaseId
-                    description
-                    slug
-                    uri
-                  }
                 }
               }
             }

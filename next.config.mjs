@@ -13,6 +13,7 @@ const config = {
       'source.unsplash.com',
       'intcomexpim.blob.core.windows.net',
     ],
+    unoptimized: true
   },
   experimental: {
     serverActions: true,

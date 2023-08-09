@@ -32,7 +32,7 @@ import { getSubcategories, sortOptions } from '@/config/products'
 import { useDebounce } from '@/hooks/use-debounce'
 import { cn, toTitleCase } from '@/lib/utils'
 import type { WpGetAllProducts } from '@/wp/types'
-import { WpProductCard } from './wp-product-card'
+import { WpProductCard } from './product-card/wp-product-card'
 
 interface ProductsProps {
   data: WpGetAllProducts
