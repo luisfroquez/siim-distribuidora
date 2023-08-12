@@ -13,10 +13,11 @@ const config = {
       'source.unsplash.com',
       'intcomexpim.blob.core.windows.net',
     ],
-    unoptimized: true
+    unoptimized: true,
   },
   experimental: {
     serverActions: true,
+    appDir: true,
   },
   /** Linting and typechecking are already done as separate tasks in the CI pipeline */
   // eslint: {
