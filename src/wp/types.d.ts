@@ -65,6 +65,14 @@ export interface WpGetAllProducts {
   }
 }
 
+export interface WpGetAllProductsVariables {
+  first: Number
+  after?: String
+  orderByField: ProductsOrderByEnum
+  orderByOrder: OrderEnum
+  featured?: Boolean
+}
+
 export interface WpSearchResult {
   products: {
     nodes: [

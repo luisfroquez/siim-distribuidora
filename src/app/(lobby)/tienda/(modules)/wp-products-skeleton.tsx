@@ -1,4 +1,4 @@
-const FeaturedProductsSkeleton = () => {
+const WpProductsSkeleton = () => {
   return (
     <div
       role="status"
@@ -17,4 +17,4 @@ const FeaturedProductsSkeleton = () => {
   )
 }
 
-export default FeaturedProductsSkeleton
+export default WpProductsSkeleton

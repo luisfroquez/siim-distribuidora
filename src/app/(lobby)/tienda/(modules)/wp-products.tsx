@@ -1,12 +1,10 @@
 'use client'
 
-import { type Product } from '@/db/schema'
 import type { Option } from '@/types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import * as React from 'react'
 
 import { Icons } from '@/components/icons'
-import { MultiSelect } from '@/components/multi-select'
 import { PaginationButton } from '@/components/pagination-button'
 import { Button } from '@/components/ui/button'
 import {
@@ -17,7 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
@@ -27,37 +24,49 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { Slider } from '@/components/ui/slider'
-import { getSubcategories, sortOptions } from '@/config/products'
-import { useDebounce } from '@/hooks/use-debounce'
-import { cn, toTitleCase } from '@/lib/utils'
-import type { WpGetAllProducts } from '@/wp/types'
-import { WpProductCard } from './product-card/wp-product-card'
+import { cn } from '@/lib/utils'
+import { GET_ALL_PRODUCTS } from '@/wp/queries'
 
-interface ProductsProps {
-  data: WpGetAllProducts
-  pageCount: number
-  category?: Product['category']
-  categories?: Product['category'][]
-  storePageCount?: number
-}
+import Switch from '@/components/ui/switch/switch'
+import { wpSortOptions } from '@/config/wp-products'
+import {
+  type WpGetAllProducts,
+  type WpGetAllProductsVariables,
+} from '@/wp/types'
+import { useQuery } from '@apollo/client'
+import { WpProductCard } from '../../../../components/product-card/wp-product-card'
+import WpProductsSkeleton from './wp-products-skeleton'
 
-export function Products({
-  data,
-  pageCount,
-  category,
-  categories,
-}: ProductsProps) {
+export function WpProducts() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isPending, startTransition] = React.useTransition()
-  const products = data.products.edges
 
   // Search params
   const page = searchParams?.get('page') ?? '1'
   const per_page = searchParams?.get('per_page') ?? '16'
-  const sort = searchParams?.get('sort') ?? 'createdAt.desc'
+  const sort = searchParams?.get('sort') ?? 'ASC'
+  const sortField = searchParams.get('sortField') ?? 'NAME'
+  const featured = searchParams.get('featured') === 'true' ? true : undefined
+
+  const { loading, data, error, refetch } = useQuery<
+    WpGetAllProducts,
+    WpGetAllProductsVariables
+  >(GET_ALL_PRODUCTS, {
+    variables: {
+      first: Number(per_page),
+      orderByField: sortField,
+      orderByOrder: sort,
+      featured: featured,
+    },
+  })
+
+  const products = data?.products.edges
+
+  const pageCount = data?.products.pageInfo.total ?? 0
+
+  const renderPagination = products?.length && pageCount / Number(per_page) > 1
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -76,22 +85,6 @@ export function Products({
     },
     [searchParams]
   )
-
-  // Price filter
-  const [priceRange, setPriceRange] = React.useState<[number, number]>([0, 500])
-  const debouncedPrice = useDebounce(priceRange, 500)
-
-  React.useEffect(() => {
-    const [min, max] = debouncedPrice
-    startTransition(() => {
-      router.push(
-        `${pathname}?${createQueryString({
-          price_range: `${min}-${max}`,
-        })}`
-      )
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedPrice])
 
   // Category filter
   const [selectedCategories, setSelectedCategories] = React.useState<
@@ -116,7 +109,7 @@ export function Products({
   const [selectedSubcategories, setSelectedSubcategories] = React.useState<
     Option[] | null
   >(null)
-  const subcategories = getSubcategories(category)
+  // const subcategories = getSubcategories(category)
 
   React.useEffect(() => {
     startTransition(() => {
@@ -131,25 +124,14 @@ export function Products({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSubcategories])
 
-  // Store filter
-  // const [storeIds, setStoreIds] = React.useState<number[] | null>(
-  //   store_ids?.split('.').map(Number) ?? null
-  // )
+  if (loading) return <WpProductsSkeleton />
 
-  // React.useEffect(() => {
-  //   startTransition(() => {
-  //     router.push(
-  //       `${pathname}?${createQueryString({
-  //         store_ids: storeIds?.length ? storeIds.join('.') : null,
-  //       })}`
-  //     )
-  //   })
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [storeIds])
+  if (error) return <p>Error: {error.message}</p>
 
   return (
-    <div className="flex flex-col space-y-6">
-      <div className="flex items-center space-x-2">
+    <div className="flex flex-col space-y-6 h-full pb-6">
+      <div className="flex items-center space-x-2 w-full justify-between">
+        {/* FILTRAR */}
         <Sheet>
           <SheetTrigger asChild>
             <Button aria-label="Filter products" size="sm" disabled={isPending}>
@@ -161,51 +143,22 @@ export function Products({
               <SheetTitle>Filtros</SheetTitle>
             </SheetHeader>
             <Separator />
-            <div className="flex flex-1 flex-col gap-5 overflow-hidden px-1">
-              <div className="space-y-4">
-                <h3 className="text-sm font-medium tracking-wide text-foreground">
-                  Price range ($)
-                </h3>
-                <Slider
-                  variant="range"
-                  thickness="thin"
-                  defaultValue={[0, 500]}
-                  max={500}
-                  step={1}
-                  value={priceRange}
-                  onValueChange={(value: typeof priceRange) => {
-                    setPriceRange(value)
-                  }}
-                />
-                <div className="flex items-center space-x-4">
-                  <Input
-                    type="number"
-                    inputMode="numeric"
-                    min={0}
-                    max={priceRange[1]}
-                    className="h-9"
-                    value={priceRange[0]}
-                    onChange={(e) => {
-                      const value = Number(e.target.value)
-                      setPriceRange([value, priceRange[1]])
-                    }}
-                  />
-                  <span className="text-muted-foreground">-</span>
-                  <Input
-                    type="number"
-                    inputMode="numeric"
-                    min={priceRange[0]}
-                    max={500}
-                    className="h-9"
-                    value={priceRange[1]}
-                    onChange={(e) => {
-                      const value = Number(e.target.value)
-                      setPriceRange([priceRange[0], value])
-                    }}
-                  />
-                </div>
-              </div>
-              {categories?.length ? (
+            <Switch
+              label="Mostrar solo productos Selección SIIM"
+              defaultChecked={featured}
+              onChange={(isChecked) => {
+                startTransition(() => {
+                  router.push(
+                    `${pathname}?${createQueryString({
+                      featured: !isChecked ? 'true' : null,
+                    })}`
+                  )
+                })
+              }}
+            />
+            <Separator />
+            <div className="flex flex-1 flex-col gap-5 overflow-hidden px-4">
+              {/* {categories?.length ? (
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium tracking-wide text-foreground">
                     Categories
@@ -233,7 +186,7 @@ export function Products({
                     options={subcategories}
                   />
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
             <div>
               <Separator className="my-4" />
@@ -253,7 +206,6 @@ export function Products({
                         })}`
                       )
 
-                      setPriceRange([0, 100])
                       setSelectedCategories(null)
                       setSelectedSubcategories(null)
                       // setStoreIds(null)
@@ -267,6 +219,7 @@ export function Products({
             </div>
           </SheetContent>
         </Sheet>
+        {/* ORDENAR */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button aria-label="Sort products" size="sm" disabled={isPending}>
@@ -277,15 +230,20 @@ export function Products({
           <DropdownMenuContent align="start" className="w-48">
             <DropdownMenuLabel>Ordernar por</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {sortOptions.map((option) => (
+            {wpSortOptions.map((option) => (
               <DropdownMenuItem
                 key={option.label}
-                className={cn(option.value === sort && 'font-bold')}
+                className={cn(
+                  option.value.field === sortField &&
+                    option.value.order === sort &&
+                    'font-bold'
+                )}
                 onClick={() => {
                   startTransition(() => {
                     router.push(
                       `${pathname}?${createQueryString({
-                        sort: option.value,
+                        sortField: option.value.field,
+                        sort: option.value.order,
                       })}`
                     )
                   })
@@ -296,24 +254,27 @@ export function Products({
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+        <span className="text-muted-foreground text-xs justify-end w-full pr-2 flex">
+          {pageCount} Resultados
+        </span>
       </div>
-      {!isPending && !products.length ? (
-        <div className="mx-auto flex max-w-xs flex-col space-y-1.5">
-          <h1 className="text-center text-2xl font-bold">
+      {!isPending && !products?.length ? (
+        <div className="flex flex-col space-y-1.5 h-full justify-center items-center w-full bg-border rounded-xl">
+          <h1 className="text-center text-2xl max-w-lg font-bold">
             No se encontraron productos
           </h1>
-          <p className="text-center text-muted-foreground">
+          <p className="max-w-lg text-center text-muted-foreground">
             Intenta cambiando tus filtros, o visitanos luego cuando actualicemos
             nuestro catálogo
           </p>
         </div>
       ) : null}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products.map((product) => (
+        {products?.map((product) => (
           <WpProductCard key={product.cursor} product={product.node} />
         ))}
       </div>
-      {products.length ? (
+      {renderPagination ? (
         <PaginationButton
           pageCount={pageCount}
           page={page}

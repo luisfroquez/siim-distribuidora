@@ -9,10 +9,14 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text/Text'
 
+import { addToQuoteAction } from '@/app/_actions/quote'
+import { toast } from 'sonner'
 import AttributeSelect from './AttributeSelect'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
 
 const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const mappedProduct = product.products.nodes[0]
   const category = mappedProduct.productCategories
     .nodes[0] as WpCategoryWithAncestors
@@ -39,8 +43,6 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
   const hasSelectedAttribute = cleanSelectedAttributes.length > 0
 
   const attributesNodes = convertVariationsToAttributeNode(variations)
-
-  console.log(product)
 
   return (
     <div className="flex flex-1">
@@ -134,13 +136,36 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
             </p>
           )}
           {selectedSKUs.length > 1 && (
-            <p className="opacity-80">
-              Hay {selectedSKUs.length} productos diferentes con esta
-              combinación de atributos. ¿Quieres cotizarlos todos?
+            <p className="opacity-80 text-xs">
+              Hay {selectedSKUs.length} variaciones diferentes de este producto
+              la combinación de atributos seleccionada. Si deseas cotizar varios
+              o todas las variaciones de este, debes agregar al cotizador cada
+              variacion de forma individual.
             </p>
           )}
 
-          <Button className="w-fit" disabled={!hasSKUs}>
+          <Button
+            className="w-fit"
+            disabled={!hasSKUs || selectedSKUs.length > 1 || isLoading}
+            onClick={async () => {
+              try {
+                setIsLoading(true)
+
+                await addToQuoteAction({
+                  productId: mappedProduct.id,
+                  quantity: 1,
+                })
+                toast.success('¡Agregado al Cotizador!')
+                setIsLoading(false)
+              } catch (error) {
+                error instanceof Error
+                  ? toast.error(error.message)
+                  : toast.error(
+                      'Ocurrió un error, por favor intente nuevamente.'
+                    )
+              }
+            }}
+          >
             Agregar al cotizador
           </Button>
         </div>

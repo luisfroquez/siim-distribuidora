@@ -1,0 +1,12 @@
+input:checked ~ .dot {
+  background: rgb(var(--primary));
+  transform: translateX(100%);
+}
+
+input:checked ~ .dot .active {
+  display: block;
+}
+
+input:checked ~ .dot .inactive {
+  display: none;
+}

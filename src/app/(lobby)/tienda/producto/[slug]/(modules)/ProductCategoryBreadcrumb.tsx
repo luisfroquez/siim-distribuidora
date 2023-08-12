@@ -10,7 +10,7 @@ const ProductCategoryBreadcrumb = ({
   const categories = [...ancestors, { name: category.name, uri: category.uri }]
 
   return (
-    <div className="flex w-full gap-2 text-xs">
+    <div className="flex flex-wrap w-full gap-2 text-xs">
       {categories.map((c, i) => {
         const isLast = i === categories.length - 1
 
@@ -20,7 +20,7 @@ const ProductCategoryBreadcrumb = ({
               href={`/tienda${c.uri}`}
               aria-label={`Ir a ${c.name}`}
               key={i}
-              className="hover:underline"
+              className="hover:underline min-w-max"
             >
               {c.name}
             </Link>

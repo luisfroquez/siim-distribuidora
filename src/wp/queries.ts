@@ -74,9 +74,9 @@ export const GET_FEATURED_PRODUCTS = gql`
     }
   }
 `
-export const GET_ALL_PRODUCTS = gql`
-  query GetAllProducts($first: Int!, $after: String) {
-    products(first: $first, after: $after) {
+export const GET_ALL_PRODUCTS_NO_FILTERS = gql`
+  query GetAllProducts {
+    products {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -114,6 +114,60 @@ export const GET_ALL_PRODUCTS = gql`
     }
   }
 `
+export const GET_ALL_PRODUCTS = gql`
+  query GetAllProducts(
+    $first: Int!
+    $after: String
+    $orderByField: ProductsOrderByEnum!
+    $orderByOrder: OrderEnum
+    $featured: Boolean
+  ) {
+    products(
+      first: $first
+      after: $after
+      where: {
+        orderby: { field: $orderByField, order: $orderByOrder }
+        featured: $featured
+      }
+    ) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        total
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          name
+          sku
+          slug
+          attributes {
+            nodes {
+              attributeId
+            }
+          }
+          productCategories {
+            nodes {
+              name
+              uri
+            }
+          }
+          featuredImage {
+            node {
+              id
+              altText
+              guid
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 export const SEARCH_PRODUCTS = gql`
   query searchProducts($search: String!) {
     products(where: { search: $search }) {
