@@ -24,7 +24,7 @@ const Switch = ({ label, onChange, defaultChecked = false }: SwitchProps) => {
   )
 
   const activeClassName = cn(s.active, 'hidden')
-  const inActiveClassName = cn(s.inactive, 'text-body-color')
+  const inActiveClassName = cn(s.inactive, '')
 
   return (
     <div className="flex flex-col gap-2">

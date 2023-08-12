@@ -2,7 +2,7 @@ import { type Product } from '@/db/schema'
 import { type FileWithPath } from 'react-dropzone'
 
 import { type Icons } from '@/components/icons'
-import { WpProduct } from '@/wp/types'
+import { type WpProduct } from '@/wp/types'
 
 export interface WPProductCategories {
   ID: number

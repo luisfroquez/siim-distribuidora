@@ -2,7 +2,7 @@ import { client } from '@/lib/apollo/apollo'
 import { GET_PRODUCT_BY_ID } from './queries'
 import type { WpProduct } from './types'
 
-export async function getMultipleProductsById(ids: String[]) {
+export async function getMultipleProductsById(ids: string[]) {
   const promises = ids.map((id) =>
     client.query<{ product: WpProduct }>({
       query: GET_PRODUCT_BY_ID,

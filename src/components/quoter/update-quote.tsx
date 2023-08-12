@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 
 import { Icons } from '@/components/icons'
 
-import { deleteQuoteItemAction } from '@/app/_actions/quote'
+import { addToQuoteAction, deleteQuoteItemAction } from '@/app/_actions/quote'
 import type { QuoteLineItem } from '@/types'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -17,9 +17,10 @@ interface UpdateQuoteProps {
 export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
   const [isPending, startTransition] = React.useTransition()
 
-  function addToQuoteAction(arg0: { productId: any; quantity: number }) {
-    throw new Error('Function not implemented.')
-  }
+  // function addToQuoteAction(arg: { productId: any; quantity: number }) {
+  //   console.log(arg)
+  //   throw new Error('Function not implemented.')
+  // }
 
   return (
     // plus and minus buttons, input field, delete button
@@ -30,23 +31,27 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
           size="icon"
           className="h-8 w-8"
           onClick={() => {
-            startTransition(async () => {
-              try {
-                await addToQuoteAction({
-                  productId: quoteLineItem.id,
-                  quantity: Number(quoteLineItem.quantity) - 1,
+            startTransition(() => {
+              addToQuoteAction({
+                productId: quoteLineItem.id,
+                quantity: Number(quoteLineItem.quantity) - 1,
+              })
+                .then(() => {
+                  toast.success('Producto eliminado correctamente')
                 })
-              } catch (error) {
-                error instanceof Error
-                  ? toast.error(error.message)
-                  : toast.error('Ocurrió un error, intenta nuevamente.')
-              }
+                .catch((error) => {
+                  if (error instanceof Error) {
+                    toast.error(error.message)
+                  } else {
+                    toast.error('Ocurrió un error, intenta nuevamente.')
+                  }
+                })
             })
           }}
           disabled={isPending}
         >
           <Icons.remove className="h-3 w-3" aria-hidden="true" />
-          <span className="sr-only">Remove one item</span>
+          <span className="sr-only">Eliminar un producto</span>
         </Button>
         <Input
           type="number"
@@ -54,17 +59,21 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
           className="h-8 w-14"
           value={quoteLineItem.quantity}
           onChange={(e) => {
-            startTransition(async () => {
-              try {
-                await addToQuoteAction({
-                  productId: quoteLineItem.id,
-                  quantity: Number(e.target.value),
+            startTransition(() => {
+              addToQuoteAction({
+                productId: quoteLineItem.id,
+                quantity: Number(e.target.value),
+              })
+                .then(() => {
+                  toast.success('Producto agregado correctamente')
                 })
-              } catch (error) {
-                error instanceof Error
-                  ? toast.error(error.message)
-                  : toast.error('Ocurrió un error, intenta nuevamente.')
-              }
+                .catch((error) => {
+                  if (error instanceof Error) {
+                    toast.error(error.message)
+                  } else {
+                    toast.error('Ocurrió un error, intenta nuevamente.')
+                  }
+                })
             })
           }}
           disabled={isPending}
@@ -74,23 +83,27 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
           size="icon"
           className="h-8 w-8"
           onClick={() => {
-            startTransition(async () => {
-              try {
-                await addToQuoteAction({
-                  productId: quoteLineItem.id,
-                  quantity: Number(quoteLineItem.quantity) + 1,
+            startTransition(() => {
+              addToQuoteAction({
+                productId: quoteLineItem.id,
+                quantity: Number(quoteLineItem.quantity) + 1,
+              })
+                .then(() => {
+                  toast.success('Producto agregado correctamente')
                 })
-              } catch (error) {
-                error instanceof Error
-                  ? toast.error(error.message)
-                  : toast.error('Ocurrió un error, intenta nuevamente.')
-              }
+                .catch((error) => {
+                  if (error instanceof Error) {
+                    toast.error(error.message)
+                  } else {
+                    toast.error('Ocurrió un error, intenta nuevamente.')
+                  }
+                })
             })
           }}
           disabled={isPending}
         >
           <Icons.add className="h-3 w-3" aria-hidden="true" />
-          <span className="sr-only">Add one item</span>
+          <span className="sr-only">Agregar un producto</span>
         </Button>
       </div>
       <Button

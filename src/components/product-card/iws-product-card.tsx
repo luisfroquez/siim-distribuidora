@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { ExtendedProduct } from '@/iws/types'
+import { type ExtendedProduct } from '@/iws/types'
 
 interface IwsProductCardProps {
   product: ExtendedProduct

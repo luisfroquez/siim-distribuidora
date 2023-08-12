@@ -106,8 +106,8 @@ export async function QuoteSheet() {
                             <div className="flex w-full content-start gap-1 text-muted-foreground">
                               <p className="font-bold">Categoría:</p>
                               <Link
-                                href={`/tienda${category?.uri}`}
-                                aria-label={`Ir a ${category?.name}`}
+                                href={`/tienda${category?.uri as string}`}
+                                aria-label={`Ir a ${category?.name as string}`}
                                 className="hover:underline"
                               >
                                 {category?.name}

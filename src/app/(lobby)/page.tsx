@@ -7,9 +7,6 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-import { IwsProductCard } from '@/components/product-card/iws-product-card'
-import { getExtendedCatalog } from '@/iws/get-extended-catalog'
-import { createTwoAleatoryNumbers } from '@/utils/create-two-aleatory-numbers'
 import Categories from './(modules)/Categories'
 import FeaturedProducts from './(modules)/FeaturedProducts'
 import Features from './(modules)/Features'
@@ -19,18 +16,7 @@ import Hero from './(modules)/Hero'
 // Running out of edge function execution units on vercel free plan
 // export const runtime = "edge"
 
-export default async function IndexPage() {
-  // const extendedData = await getExtendedCatalog()
-  // const allIwsProductsWithImages = extendedData
-  //   .filter((e) => e.DescripcionFabrica === 'Hikvision')
-  //   .filter((e) => e.Imagenes.length > 0)
-
-  // const lenght = allIwsProductsWithImages.length ?? 0
-
-  // const [min, max] = createTwoAleatoryNumbers(lenght, 8)
-
-  // const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
-
+export default function IndexPage() {
   return (
     <div>
       <Shell>

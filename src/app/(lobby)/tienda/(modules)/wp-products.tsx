@@ -47,7 +47,6 @@ export function WpProducts({ category }: WpProductsProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isPending, startTransition] = React.useTransition()
-  const [after, setAfter] = React.useState<string>()
 
   // Search params
   const page = searchParams?.get('page') ?? '1'
@@ -80,14 +79,6 @@ export function WpProducts({ category }: WpProductsProps) {
   const pageCount = Math.ceil((data?.products.pageInfo.total ?? 0) / size)
 
   const renderPagination = products?.length && pageCount / size > 1
-
-  // Change Page
-  React.useEffect(() => {
-    startTransition(() => {
-      setAfter(products?.[Number(per_page)]?.cursor)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
 
   // Create query string
   const createQueryString = React.useCallback(

@@ -147,23 +147,27 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
           <Button
             className="w-fit"
             disabled={!hasSKUs || selectedSKUs.length > 1 || isLoading}
-            onClick={async () => {
-              try {
-                setIsLoading(true)
+            onClick={() => {
+              setIsLoading(true)
 
-                await addToQuoteAction({
-                  productId: mappedProduct.id,
-                  quantity: 1,
+              addToQuoteAction({
+                productId: mappedProduct.id,
+                quantity: 1,
+              })
+                .then(() => {
+                  toast.success('¡Agregado al Cotizador!')
+                  setIsLoading(false)
                 })
-                toast.success('¡Agregado al Cotizador!')
-                setIsLoading(false)
-              } catch (error) {
-                error instanceof Error
-                  ? toast.error(error.message)
-                  : toast.error(
+                .catch((error) => {
+                  if (error instanceof Error) {
+                    toast.error(error.message)
+                  } else {
+                    toast.error(
                       'Ocurrió un error, por favor intente nuevamente.'
                     )
-              }
+                  }
+                  setIsLoading(false)
+                })
             }}
           >
             Agregar al cotizador

@@ -66,12 +66,12 @@ export interface WpGetAllProducts {
 }
 
 export interface WpGetAllProductsVariables {
-  size: Number
-  offset: Number
+  size: number
+  offset: number
   orderByField: ProductsOrderByEnum
   orderByOrder: OrderEnum
-  featured?: Boolean
-  categoryId?: Number
+  featured?: boolean
+  categoryId?: number
 }
 
 export interface WpSearchResult {
