@@ -66,8 +66,8 @@ export interface WpGetAllProducts {
 }
 
 export interface WpGetAllProductsVariables {
-  first: Number
-  after?: String
+  size: Number
+  offset: Number
   orderByField: ProductsOrderByEnum
   orderByOrder: OrderEnum
   featured?: Boolean

@@ -47,6 +47,7 @@ export function WpProducts({ category }: WpProductsProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isPending, startTransition] = React.useTransition()
+  const [after, setAfter] = React.useState<string>()
 
   // Search params
   const page = searchParams?.get('page') ?? '1'
@@ -55,25 +56,38 @@ export function WpProducts({ category }: WpProductsProps) {
   const sortField = searchParams.get('sortField') ?? 'NAME'
   const featured = searchParams.get('featured') === 'true' ? true : undefined
   const categoryId = category?.databaseId
+  const size = Number(per_page)
+  const offset = (Number(page) - 1) * size
 
   const { loading, data, error } = useQuery<
     WpGetAllProducts,
     WpGetAllProductsVariables
   >(GET_ALL_PRODUCTS, {
     variables: {
-      first: Number(per_page),
+      offset,
+      size,
       orderByField: sortField,
       orderByOrder: sort,
-      featured: featured,
-      categoryId: categoryId,
+      featured,
+      categoryId,
     },
   })
 
   const products = data?.products.edges
 
-  const pageCount = data?.products.pageInfo.total ?? 0
+  const productsCount = data?.products.pageInfo.total
 
-  const renderPagination = products?.length && pageCount / Number(per_page) > 1
+  const pageCount = Math.ceil((data?.products.pageInfo.total ?? 0) / size)
+
+  const renderPagination = products?.length && pageCount / size > 1
+
+  // Change Page
+  React.useEffect(() => {
+    startTransition(() => {
+      setAfter(products?.[Number(per_page)]?.cursor)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -262,7 +276,8 @@ export function WpProducts({ category }: WpProductsProps) {
           </DropdownMenuContent>
         </DropdownMenu>
         <span className="text-muted-foreground text-xs justify-end w-full pr-2 flex">
-          {pageCount} Resultados
+          Mostrando {offset + 1} - {offset + (products?.length ?? 0)} de{' '}
+          {productsCount} Resultados
         </span>
       </div>
       {!isPending && !products?.length ? (

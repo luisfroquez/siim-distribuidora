@@ -116,20 +116,19 @@ export const GET_ALL_PRODUCTS_NO_FILTERS = gql`
 `
 export const GET_ALL_PRODUCTS = gql`
   query GetAllProducts(
-    $first: Int!
-    $after: String
+    $size: Int!
+    $offset: Int!
     $orderByField: ProductsOrderByEnum!
     $orderByOrder: OrderEnum
     $featured: Boolean
     $categoryId: Int
   ) {
     products(
-      first: $first
-      after: $after
       where: {
         orderby: { field: $orderByField, order: $orderByOrder }
         featured: $featured
         categoryId: $categoryId
+        offsetPagination: { size: $size, offset: $offset }
       }
     ) {
       pageInfo {
