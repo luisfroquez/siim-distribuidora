@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { type Product } from "@/db/schema"
-import type { CartItem } from "@/types"
-import { toast } from "sonner"
+import { type Product } from '@/db/schema'
+import type { CartItem } from '@/types'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import * as React from 'react'
+import { toast } from 'sonner'
 
-import { sortOptions } from "@/config/products"
-import { cn } from "@/lib/utils"
-import { useDebounce } from "@/hooks/use-debounce"
-import { Button } from "@/components/ui/button"
+import { addToCartAction, deleteCartItemAction } from '@/app/_actions/cart'
+import { Icons } from '@/components/icons'
+import { PaginationButton } from '@/components/pagination-button'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,9 +17,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
@@ -27,12 +27,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Slider } from "@/components/ui/slider"
-import { Icons } from "@/components/icons"
-import { PaginationButton } from "@/components/pagination-button"
-import { ProductCard } from "@/components/product-card"
-import { addToCartAction, deleteCartItemAction } from "@/app/_actions/cart"
+} from '@/components/ui/sheet'
+import { Slider } from '@/components/ui/slider'
+import { sortOptions } from '@/config/products'
+import { useDebounce } from '@/hooks/use-debounce'
+import { cn } from '@/lib/utils'
+import { ProductCard } from './product-card/product-card'
 
 interface BoardBuilderProps {
   products: Product[]
@@ -53,9 +53,9 @@ export function BoardBuilder({
   const [isPending, startTransition] = React.useTransition()
 
   // Search params
-  const page = searchParams?.get("page") ?? "1"
-  const per_page = searchParams?.get("per_page") ?? "8"
-  const sort = searchParams?.get("sort") ?? "createdAt.desc"
+  const page = searchParams?.get('page') ?? '1'
+  const per_page = searchParams?.get('per_page') ?? '8'
+  const sort = searchParams?.get('sort') ?? 'createdAt.desc'
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -113,18 +113,18 @@ export function BoardBuilder({
             productSubcategory: product.subcategory ?? subcategory,
           })
 
-          toast.success("Added to cart.")
+          toast.success('Added to cart.')
           return
         }
 
         await deleteCartItemAction({
           productId: product.id,
         })
-        toast.success("Removed from cart.")
+        toast.success('Removed from cart.')
       } catch (error) {
         error instanceof Error
           ? toast.error(error.message)
-          : toast.error("Something went wrong, please try again.")
+          : toast.error('Something went wrong, please try again.')
       }
     },
     [subcategory, cartItems]
@@ -228,7 +228,7 @@ export function BoardBuilder({
             {sortOptions.map((option) => (
               <DropdownMenuItem
                 key={option.label}
-                className={cn(option.value === sort && "font-bold")}
+                className={cn(option.value === sort && 'font-bold')}
                 onClick={() => {
                   startTransition(() => {
                     router.push(

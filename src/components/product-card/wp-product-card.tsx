@@ -79,7 +79,7 @@ export function WpProductCard({
                 className={buttonVariants({
                   variant: 'default',
                   size: 'sm',
-                  className: 'h-8 w-full rounded-sm',
+                  className: 'h-8 w-full rounded-sm min-w-max',
                 })}
               >
                 Seleccionar opción
@@ -88,7 +88,7 @@ export function WpProductCard({
               <Button
                 aria-label="Añadir al cotizador"
                 size="sm"
-                className="h-8 w-full rounded-sm"
+                className="h-8 w-full rounded-sm min-w-max"
                 onClick={() => {
                   startTransition(async () => {
                     try {
