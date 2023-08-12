@@ -121,6 +121,7 @@ export const GET_ALL_PRODUCTS = gql`
     $orderByField: ProductsOrderByEnum!
     $orderByOrder: OrderEnum
     $featured: Boolean
+    $categoryId: Int
   ) {
     products(
       first: $first
@@ -128,6 +129,7 @@ export const GET_ALL_PRODUCTS = gql`
       where: {
         orderby: { field: $orderByField, order: $orderByOrder }
         featured: $featured
+        categoryId: $categoryId
       }
     ) {
       pageInfo {

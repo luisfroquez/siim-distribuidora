@@ -8,6 +8,7 @@ import { Shell } from '@/components/shell'
 import { Badge } from '@/components/ui/badge'
 import CategoryBreadcrumb from '@/components/ui/category-breadcrumb'
 import { toTitleCase } from '@/lib/utils'
+import { WpProducts } from '../../(modules)/wp-products'
 
 interface Params {
   params: { slug: string[] }
@@ -103,6 +104,7 @@ export default async function Page({ params }: Params) {
           </div>
         </div>
       )}
+      <WpProducts category={category} />
     </Shell>
   )
 }

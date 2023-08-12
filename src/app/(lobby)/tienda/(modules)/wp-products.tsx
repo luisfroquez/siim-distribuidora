@@ -30,6 +30,7 @@ import { GET_ALL_PRODUCTS } from '@/wp/queries'
 import Switch from '@/components/ui/switch/switch'
 import { wpSortOptions } from '@/config/wp-products'
 import {
+  type WpCategories,
   type WpGetAllProducts,
   type WpGetAllProductsVariables,
 } from '@/wp/types'
@@ -37,7 +38,11 @@ import { useQuery } from '@apollo/client'
 import { WpProductCard } from '../../../../components/product-card/wp-product-card'
 import WpProductsSkeleton from './wp-products-skeleton'
 
-export function WpProducts() {
+interface WpProductsProps {
+  category?: WpCategories | null
+}
+
+export function WpProducts({ category }: WpProductsProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -49,8 +54,9 @@ export function WpProducts() {
   const sort = searchParams?.get('sort') ?? 'ASC'
   const sortField = searchParams.get('sortField') ?? 'NAME'
   const featured = searchParams.get('featured') === 'true' ? true : undefined
+  const categoryId = category?.databaseId
 
-  const { loading, data, error, refetch } = useQuery<
+  const { loading, data, error } = useQuery<
     WpGetAllProducts,
     WpGetAllProductsVariables
   >(GET_ALL_PRODUCTS, {
@@ -59,6 +65,7 @@ export function WpProducts() {
       orderByField: sortField,
       orderByOrder: sort,
       featured: featured,
+      categoryId: categoryId,
     },
   })
 

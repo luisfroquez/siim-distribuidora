@@ -71,6 +71,7 @@ export interface WpGetAllProductsVariables {
   orderByField: ProductsOrderByEnum
   orderByOrder: OrderEnum
   featured?: Boolean
+  categoryId?: Number
 }
 
 export interface WpSearchResult {
