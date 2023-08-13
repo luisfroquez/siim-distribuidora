@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { isClerkAPIResponseError, useSignIn } from "@clerk/nextjs"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import type { z } from "zod"
+import { isClerkAPIResponseError, useSignIn } from '@clerk/nextjs'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import type { z } from 'zod'
 
-import { checkEmailSchema } from "@/lib/validations/auth"
-import { Button } from "@/components/ui/button"
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -17,9 +17,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Icons } from "@/components/icons"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { checkEmailSchema } from '@/lib/validations/auth'
 
 type Inputs = z.infer<typeof checkEmailSchema>
 
@@ -32,7 +32,7 @@ export function ResetPasswordForm() {
   const form = useForm<Inputs>({
     resolver: zodResolver(checkEmailSchema),
     defaultValues: {
-      email: "",
+      email: '',
     },
   })
 
@@ -42,18 +42,18 @@ export function ResetPasswordForm() {
     startTransition(async () => {
       try {
         const firstFactor = await signIn.create({
-          strategy: "reset_password_email_code",
+          strategy: 'reset_password_email_code',
           identifier: data.email,
         })
 
-        if (firstFactor.status === "needs_first_factor") {
-          router.push("/signin/reset-password/step2")
-          toast.message("Check your email", {
-            description: "We sent you a 6-digit verification code.",
+        if (firstFactor.status === 'needs_first_factor') {
+          router.push('/signin/reset-password/step2')
+          toast.message('Check your email', {
+            description: 'We sent you a 6-digit verification code.',
           })
         }
       } catch (error) {
-        const unknownError = "Something went wrong, please try again."
+        const unknownError = 'Something went wrong, please try again.'
 
         isClerkAPIResponseError(error)
           ? toast.error(error.errors[0]?.longMessage ?? unknownError)
@@ -88,9 +88,9 @@ export function ResetPasswordForm() {
               aria-hidden="true"
             />
           )}
-          Continue
+          Continuar
           <span className="sr-only">
-            Continue to reset password verification
+            Continuar para reiniciar tu contraseña
           </span>
         </Button>
       </form>

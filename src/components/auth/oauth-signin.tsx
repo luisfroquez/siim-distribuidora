@@ -1,17 +1,17 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { isClerkAPIResponseError, useSignIn } from "@clerk/nextjs"
-import { type OAuthStrategy } from "@clerk/types"
-import { toast } from "sonner"
+import { isClerkAPIResponseError, useSignIn } from '@clerk/nextjs'
+import { type OAuthStrategy } from '@clerk/types'
+import * as React from 'react'
+import { toast } from 'sonner'
 
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 
 const oauthProviders = [
-  { name: "Google", strategy: "oauth_google", icon: "google" },
-  { name: "Facebook", strategy: "oauth_facebook", icon: "facebook" },
-  { name: "Discord", strategy: "oauth_discord", icon: "discord" },
+  { name: 'Google', strategy: 'oauth_google', icon: 'google' },
+  { name: 'Facebook', strategy: 'oauth_facebook', icon: 'facebook' },
+  { name: 'LinkedIn', strategy: 'oauth_linkedin', icon: 'linkedin' },
 ] satisfies {
   name: string
   icon: keyof typeof Icons
@@ -28,13 +28,13 @@ export function OAuthSignIn() {
       setIsLoading(provider)
       await signIn.authenticateWithRedirect({
         strategy: provider,
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/",
+        redirectUrl: '/sso-callback',
+        redirectUrlComplete: '/',
       })
     } catch (error) {
       setIsLoading(null)
 
-      const unknownError = "Something went wrong, please try again."
+      const unknownError = 'Ocurrió un error, intenta de nuevo por favor.'
 
       isClerkAPIResponseError(error)
         ? toast.error(error.errors[0]?.longMessage ?? unknownError)
@@ -49,7 +49,7 @@ export function OAuthSignIn() {
 
         return (
           <Button
-            aria-label={`Sign in with ${provider.name}`}
+            aria-label={`Ingresa con ${provider.name}`}
             key={provider.strategy}
             variant="outline"
             className="w-full bg-background sm:w-auto"

@@ -1,18 +1,18 @@
-import { type Metadata } from "next"
+import { type Metadata } from 'next'
 
+import { ResetPasswordForm } from '@/components/forms/reset-password-form'
+import { Shell } from '@/components/shell'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { ResetPasswordForm } from "@/components/forms/reset-password-form"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Reset Password",
-  description: "Enter your email to reset your password",
+  title: 'Recupera tu contraseña',
+  description: 'Ingresa tu mail para recuperar tu contraseña',
 }
 
 export default function ResetPasswordPage() {
@@ -20,9 +20,9 @@ export default function ResetPasswordPage() {
     <Shell layout="auth">
       <Card>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Reset password</CardTitle>
+          <CardTitle className="text-2xl">Recupera tu contraseña</CardTitle>
           <CardDescription>
-            Enter your email address and we will send you a verification code
+            Ingresa tu correo y te enviaremos un código de recuperación.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">

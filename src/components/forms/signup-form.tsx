@@ -1,15 +1,16 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { isClerkAPIResponseError, useSignUp } from "@clerk/nextjs"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import type { z } from "zod"
+import { isClerkAPIResponseError, useSignUp } from '@clerk/nextjs'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import type { z } from 'zod'
 
-import { authSchema } from "@/lib/validations/auth"
-import { Button } from "@/components/ui/button"
+import { Icons } from '@/components/icons'
+import { PasswordInput } from '@/components/password-input'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -17,10 +18,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Icons } from "@/components/icons"
-import { PasswordInput } from "@/components/password-input"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { authSchema } from '@/lib/validations/auth'
 
 type Inputs = z.infer<typeof authSchema>
 
@@ -33,8 +33,8 @@ export function SignUpForm() {
   const form = useForm<Inputs>({
     resolver: zodResolver(authSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   })
 
@@ -50,15 +50,15 @@ export function SignUpForm() {
 
         // Send email verification code
         await signUp.prepareEmailAddressVerification({
-          strategy: "email_code",
+          strategy: 'email_code',
         })
 
-        router.push("/signup/verify-email")
-        toast.message("Check your email", {
-          description: "We sent you a 6-digit verification code.",
+        router.push('/signup/verify-email')
+        toast.message('Revisa tu correo', {
+          description: 'Te enviamos un código de verificación de 6 dígitos.',
         })
       } catch (error) {
-        const unknownError = "Something went wrong, please try again."
+        const unknownError = 'Ocurrió un error, por favor intente nuevamente.'
 
         isClerkAPIResponseError(error)
           ? toast.error(error.errors[0]?.longMessage ?? unknownError)
@@ -78,9 +78,13 @@ export function SignUpForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Correo</FormLabel>
               <FormControl>
-                <Input placeholder="rodneymullen180@gmail.com" {...field} />
+                <Input
+                  placeholder="info@siim.cl"
+                  {...field}
+                  className="placeholder:text-muted"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,9 +95,13 @@ export function SignUpForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <PasswordInput placeholder="**********" {...field} />
+                <PasswordInput
+                  placeholder="**********"
+                  {...field}
+                  className="placeholder:text-muted"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,8 +114,10 @@ export function SignUpForm() {
               aria-hidden="true"
             />
           )}
-          Continue
-          <span className="sr-only">Continue to email verification page</span>
+          Continuar
+          <span className="sr-only">
+            Continuar con la verificación de correo
+          </span>
         </Button>
       </form>
     </Form>

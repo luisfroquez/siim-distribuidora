@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { SignOutButton } from "@clerk/nextjs"
+import { SignOutButton } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { useMounted } from "@/hooks/use-mounted"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useMounted } from '@/hooks/use-mounted'
+import { cn } from '@/lib/utils'
 
 export function LogOutButtons() {
   const router = useRouter()
@@ -26,7 +26,7 @@ export function LogOutButtons() {
           }
         >
           <Button
-            aria-label="Log out"
+            aria-label="Cerrar sesion"
             size="sm"
             className="w-full"
             disabled={isPending}
@@ -34,28 +34,28 @@ export function LogOutButtons() {
             {isPending && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Log out
+            Cerrar sesión
           </Button>
         </SignOutButton>
       ) : (
         <Skeleton
           className={cn(
-            buttonVariants({ size: "sm" }),
-            "w-full bg-muted text-muted-foreground"
+            buttonVariants({ size: 'sm' }),
+            'w-full bg-muted text-muted-foreground'
           )}
         >
-          Log out
+          Cerrar sesión
         </Skeleton>
       )}
       <Button
-        aria-label="Go back to the previous page"
+        aria-label="Regresar a la pagina anterior"
         variant="outline"
         size="sm"
         className="w-full"
         onClick={() => router.back()}
         disabled={isPending}
       >
-        Go back
+        Regresar
       </Button>
     </div>
   )

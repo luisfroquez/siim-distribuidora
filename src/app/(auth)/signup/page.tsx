@@ -1,6 +1,9 @@
-import { type Metadata } from "next"
-import Link from "next/link"
+import { type Metadata } from 'next'
+import Link from 'next/link'
 
+import { OAuthSignIn } from '@/components/auth/oauth-signin'
+import { SignUpForm } from '@/components/forms/signup-form'
+import { Shell } from '@/components/shell'
 import {
   Card,
   CardContent,
@@ -8,14 +11,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { OAuthSignIn } from "@/components/auth/oauth-signin"
-import { SignUpForm } from "@/components/forms/signup-form"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Sign Up",
-  description: "Sign up for an account",
+  title: 'Crear tu cuenta',
+  description: 'Ingresa tus datos para crear tu cuenta',
 }
 
 export default function SignUpPage() {
@@ -23,9 +23,9 @@ export default function SignUpPage() {
     <Shell layout="auth">
       <Card>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Sign up</CardTitle>
+          <CardTitle className="text-2xl">Crear cuenta</CardTitle>
           <CardDescription>
-            Choose your preferred sign up method
+            Elige tu método de ingreso preferido
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -36,7 +36,7 @@ export default function SignUpPage() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                O continua con
               </span>
             </div>
           </div>
@@ -44,13 +44,13 @@ export default function SignUpPage() {
         </CardContent>
         <CardFooter className="grid gap-4">
           <div className="text-sm text-muted-foreground">
-            Already have an account?{" "}
+            ¿Ya tienes una cuenta?{' '}
             <Link
               aria-label="Sign in"
               href="/signin"
               className="text-primary underline-offset-4 transition-colors hover:underline"
             >
-              Sign in
+              Inicia sesión
             </Link>
           </div>
         </CardFooter>
