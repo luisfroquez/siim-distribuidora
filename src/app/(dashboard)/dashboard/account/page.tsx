@@ -1,12 +1,12 @@
-import type { Metadata } from "next"
-import { UserProfile } from "@clerk/nextjs"
+import { UserProfile } from '@clerk/nextjs'
+import { type Metadata } from 'next'
 
-import { Header } from "@/components/header"
-import { Shell } from "@/components/shell"
+import { Header } from '@/components/header'
+import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
-  title: "Account",
-  description: "Manage your account settings",
+  title: 'Account',
+  description: 'Manage your account settings',
 }
 
 export default function AccountPage() {
@@ -21,14 +21,14 @@ export default function AccountPage() {
         <UserProfile
           appearance={{
             variables: {
-              borderRadius: "0.25rem",
+              borderRadius: '0.25rem',
             },
             elements: {
-              card: "shadow-none",
-              navbar: "hidden",
-              navbarMobileMenuButton: "hidden",
-              headerTitle: "hidden",
-              headerSubtitle: "hidden",
+              card: 'shadow-none',
+              navbar: 'hidden',
+              navbarMobileMenuButton: 'hidden',
+              headerTitle: 'hidden',
+              headerSubtitle: 'hidden',
             },
           }}
         />
