@@ -7,6 +7,9 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
+import { IwsProductCard } from '@/components/product-card/iws-product-card'
+import { getExtendedCatalog } from '@/iws/get-extended-catalog'
+import { createTwoAleatoryNumbers } from '@/utils/create-two-aleatory-numbers'
 import Categories from './(modules)/Categories'
 import FeaturedProducts from './(modules)/FeaturedProducts'
 import Features from './(modules)/Features'
@@ -16,7 +19,17 @@ import Hero from './(modules)/Hero'
 // Running out of edge function execution units on vercel free plan
 // export const runtime = "edge"
 
-export default function IndexPage() {
+export default async function IndexPage() {
+  const extendedData = await getExtendedCatalog()
+  const allIwsProductsWithImages = extendedData
+    .filter((e) => e.DescripcionFabrica === 'Hikvision')
+    .filter((e) => e.Imagenes.length > 0)
+
+  const lenght = allIwsProductsWithImages.length ?? 0
+
+  const [min, max] = createTwoAleatoryNumbers(lenght, 8)
+
+  const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
   return (
     <div>
       <Shell>
@@ -70,15 +83,10 @@ export default function IndexPage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {/* {slicedIwsProductsWithImages.map((iwsProduct, i) => (
+            {slicedIwsProductsWithImages.map((iwsProduct, i) => (
               <IwsProductCard key={i} product={iwsProduct} />
-            ))} */}
-          </div>
-          {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {allProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
             ))}
-          </div> */}
+          </div>
         </div>
 
         <Card className="mt-4 grid place-items-center gap-4 px-6 py-16 text-center">
@@ -88,24 +96,6 @@ export default function IndexPage() {
           </h2>
           <SubscribeToNewsletterForm />
         </Card>
-
-        {/* <div className="flex flex-wrap items-center justify-center gap-4">
-          {productCategories[
-            Math.floor(Math.random() * productCategories.length)
-          ]?.subcategories.map((subcategory) => (
-            <Link
-              key={subcategory.slug}
-              href={`/categories/${String(productCategories[0]?.title)}/${
-                subcategory.slug
-              }`}
-            >
-              <Badge variant="secondary" className="rounded-md px-3 py-1">
-                {subcategory.title}
-              </Badge>
-              <span className="sr-only">{subcategory.title}</span>
-            </Link>
-          ))}
-        </div> */}
 
         <FooterCategories />
       </Shell>
