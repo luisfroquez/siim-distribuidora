@@ -27,12 +27,12 @@ export async function subscribeToNewsletterAction(
   console.log(emailPreference)
 
   if (emailPreference) {
-    throw new Error("You are already subscribed to the newsletter.")
+    throw new Error("Ya estabas suscrit@ a nuestro boletín.")
   }
 
   const user = await currentUser()
 
-  const subject = input.subject ?? "Welcome to our newsletter"
+  const subject = input.subject ?? "¡Bienvenid@ a nuestro Boletín Informativo!"
 
   await resend.emails.send({
     from: env.EMAIL_FROM_ADDRESS,
@@ -63,7 +63,7 @@ export async function updateEmailPreferencesAction(
   })
 
   if (!emailPreference) {
-    throw new Error("Email not found.")
+    throw new Error("Correo electrónico no encontrado.")
   }
 
   const user = await currentUser()
@@ -72,7 +72,7 @@ export async function updateEmailPreferencesAction(
     await resend.emails.send({
       from: env.EMAIL_FROM_ADDRESS,
       to: emailPreference.email,
-      subject: "Welcome to skateshop",
+      subject: "Bienvenid@ a SIIM Distribuidora",
       react: NewsletterWelcomeEmail({
         firstName: user?.firstName ?? undefined,
         fromEmail: env.EMAIL_FROM_ADDRESS,

@@ -1,6 +1,7 @@
 import * as SlotPrimitive from '@radix-ui/react-slot';
 import * as React from 'react';
 import { As, unreachable } from '../utils';
+import classNames from 'classnames';
 
 export type TextSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 export type TextColor = 'gray' | 'white';
@@ -32,7 +33,7 @@ export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
   ) => (
     <SlotPrimitive.Slot
       ref={forwardedRef}
-      className={classnames(
+      className={classNames(
         className,
         transform,
         getSizesClassNames(size),

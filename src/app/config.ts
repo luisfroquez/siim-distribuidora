@@ -6,4 +6,5 @@ export const {
   NEXT_PUBLIC_IWS_TEST_API_URL,
   NEXT_PUBLIC_CONTENT_URL,
   DATABASE_URL,
+  NEXT_PUBLIC_APP_URL,
 } = process.env

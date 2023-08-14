@@ -3,16 +3,14 @@ import {
   Container,
   Head,
   Heading,
-  Hr,
   Html,
   Img,
   Link,
   Preview,
-  Row,
   Section,
   Tailwind,
   Text,
-} from "@react-email/components"
+} from '@react-email/components'
 
 interface NewsletterWelcomeEmailProps {
   firstName?: string
@@ -20,89 +18,78 @@ interface NewsletterWelcomeEmailProps {
   token: string
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ""
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ''
 
 // For previewing we need to put images in the .react-email/public folder
 // In production we need to put images in the root public folder
-const newsletterImages = [
-  {
-    src: `${baseUrl}/images/skateboarder-flying-high.webp`,
-    alt: "Skateboarder flying high",
-    credit: "ALLAN FRANCA CARMO",
-    creditUrl:
-      "https://www.pexels.com/photo/time-lapse-photography-of-man-doing-skateboard-trick-3133685/",
-    description: `Skateboarding is a sport that has been around for decades. It's not just about the tricks, but also about the culture and community that surrounds it. So we decided to create a newsletter to share our passion with others who love skateboarding as much as we do!`,
-  },
-  {
-    src: `${baseUrl}/images/skateboarder-landing-on-half-pipe.webp`,
-    alt: "Skateboarder landing on half pipe",
-    credit: "cottonbro studio",
-    creditUrl:
-      "https://www.pexels.com/photo/skateboarder-jumping-a-skateboard-5037502/",
-    description: `${`We'll`} be keeping you up to date with the latest skateboarding news, events, and more. Stay up to date with the latest trends and tricks. Stay tuned for more!`,
-  },
-]
 
 export default function NewsletterWelcomeEmail({
-  firstName = "there",
+  firstName = '',
   fromEmail,
   token,
 }: NewsletterWelcomeEmailProps) {
-  const previewText = `Hi ${firstName}, welcome to Skateshop13!`
+  const previewText = `Hola ${firstName}, ¡Bienvenid@ al boletín informativo de SIIM Distribuidora!`
 
   return (
     <Html>
       <Head>
-        <title>Skateshop13 Newsletter</title>
+        <title>Boletín informativo - SIIM Distribuidora</title>
       </Head>
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="mx-auto bg-zinc-50 font-sans">
-          <Container className="mx-auto my-[40px] max-w-2xl rounded p-4">
-            <Section className="mt-4">
-              <Heading className="text-center text-2xl font-semibold text-zinc-950">
-                Skateshop13
+        <Body className="mx-auto bg-zinc-50 font-sans p-8">
+          <Container className="mx-auto my-[40px] max-w-2xl rounded-2xl p-4 bg-white">
+            <Section className="bg-gray-100 w-full p-8 rounded">
+              <Img
+                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/Logo-Horizontal.png"
+                alt="Logo SIIM Distribuidora"
+                className="aspect-[2.43/1] w-40 object-cover mx-auto"
+              />
+            </Section>
+            <Section className="text-gray-900 px-8">
+              <Heading className="text-center text-3xl mt-8 font-bold text-blue-600">
+                ¡Bienvenid@ a nuestro Boletín Informativo!
               </Heading>
-              <Hr className="my-4" />
-              <Heading className="text-center text-3xl font-semibold text-zinc-800">
-                Welcome to Skateshop13!
-              </Heading>
-              <Text className="mb-0 mt-6 text-center text-base">
-                {`We're`} so glad {`you're`} here. {`We're`} excited to share
-                our passion for skateboarding with you.
+            </Section>
+            <Section className="text-gray-900 px-8 flex flex-col gap-4 text-left">
+              <Text>
+                Estamos emocionados de darte la bienvenida a nuestra comunidad.
+                En SIIM Distribuidora, no solo somos expertos en materiales y
+                equipos para la detección y extinción de incendios, seguridad
+                electrónica, ferretería y electricidad, ¡sino que también somos
+                tus socios confiables en cada paso del camino!
               </Text>
-              <Text className="m-0 text-center text-base">
-                {`We'll`} be sending you a newsletter every month.
+
+              <Text>
+                Nuestro compromiso es proporcionarte información valiosa y
+                actualizada sobre las últimas novedades en el mundo de la
+                seguridad y la tecnología. A través de este boletín, estarás al
+                tanto de las tendencias más recientes, consejos de expertos y
+                promociones especiales que hemos preparado exclusivamente para
+                ti.
+              </Text>
+
+              <Text>
+                Desde soluciones innovadoras hasta productos de alta calidad,
+                SIIM Distribuidora se enorgullece de ser tu fuente de confianza
+                para todas tus necesidades en seguridad y electricidad. Estamos
+                aquí para responder a tus preguntas, brindarte asesoramiento
+                personalizado y asegurarnos de que cuentes con los recursos
+                necesarios para tomar decisiones informadas.
               </Text>
             </Section>
-            <Section className="mt-6">
-              {newsletterImages.map((item) => (
-                <Row key={item.alt} className="mt-10">
-                  <Img
-                    src={item.src}
-                    alt={item.alt}
-                    height={424}
-                    className="aspect-video w-full object-cover"
-                  />
-                  <Text className="mb-0 mt-2 text-center text-zinc-400">
-                    Photo by{" "}
-                    <Link
-                      href={item.creditUrl}
-                      className="text-blue-500 underline"
-                    >
-                      {item.credit}
-                    </Link>
-                  </Text>
-                  <Text className="mb-0 mt-4 text-center text-base">
-                    {item.description}
-                  </Text>
-                </Row>
-              ))}
+            <Section>
+              <Img
+                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/newsletter-image.png"
+                alt="SIIM Imagen de Boletin Informativo"
+                height={424}
+                className="aspect-video w-full object-cover mb-0 mt-4 rounded-t"
+              />
             </Section>
-            <Section className="mt-4 text-center text-zinc-400">
-              <Text className="my-4">
-                {`We're`} looking forward to seeing you around! If you have any
-                questions, please {`don't`} hesitate to reach out to us at{" "}
+            <Section className="bg-gray-100 w-full p-8 rounded-b text-center text-zinc-400">
+              <Text>
+                Te estaremos enviando nuestro boletín una vez por mes. <br /> Si
+                tienes alguna pregunta, por favor no dudes en contactarnos a:{' '}
                 <Link
                   href={`mailto:${fromEmail}`}
                   className="text-blue-500 underline"
@@ -110,17 +97,18 @@ export default function NewsletterWelcomeEmail({
                   {fromEmail}
                 </Link>
               </Text>
-              <Text className="mb-0 mt-4">
-                @ Skateshop13 {new Date().getFullYear()}
+              <Text className="mt-4">
+                @ SIIM Distribuidora {new Date().getFullYear()}
               </Text>
-              <Text className="m-0">
-                If you no longer want to receive these emails, you can{" "}
+              <Text>
+                Si no deseas recibir nuestros correos, puedes{' '}
                 <Link
                   href={`${baseUrl}/email-preferences?token=${token}`}
-                  className="text-blue-500 underline"
+                  className="text-blue-600"
                 >
-                  unsubscribe here
+                  darte de baja aquí
                 </Link>
+                .
               </Text>
             </Section>
           </Container>
