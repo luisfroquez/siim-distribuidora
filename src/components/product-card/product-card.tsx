@@ -1,12 +1,13 @@
 'use client'
 
-import * as React from 'react'
+import { type Product } from '@/db/schema'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type Product } from '@/db/schema'
+import * as React from 'react'
 import { toast } from 'sonner'
 
-import { formatPrice } from '@/lib/utils'
+import { addToCartAction } from '@/app/_actions/cart'
+import { Icons } from '@/components/icons'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
@@ -17,8 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Icons } from '@/components/icons'
-import { addToCartAction } from '@/app/_actions/cart'
+import { formatPrice } from '@/lib/utils'
 
 interface ProductCardProps {
   product: Product

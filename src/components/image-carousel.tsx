@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import Image from "next/image"
+import Image from 'next/image'
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface ImageCarouselProps
   extends React.DetailedHTMLProps<
@@ -69,8 +69,8 @@ export function ImageCarousel({
                 variant="outline"
                 size="icon"
                 className={cn(
-                  "group relative aspect-square h-auto w-full rounded-none shadow-sm hover:bg-transparent focus-visible:ring-foreground",
-                  i === currentImage && "ring-1 ring-foreground"
+                  'group relative aspect-square h-auto w-full rounded-none shadow-sm hover:bg-transparent focus-visible:ring-foreground',
+                  i === currentImage && 'ring-1 ring-foreground'
                 )}
                 tabIndex={0}
                 onClick={() => slideTo(i)}

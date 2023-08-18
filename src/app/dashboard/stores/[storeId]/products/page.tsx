@@ -1,14 +1,14 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { db } from "@/db"
-import { products, stores, type Product } from "@/db/schema"
-import { and, asc, desc, eq, gte, like, lte, sql } from "drizzle-orm"
+import { db } from '@/db'
+import { products, stores, type Product } from '@/db/schema'
+import { and, asc, desc, eq, gte, like, lte, sql } from 'drizzle-orm'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-import { ProductsTable } from "@/components/products-table"
+import { ProductsTable } from '@/components/products-table'
 
 export const metadata: Metadata = {
-  title: "Products",
-  description: "Manage your products",
+  title: 'Products',
+  description: 'Manage your products',
 }
 
 interface ProductsPageProps {
@@ -41,20 +41,20 @@ export default async function ProductsPage({
   }
 
   // Number of skaters to show per page
-  const limit = typeof per_page === "string" ? parseInt(per_page) : 10
+  const limit = typeof per_page === 'string' ? parseInt(per_page) : 10
   // Number of skaters to skip
-  const offset = typeof page === "string" ? (parseInt(page) - 1) * limit : 0
+  const offset = typeof page === 'string' ? (parseInt(page) - 1) * limit : 0
   // Column and order to sort by
   const [column, order] =
-    typeof sort === "string"
-      ? (sort.split(".") as [
+    typeof sort === 'string'
+      ? (sort.split('.') as [
           keyof Product | undefined,
-          "asc" | "desc" | undefined
+          'asc' | 'desc' | undefined
         ])
       : []
   // Date range for created date
   const [start_date, end_date] =
-    typeof date_range === "string" ? date_range.split("to") : []
+    typeof date_range === 'string' ? date_range.split('to') : []
 
   // Transaction is used to ensure both queries are executed in a single transaction
   const { storeProducts, totalProducts } = await db.transaction(async (tx) => {
@@ -67,7 +67,7 @@ export default async function ProductsPage({
         and(
           eq(products.storeId, storeId),
           // Filter by name
-          typeof name === "string"
+          typeof name === 'string'
             ? like(products.name, `%${name}%`)
             : undefined,
           // Filter by created date
@@ -77,7 +77,7 @@ export default async function ProductsPage({
       )
       .orderBy(
         column && column in products
-          ? order === "asc"
+          ? order === 'asc'
             ? asc(products[column])
             : desc(products[column])
           : desc(products.createdAt)
@@ -91,7 +91,7 @@ export default async function ProductsPage({
       .where(
         and(
           eq(products.storeId, storeId),
-          typeof name === "string"
+          typeof name === 'string'
             ? like(products.name, `%${name}%`)
             : undefined,
           start_date && end_date

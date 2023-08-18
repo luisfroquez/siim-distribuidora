@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface DialogShellProps
   extends React.DetailedHTMLProps<
@@ -24,13 +24,13 @@ export function DialogShell({
 
   React.useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         router.back()
       }
     }
-    window.addEventListener("keydown", handleEsc)
+    window.addEventListener('keydown', handleEsc)
     return () => {
-      window.removeEventListener("keydown", handleEsc)
+      window.removeEventListener('keydown', handleEsc)
     }
   }, [router])
 

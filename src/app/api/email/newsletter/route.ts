@@ -1,14 +1,14 @@
-import { db } from "@/db"
-import { emailPreferences } from "@/db/schema"
-import { env } from "@/env.mjs"
-import { currentUser } from "@clerk/nextjs"
-import { eq } from "drizzle-orm"
-import { type ErrorResponse } from "resend"
-import { z } from "zod"
+import { db } from '@/db'
+import { emailPreferences } from '@/db/schema'
+import { env } from '@/env.mjs'
+import { currentUser } from '@clerk/nextjs'
+import { eq } from 'drizzle-orm'
+import { type ErrorResponse } from 'resend'
+import { z } from 'zod'
 
-import { resend } from "@/lib/resend"
-import { subscribeToNewsletterSchema } from "@/lib/validations/email"
-import NewsletterWelcomeEmail from "@/components/emails/newsletter-welcome-email"
+import NewsletterWelcomeEmail from '@/components/emails/newsletter-welcome-email'
+import { resend } from '@/lib/resend'
+import { subscribeToNewsletterSchema } from '@/lib/validations/email'
 
 export async function POST(req: Request) {
   const input = subscribeToNewsletterSchema.parse(await req.json())
@@ -19,14 +19,14 @@ export async function POST(req: Request) {
     })
 
     if (emailPreference?.newsletter) {
-      return new Response("You are already subscribed to the newsletter.", {
+      return new Response('You are already subscribed to the newsletter.', {
         status: 409,
       })
     }
 
     const user = await currentUser()
 
-    const subject = input.subject ?? "Welcome to our newsletter"
+    const subject = input.subject ?? 'Welcome to our newsletter'
 
     await resend.emails.send({
       from: env.EMAIL_FROM_ADDRESS,
@@ -64,6 +64,6 @@ export async function POST(req: Request) {
       return new Response(error.message, { status: 500 })
     }
 
-    return new Response("Something went wrong", { status: 500 })
+    return new Response('Something went wrong', { status: 500 })
   }
 }

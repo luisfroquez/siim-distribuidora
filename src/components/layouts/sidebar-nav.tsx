@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import type { SidebarNavItem } from "@/types"
+import type { SidebarNavItem } from '@/types'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-import { cn } from "@/lib/utils"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { cn } from '@/lib/utils'
 
 export interface SidebarNavProps {
   items: SidebarNavItem[]
@@ -19,22 +19,22 @@ export function SidebarNav({ items }: SidebarNavProps) {
   return (
     <div className="flex w-full flex-col gap-2">
       {items.map((item, index) => {
-        const Icon = Icons[item.icon ?? "chevronLeft"]
+        const Icon = Icons[item.icon ?? 'chevronLeft']
 
         return item.href ? (
           <Link
             key={index}
             href={item.href}
-            target={item.external ? "_blank" : ""}
-            rel={item.external ? "noreferrer" : ""}
+            target={item.external ? '_blank' : ''}
+            rel={item.external ? 'noreferrer' : ''}
           >
             <span
               className={cn(
-                "group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:bg-muted hover:text-foreground",
+                'group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:bg-muted hover:text-foreground',
                 pathname === item.href
-                  ? "bg-muted font-medium text-foreground"
-                  : "text-muted-foreground",
-                item.disabled && "pointer-events-none opacity-60"
+                  ? 'bg-muted font-medium text-foreground'
+                  : 'text-muted-foreground',
+                item.disabled && 'pointer-events-none opacity-60'
               )}
             >
               <Icon className="mr-2 h-4 w-4" aria-hidden="true" />

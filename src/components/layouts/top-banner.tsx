@@ -1,5 +1,3 @@
-import React from 'react'
-
 const TopBanner = () => {
   return (
     <div className="hidden h-8 w-full bg-border text-xs lg:flex">

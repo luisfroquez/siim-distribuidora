@@ -6,7 +6,6 @@ import { Header } from '@/components/header'
 import { Icons } from '@/components/icons'
 import { UpdateQuote } from '@/components/quoter/update-quote'
 import { Shell } from '@/components/shell'
-import { currentUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,8 +14,7 @@ export const metadata: Metadata = {
   description: 'Solicita la cotización de los productos seleccionados.',
 }
 
-export default async function BlogPage() {
-  const user = await currentUser()
+export default async function QuoterPage() {
   const quoteLineItems = await getQuoteAction()
 
   const itemCount = quoteLineItems.reduce(

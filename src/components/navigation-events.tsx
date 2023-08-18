@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import nProgress from 'nprogress'
+import { useEffect } from 'react'
 
 export function NavigationEvents() {
   useEffect(() => {

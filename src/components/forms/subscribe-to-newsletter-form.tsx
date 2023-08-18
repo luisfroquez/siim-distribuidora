@@ -1,13 +1,13 @@
 'use client'
 
-import * as React from 'react'
-import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import type { z } from 'zod'
 
-import { emailSchema } from '@/lib/validations/email'
+import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Icons } from '@/components/icons'
+import { emailSchema } from '@/lib/validations/email'
 
 type Inputs = z.infer<typeof emailSchema>
 

@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { toast } from 'sonner'
 
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
 import {
   getNextStoreIdAction,
   getPreviousStoreIdAction,
-} from "@/app/_actions/store"
+} from '@/app/_actions/store'
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 
 interface StoreNavigatorProps {
   storeId: number
@@ -36,7 +36,7 @@ export function StoreNavigator({ storeId, userId }: StoreNavigatorProps) {
             } catch (error) {
               error instanceof Error
                 ? toast.error(error.message)
-                : toast.error("Something went wrong, please try again.")
+                : toast.error('Something went wrong, please try again.')
             }
           })
         }}
@@ -59,7 +59,7 @@ export function StoreNavigator({ storeId, userId }: StoreNavigatorProps) {
             } catch (error) {
               error instanceof Error
                 ? toast.error(error.message)
-                : toast.error("Something went wrong, please try again.")
+                : toast.error('Something went wrong, please try again.')
             }
           })
         }}

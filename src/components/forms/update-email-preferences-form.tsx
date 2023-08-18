@@ -1,14 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { type EmailPreference } from "@/db/schema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { type z } from "zod"
+import { type EmailPreference } from '@/db/schema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { type z } from 'zod'
 
-import { updateEmailPreferencesSchema } from "@/lib/validations/email"
-import { Button } from "@/components/ui/button"
+import { updateEmailPreferencesAction } from '@/app/_actions/email'
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -17,10 +18,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Switch } from "@/components/ui/switch"
-import { Icons } from "@/components/icons"
-import { updateEmailPreferencesAction } from "@/app/_actions/email"
+} from '@/components/ui/form'
+import { Switch } from '@/components/ui/switch'
+import { updateEmailPreferencesSchema } from '@/lib/validations/email'
 
 interface UpdateEmailPreferencesFormProps {
   emailPreference: EmailPreference
@@ -54,11 +54,11 @@ export function UpdateEmailPreferencesForm({
           transactional: data.transactional,
           marketing: data.marketing,
         })
-        toast.success("Email preferences updated.")
+        toast.success('Email preferences updated.')
       } catch (error) {
         error instanceof Error
           ? toast.error(error.message)
-          : toast.error("Something went wrong, please try again.")
+          : toast.error('Something went wrong, please try again.')
       }
     })
   }

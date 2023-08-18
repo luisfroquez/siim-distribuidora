@@ -1,6 +1,6 @@
-import { Quote } from '@/db/schema'
-import { RequestQuoteInputTypes } from '@/lib/validations/quote'
-import { QuoteLineItem } from '@/types'
+import { type Quote } from '@/db/schema'
+import { type RequestQuoteInputTypes } from '@/lib/validations/quote'
+import { type QuoteLineItem } from '@/types'
 import {
   Body,
   Column,
@@ -85,16 +85,16 @@ export const QuoteForClient = ({
 }: QuoteForClientProps) => {
   const previewText = `¡Haz solicitado una cotización!`
   const objectDate = quote?.createdAt ?? new Date()
-  let day = objectDate.getDate()
-  let month = objectDate.getMonth()
-  let year = objectDate.getFullYear()
+  const day = objectDate.getDate()
+  const month = objectDate.getMonth()
+  const year = objectDate.getFullYear()
   const date = `${day}/${month}/${year}`
 
   const total = quoteLineItems.reduce((acc, q) => acc + (q.quantity ?? 0), 0)
   return (
     <Html>
       <Head>
-        <title>{`Solicitud de Cotización N° ${quote?.id}`}</title>
+        <title>{`Solicitud de Cotización N°${quote?.id ?? '-'}`}</title>
       </Head>
       <Preview>{previewText}</Preview>
 

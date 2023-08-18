@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import type { Option } from "@/types"
-import { Command as CommandPrimitive } from "cmdk"
-import { X } from "lucide-react"
+import type { Option } from '@/types'
+import { Command as CommandPrimitive } from 'cmdk'
+import { X } from 'lucide-react'
+import * as React from 'react'
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Command, CommandGroup, CommandItem } from '@/components/ui/command'
 
 interface MultiSelectProps {
   selected: Option[] | null
@@ -21,12 +21,12 @@ export function MultiSelect({
   selected,
   setSelected,
   onChange,
-  placeholder = "Select options",
+  placeholder = 'Select options',
   options,
 }: MultiSelectProps) {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [isOpen, setIsOpen] = React.useState(false)
-  const [query, setQuery] = React.useState("")
+  const [query, setQuery] = React.useState('')
 
   // Register as input field to be used in react-hook-form
   React.useEffect(() => {
@@ -51,12 +51,12 @@ export function MultiSelect({
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (!inputRef.current) return
 
-      if (event.key === "Backspace" || event.key === "Delete") {
+      if (event.key === 'Backspace' || event.key === 'Delete') {
         setSelected((prev) => prev?.slice(0, -1) ?? [])
       }
 
       // Blur input on escape
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         inputRef.current.blur()
       }
     },
@@ -94,7 +94,7 @@ export function MultiSelect({
                   size="sm"
                   className="ml-2 h-auto bg-transparent p-0 text-primary hover:bg-transparent hover:text-destructive"
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
+                    if (e.key === 'Enter') {
                       e.preventDefault()
                       e.stopPropagation()
                       handleRemove(option)
@@ -137,7 +137,7 @@ export function MultiSelect({
                     }}
                     onSelect={() => {
                       handleSelect(option)
-                      setQuery("")
+                      setQuery('')
                     }}
                   >
                     {option.label}

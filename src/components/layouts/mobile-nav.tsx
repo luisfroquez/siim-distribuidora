@@ -1,22 +1,22 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import type { MainNavItem, SidebarNavItem } from "@/types"
+import type { MainNavItem, SidebarNavItem } from '@/types'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import * as React from 'react'
 
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { Icons } from '@/components/icons'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Icons } from "@/components/icons"
+} from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 
 interface MobileNavProps {
   mainNavItems?: MainNavItem[]
@@ -140,9 +140,9 @@ function MobileLink({
     <Link
       href={href}
       className={cn(
-        "text-foreground/70 transition-colors hover:text-foreground",
-        pathname === href && "text-foreground",
-        disabled && "pointer-events-none opacity-60"
+        'text-foreground/70 transition-colors hover:text-foreground',
+        pathname === href && 'text-foreground',
+        disabled && 'pointer-events-none opacity-60'
       )}
       onClick={() => setIsOpen(false)}
     >

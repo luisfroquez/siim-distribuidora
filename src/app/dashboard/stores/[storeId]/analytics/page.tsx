@@ -1,15 +1,15 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { db } from "@/db"
-import { stores } from "@/db/schema"
-import { eq } from "drizzle-orm"
-import { Activity, CreditCard, DollarSign, Users } from "lucide-react"
+import { db } from '@/db'
+import { stores } from '@/db/schema'
+import { eq } from 'drizzle-orm'
+import { Activity, CreditCard, DollarSign, Users } from 'lucide-react'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Analytics",
-  description: "Analytics for your store",
+  title: 'Analytics',
+  description: 'Analytics for your store',
 }
 
 interface AnalyticsPageProps {

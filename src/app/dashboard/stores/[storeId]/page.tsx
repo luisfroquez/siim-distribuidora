@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
-import { revalidatePath } from "next/cache"
-import { notFound, redirect } from "next/navigation"
-import { db } from "@/db"
-import { stores } from "@/db/schema"
-import { and, eq, not } from "drizzle-orm"
+import { db } from '@/db'
+import { stores } from '@/db/schema'
+import { and, eq, not } from 'drizzle-orm'
+import type { Metadata } from 'next'
+import { revalidatePath } from 'next/cache'
+import { notFound, redirect } from 'next/navigation'
 
 import {
   Card,
@@ -11,15 +11,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { Textarea } from "@/components/ui/textarea"
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { Textarea } from '@/components/ui/textarea'
 
 export const metadata: Metadata = {
-  title: "Manage Store",
-  description: "Manage your store",
+  title: 'Manage Store',
+  description: 'Manage your store',
 }
 
 interface UpdateStorePageProps {
@@ -34,10 +34,10 @@ export default async function UpdateStorePage({
   const storeId = Number(params.storeId)
 
   async function updateStore(fd: FormData) {
-    "use server"
+    'use server'
 
-    const name = fd.get("name") as string
-    const description = fd.get("description") as string
+    const name = fd.get('name') as string
+    const description = fd.get('description') as string
 
     const storeWithSameName = await db.query.stores.findFirst({
       where: and(eq(stores.name, name), not(eq(stores.id, storeId))),
@@ -47,7 +47,7 @@ export default async function UpdateStorePage({
     })
 
     if (storeWithSameName) {
-      throw new Error("Store name already taken")
+      throw new Error('Store name already taken')
     }
 
     await db
@@ -59,7 +59,7 @@ export default async function UpdateStorePage({
   }
 
   async function deleteStore() {
-    "use server"
+    'use server'
 
     const store = await db.query.stores.findFirst({
       where: eq(stores.id, storeId),
@@ -69,12 +69,12 @@ export default async function UpdateStorePage({
     })
 
     if (!store) {
-      throw new Error("Store not found")
+      throw new Error('Store not found')
     }
 
     await db.delete(stores).where(eq(stores.id, storeId))
 
-    const path = "/dashboard/stores"
+    const path = '/dashboard/stores'
     revalidatePath(path)
     redirect(path)
   }
@@ -128,7 +128,7 @@ export default async function UpdateStorePage({
               minLength={3}
               maxLength={255}
               placeholder="Type store description here."
-              defaultValue={store.description ?? ""}
+              defaultValue={store.description ?? ''}
             />
           </fieldset>
           <div className="flex space-x-2">

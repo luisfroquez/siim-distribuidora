@@ -1,18 +1,18 @@
-import { type Metadata } from "next"
+import { type Metadata } from 'next'
 
+import { VerifyEmailForm } from '@/components/forms/verify-email-form'
+import { Shell } from '@/components/shell'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { VerifyEmailForm } from "@/components/forms/verify-email-form"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Verify Email",
-  description: "Verify your email address to continue with your sign up",
+  title: 'Verify Email',
+  description: 'Verify your email address to continue with your sign up',
 }
 
 export default function VerifyEmailPage() {

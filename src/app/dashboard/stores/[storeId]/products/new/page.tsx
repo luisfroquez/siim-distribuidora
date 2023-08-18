@@ -1,19 +1,19 @@
-import type { Metadata } from "next"
-import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
+import { currentUser } from '@clerk/nextjs'
+import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
+import { AddProductForm } from '@/components/forms/add-product-form'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { AddProductForm } from "@/components/forms/add-product-form"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "New Product",
-  description: "Add a new product",
+  title: 'New Product',
+  description: 'Add a new product',
 }
 
 interface NewProductPageProps {
@@ -28,7 +28,7 @@ export default async function NewProductPage({ params }: NewProductPageProps) {
   const user = await currentUser()
 
   if (!user) {
-    redirect("/sigin")
+    redirect('/sigin')
   }
 
   return (

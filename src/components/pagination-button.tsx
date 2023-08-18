@@ -1,9 +1,9 @@
-import * as React from "react"
-import { type AppRouterInstance } from "next/dist/shared/lib/app-router-context"
+import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface PaginationButtonProps
   extends React.DetailedHTMLProps<
@@ -50,10 +50,10 @@ export function PaginationButton({
     }
 
     if (Number(page) - delta > 2) {
-      range.unshift("...")
+      range.unshift('...')
     }
     if (Number(page) + delta < pageCount - 1) {
-      range.push("...")
+      range.push('...')
     }
 
     range.unshift(1)
@@ -67,7 +67,7 @@ export function PaginationButton({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center justify-center gap-2",
+        'flex flex-wrap items-center justify-center gap-2',
         className
       )}
       {...props}
@@ -113,7 +113,7 @@ export function PaginationButton({
         <span className="sr-only">Previous page</span>
       </Button>
       {paginationRange.map((pageNumber, i) =>
-        pageNumber === "..." ? (
+        pageNumber === '...' ? (
           <Button
             aria-label="Page separator"
             key={i}
@@ -128,7 +128,7 @@ export function PaginationButton({
           <Button
             aria-label={`Page ${pageNumber}`}
             key={i}
-            variant={Number(page) === pageNumber ? "default" : "outline"}
+            variant={Number(page) === pageNumber ? 'default' : 'outline'}
             size="sm"
             className="h-8 w-8 px-0"
             onClick={() => {

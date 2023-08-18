@@ -1,16 +1,16 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { type Product } from "@/db/schema"
-import { toast } from "sonner"
+import { type Product } from '@/db/schema'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { toast } from 'sonner'
 
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
 import {
   getNextProductIdAction,
   getPreviousProductIdAction,
-} from "@/app/_actions/product"
+} from '@/app/_actions/product'
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 
 interface ProductNavigatorProps {
   product: Product
@@ -38,7 +38,7 @@ export function ProductNavigator({ product }: ProductNavigatorProps) {
             } catch (error) {
               error instanceof Error
                 ? toast.error(error.message)
-                : toast.error("Something went wrong, please try again.")
+                : toast.error('Something went wrong, please try again.')
             }
           })
         }}
@@ -63,7 +63,7 @@ export function ProductNavigator({ product }: ProductNavigatorProps) {
             } catch (error) {
               error instanceof Error
                 ? toast.error(error.message)
-                : toast.error("Something went wrong, please try again.")
+                : toast.error('Something went wrong, please try again.')
             }
           })
         }}

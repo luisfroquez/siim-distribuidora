@@ -1,6 +1,6 @@
-import { Quote } from '@/db/schema'
-import { QuoteLineItem } from '@/types'
-import { User } from '@clerk/nextjs/dist/types/server'
+import { type Quote } from '@/db/schema'
+import { type QuoteLineItem } from '@/types'
+import { type User } from '@clerk/nextjs/dist/types/server'
 import {
   Body,
   Column,
@@ -85,18 +85,18 @@ export const QuoteForSIIM = ({
   quoteLineItems = prueba,
 }: QuoteForSIIMProps) => {
   const previewText = `¡Nueva solicitud de cotización recibida!`
-  const userEmail = user?.emailAddresses[0] ?? ''
+
   const objectDate = quote?.createdAt ?? new Date()
-  let day = objectDate.getDate()
-  let month = objectDate.getMonth()
-  let year = objectDate.getFullYear()
+  const day = objectDate.getDate()
+  const month = objectDate.getMonth()
+  const year = objectDate.getFullYear()
   const date = `${day}/${month}/${year}`
 
   const total = quoteLineItems.reduce((acc, q) => acc + (q.quantity ?? 0), 0)
   return (
     <Html>
       <Head>
-        <title>{`Solicitud de Cotización N° ${quote?.id}`}</title>
+        <title>{`Solicitud de Cotización N°${quote?.id ?? '-'}`}</title>
       </Head>
       <Preview>{previewText}</Preview>
 

@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import type { CartLineItem } from "@/types"
-import { toast } from "sonner"
+import type { CartLineItem } from '@/types'
+import * as React from 'react'
+import { toast } from 'sonner'
 
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
-import { addToCartAction, deleteCartItemAction } from "@/app/_actions/cart"
+import { addToCartAction, deleteCartItemAction } from '@/app/_actions/cart'
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 
-import { Input } from "../ui/input"
+import { Input } from '../ui/input'
 
 interface UpdateCartProps {
   cartLineItem: CartLineItem
@@ -35,7 +35,7 @@ export function UpdateCart({ cartLineItem }: UpdateCartProps) {
               } catch (error) {
                 error instanceof Error
                   ? toast.error(error.message)
-                  : toast.error("Something went wrong.")
+                  : toast.error('Something went wrong.')
               }
             })
           }}
@@ -59,7 +59,7 @@ export function UpdateCart({ cartLineItem }: UpdateCartProps) {
               } catch (error) {
                 error instanceof Error
                   ? toast.error(error.message)
-                  : toast.error("Something went wrong.")
+                  : toast.error('Something went wrong.')
               }
             })
           }}
@@ -79,7 +79,7 @@ export function UpdateCart({ cartLineItem }: UpdateCartProps) {
               } catch (error) {
                 error instanceof Error
                   ? toast.error(error.message)
-                  : toast.error("Something went wrong.")
+                  : toast.error('Something went wrong.')
               }
             })
           }}
@@ -102,7 +102,7 @@ export function UpdateCart({ cartLineItem }: UpdateCartProps) {
             } catch (error) {
               error instanceof Error
                 ? toast.error(error.message)
-                : toast.error("Something went wrong.")
+                : toast.error('Something went wrong.')
             }
           })
         }}

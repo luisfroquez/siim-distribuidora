@@ -1,23 +1,23 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { db } from "@/db"
-import { emailPreferences } from "@/db/schema"
-import { eq } from "drizzle-orm"
+import { db } from '@/db'
+import { emailPreferences } from '@/db/schema'
+import { eq } from 'drizzle-orm'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
+import { UpdateEmailPreferencesForm } from '@/components/forms/update-email-preferences-form'
+import { Header } from '@/components/header'
+import { Shell } from '@/components/shell'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { UpdateEmailPreferencesForm } from "@/components/forms/update-email-preferences-form"
-import { Header } from "@/components/header"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Email Preferences",
-  description: "Manage your email preferences",
+  title: 'Email Preferences',
+  description: 'Manage your email preferences',
 }
 
 interface EmailPreferencesPageProps {
@@ -29,7 +29,7 @@ interface EmailPreferencesPageProps {
 export default async function EmailPreferencesPage({
   searchParams,
 }: EmailPreferencesPageProps) {
-  const token = typeof searchParams.token === "string" ? searchParams.token : ""
+  const token = typeof searchParams.token === 'string' ? searchParams.token : ''
 
   const emailPreference = await db.query.emailPreferences.findFirst({
     where: eq(emailPreferences.token, token),

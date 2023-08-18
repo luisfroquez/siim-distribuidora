@@ -99,7 +99,7 @@ export default function NewsletterWelcomeEmail({
                 tienes alguna pregunta, por favor no dudes en contactarnos a:{' '}
                 <Link
                   href={`mailto:${fromEmail}`}
-                  className="text-blue-500 underline"
+                  className="underline text-blue-500 "
                 >
                   {fromEmail}
                 </Link>

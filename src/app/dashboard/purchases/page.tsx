@@ -1,20 +1,20 @@
-import type { Metadata } from "next"
-import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
+import { currentUser } from '@clerk/nextjs'
+import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-import { Header } from "@/components/header"
-import { Shell } from "@/components/shell"
+import { Header } from '@/components/header'
+import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
-  title: "Purchases",
-  description: "Manage your purchases",
+  title: 'Purchases',
+  description: 'Manage your purchases',
 }
 
 export default async function PurchasesPage() {
   const user = await currentUser()
 
   if (!user) {
-    redirect("/signin")
+    redirect('/signin')
   }
 
   return (

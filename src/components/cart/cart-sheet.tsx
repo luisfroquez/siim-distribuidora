@@ -1,10 +1,12 @@
-import Image from "next/image"
+import Image from 'next/image'
 
-import { formatPrice } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
+import { getCartAction } from '@/app/_actions/cart'
+import { UpdateCart } from '@/components/cart/update-cart'
+import { Icons } from '@/components/icons'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
@@ -12,10 +14,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { UpdateCart } from "@/components/cart/update-cart"
-import { Icons } from "@/components/icons"
-import { getCartAction } from "@/app/_actions/cart"
+} from '@/components/ui/sheet'
+import { formatPrice } from '@/lib/utils'
 
 export async function CartSheet() {
   const cartLineItems = await getCartAction()
@@ -68,7 +68,7 @@ export async function CartSheet() {
                             <Image
                               src={
                                 item.images[0]?.url ??
-                                "/images/product-placeholder.webp"
+                                '/images/product-placeholder.webp'
                               }
                               alt={item.images[0]?.name ?? item.name}
                               fill
@@ -87,7 +87,7 @@ export async function CartSheet() {
                         <div className="flex flex-1 flex-col gap-1 self-start text-sm">
                           <span className="line-clamp-1">{item.name}</span>
                           <span className="line-clamp-1 text-muted-foreground">
-                            {formatPrice(item.price)} x {item.quantity} ={" "}
+                            {formatPrice(item.price)} x {item.quantity} ={' '}
                             {formatPrice(
                               (
                                 Number(item.price) * Number(item.quantity)
@@ -96,7 +96,7 @@ export async function CartSheet() {
                           </span>
                           <span className="line-clamp-1 text-xs capitalize text-muted-foreground">
                             {`${item.category} ${
-                              item.subcategory ? `/ ${item.subcategory}` : ""
+                              item.subcategory ? `/ ${item.subcategory}` : ''
                             }`}
                           </span>
                         </div>

@@ -1,22 +1,22 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { db } from "@/db"
-import { products } from "@/db/schema"
-import { and, eq } from "drizzle-orm"
+import { db } from '@/db'
+import { products } from '@/db/schema'
+import { and, eq } from 'drizzle-orm'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
+import { UpdateProductForm } from '@/components/forms/update-product-form'
+import { ProductNavigator } from '@/components/product-navigator'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { UpdateProductForm } from "@/components/forms/update-product-form"
-import { ProductNavigator } from "@/components/product-navigator"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Manage Product",
-  description: "Manage your product",
+  title: 'Manage Product',
+  description: 'Manage your product',
 }
 
 interface UpdateProductPageProps {

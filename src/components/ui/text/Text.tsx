@@ -1,9 +1,9 @@
+import cn from 'clsx'
 import React, {
   type CSSProperties,
   type FunctionComponent,
   type JSXElementConstructor,
 } from 'react'
-import cn from 'clsx'
 
 import s from './Text.module.css'
 

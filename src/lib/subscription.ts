@@ -1,12 +1,12 @@
-import { clerkClient } from "@clerk/nextjs"
+import { clerkClient } from '@clerk/nextjs'
 
-import { freePlan, proPlan } from "@/config/subscriptions"
+import { freePlan, proPlan } from '@/config/subscriptions'
 
 export async function getUserSubscriptionPlan(userId: string) {
   const user = await clerkClient.users.getUser(userId)
 
   if (!user) {
-    throw new Error("User not found")
+    throw new Error('User not found')
   }
 
   // Check if user is on a pro plan

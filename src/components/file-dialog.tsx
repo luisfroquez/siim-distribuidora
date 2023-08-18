@@ -1,27 +1,27 @@
-import * as React from "react"
-import Image from "next/image"
-import type { FileWithPreview } from "@/types"
-import Cropper, { type ReactCropperElement } from "react-cropper"
+import type { FileWithPreview } from '@/types'
+import Image from 'next/image'
+import * as React from 'react'
+import Cropper, { type ReactCropperElement } from 'react-cropper'
 import {
   useDropzone,
   type Accept,
   type FileRejection,
   type FileWithPath,
-} from "react-dropzone"
+} from 'react-dropzone'
 import type {
   FieldValues,
   Path,
   PathValue,
   UseFormSetValue,
-} from "react-hook-form"
-import { toast } from "sonner"
+} from 'react-hook-form'
+import { toast } from 'sonner'
 
-import "cropperjs/dist/cropper.css"
+import 'cropperjs/dist/cropper.css'
 
-import { cn, formatBytes } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { cn, formatBytes } from '@/lib/utils'
 
 interface FileDialogProps<TFieldValues extends FieldValues>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -40,7 +40,7 @@ export function FileDialog<TFieldValues extends FieldValues>({
   name,
   setValue,
   accept = {
-    "image/*": [],
+    'image/*': [],
   },
   maxSize = 1024 * 1024 * 2,
   maxFiles = 1,
@@ -71,7 +71,7 @@ export function FileDialog<TFieldValues extends FieldValues>({
 
       if (rejectedFiles.length > 0) {
         rejectedFiles.forEach(({ errors }) => {
-          if (errors[0]?.code === "file-too-large") {
+          if (errors[0]?.code === 'file-too-large') {
             toast.error(
               `File is too large. Max size is ${formatBytes(maxSize)}`
             )
@@ -118,10 +118,10 @@ export function FileDialog<TFieldValues extends FieldValues>({
         <div
           {...getRootProps()}
           className={cn(
-            "group relative mt-8 grid h-48 w-full cursor-pointer place-items-center rounded-lg border-2 border-dashed border-muted-foreground/25 px-5 py-2.5 text-center transition hover:bg-muted/25",
-            "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            isDragActive && "border-muted-foreground/50",
-            disabled && "pointer-events-none opacity-60",
+            'group relative mt-8 grid h-48 w-full cursor-pointer place-items-center rounded-lg border-2 border-dashed border-muted-foreground/25 px-5 py-2.5 text-center transition hover:bg-muted/25',
+            'ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+            isDragActive && 'border-muted-foreground/50',
+            disabled && 'pointer-events-none opacity-60',
             className
           )}
           {...props}
@@ -137,7 +137,7 @@ export function FileDialog<TFieldValues extends FieldValues>({
           ) : isDragActive ? (
             <div className="grid place-items-center gap-2 text-muted-foreground sm:px-5">
               <Icons.upload
-                className={cn("h-8 w-8", isDragActive && "animate-bounce")}
+                className={cn('h-8 w-8', isDragActive && 'animate-bounce')}
                 aria-hidden="true"
               />
               <p className="text-base font-medium">Drop the file here</p>
@@ -158,7 +158,7 @@ export function FileDialog<TFieldValues extends FieldValues>({
           )}
         </div>
         <p className="text-center text-sm font-medium text-muted-foreground">
-          You can upload up to {maxFiles} {maxFiles === 1 ? "file" : "files"}
+          You can upload up to {maxFiles} {maxFiles === 1 ? 'file' : 'files'}
         </p>
         {files?.length ? (
           <div className="grid gap-5">
@@ -242,13 +242,13 @@ function FileCard<TFieldValues extends FieldValues>({
   // Crop image on enter key press
   React.useEffect(() => {
     function handleKeydown(e: KeyboardEvent) {
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         onCrop()
         setIsOpen(false)
       }
     }
-    document.addEventListener("keydown", handleKeydown)
-    return () => document.removeEventListener("keydown", handleKeydown)
+    document.addEventListener('keydown', handleKeydown)
+    return () => document.removeEventListener('keydown', handleKeydown)
   }, [onCrop])
 
   return (
@@ -272,7 +272,7 @@ function FileCard<TFieldValues extends FieldValues>({
         </div>
       </div>
       <div className="flex items-center gap-2">
-        {file.type.startsWith("image") && (
+        {file.type.startsWith('image') && (
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
               <Button

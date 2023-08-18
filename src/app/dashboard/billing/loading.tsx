@@ -1,6 +1,6 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { Header } from "@/components/header"
-import { Shell } from "@/components/shell"
+import { Header } from '@/components/header'
+import { Shell } from '@/components/shell'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function BillingLoading() {
   return (

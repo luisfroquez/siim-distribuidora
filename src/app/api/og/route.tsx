@@ -1,9 +1,9 @@
-import type { ServerRuntime } from "next"
-import { ImageResponse } from "@vercel/og"
+import { ImageResponse } from '@vercel/og'
+import type { ServerRuntime } from 'next'
 
-import { ogImageSchema } from "@/lib/validations/og"
+import { ogImageSchema } from '@/lib/validations/og'
 
-export const runtime: ServerRuntime = "edge"
+export const runtime: ServerRuntime = 'edge'
 
 export function GET(req: Request) {
   try {
@@ -13,7 +13,7 @@ export function GET(req: Request) {
     )
 
     const { mode, title, description } = parsedValues
-    const paint = mode === "dark" ? "#fff" : "#000"
+    const paint = mode === 'dark' ? '#fff' : '#000'
 
     return new ImageResponse(
       (
@@ -22,9 +22,9 @@ export function GET(req: Request) {
           style={{
             color: paint,
             background:
-              mode === "dark"
-                ? "linear-gradient(90deg, #000 0%, #111 100%)"
-                : "white",
+              mode === 'dark'
+                ? 'linear-gradient(90deg, #000 0%, #111 100%)'
+                : 'white',
           }}
         >
           <div tw="flex items-center text-3xl justify-center flex-col">
@@ -43,7 +43,7 @@ export function GET(req: Request) {
           <div
             tw="flex max-w-4xl items-center justify-center flex-col mt-10"
             style={{
-              whiteSpace: "pre-wrap",
+              whiteSpace: 'pre-wrap',
             }}
           >
             <div tw="text-5xl font-bold tracking-tight leading-tight dark:text-white px-8">

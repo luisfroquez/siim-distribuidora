@@ -1,6 +1,9 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
 
+import { OAuthSignIn } from '@/components/auth/oauth-signin'
+import { SignInForm } from '@/components/forms/signin-form'
+import { Shell } from '@/components/shell'
 import {
   Card,
   CardContent,
@@ -9,9 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { OAuthSignIn } from '@/components/auth/oauth-signin'
-import { SignInForm } from '@/components/forms/signin-form'
-import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
   title: 'Iniciar sesión',

@@ -1,19 +1,24 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { products, type Product } from "@/db/schema"
-import type { FileWithPreview } from "@/types"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { generateReactHelpers } from "@uploadthing/react/hooks"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { type z } from "zod"
+import { products, type Product } from '@/db/schema'
+import type { FileWithPreview } from '@/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { generateReactHelpers } from '@uploadthing/react/hooks'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { type z } from 'zod'
 
-import { getSubcategories } from "@/config/products"
-import { isArrayOfFile } from "@/lib/utils"
-import { productSchema } from "@/lib/validations/product"
-import { Button } from "@/components/ui/button"
+import {
+  checkProductAction,
+  deleteProductAction,
+  updateProductAction,
+} from '@/app/_actions/product'
+import type { OurFileRouter } from '@/app/api/uploadthing/core'
+import { FileDialog } from '@/components/file-dialog'
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -22,8 +27,8 @@ import {
   FormLabel,
   FormMessage,
   UncontrolledFormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -31,16 +36,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { FileDialog } from "@/components/file-dialog"
-import { Icons } from "@/components/icons"
-import {
-  checkProductAction,
-  deleteProductAction,
-  updateProductAction,
-} from "@/app/_actions/product"
-import type { OurFileRouter } from "@/app/api/uploadthing/core"
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { getSubcategories } from '@/config/products'
+import { isArrayOfFile } from '@/lib/utils'
+import { productSchema } from '@/lib/validations/product'
 
 interface UpdateProductFormProps {
   product: Product
@@ -61,7 +61,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
       setFiles(
         product.images.map((image) => {
           const file = new File([], image.name, {
-            type: "image",
+            type: 'image',
           })
           const fileWithPreview = Object.assign(file, {
             preview: image.url,
@@ -74,7 +74,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
   }, [product])
 
   // uploadthing
-  const { isUploading, startUpload } = useUploadThing("productImage")
+  const { isUploading, startUpload } = useUploadThing('productImage')
 
   // react-hook-form
   const form = useForm<Inputs>({
@@ -86,7 +86,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
   })
 
   // Get subcategories based on category
-  const subcategories = getSubcategories(form.watch("category"))
+  const subcategories = getSubcategories(form.watch('category'))
 
   function onSubmit(data: Inputs) {
     console.log(data)
@@ -104,7 +104,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
           ? await startUpload(data.images).then((res) => {
               const formattedImages = res?.map((image) => ({
                 id: image.fileKey,
-                name: image.fileKey.split("_")[1] ?? image.fileKey,
+                name: image.fileKey.split('_')[1] ?? image.fileKey,
                 url: image.fileUrl,
               }))
               return formattedImages ?? null
@@ -119,12 +119,12 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
           images: images ?? product.images,
         })
 
-        toast.success("Product updated successfully.")
+        toast.success('Product updated successfully.')
         setFiles(null)
       } catch (error) {
         error instanceof Error
           ? toast.error(error.message)
-          : toast.error("Something went wrong, please try again.")
+          : toast.error('Something went wrong, please try again.')
       }
     })
   }
@@ -141,7 +141,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
             <Input
               aria-invalid={!!form.formState.errors.name}
               placeholder="Type product name here."
-              {...form.register("name")}
+              {...form.register('name')}
               defaultValue={product.name}
             />
           </FormControl>
@@ -154,8 +154,8 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
           <FormControl>
             <Textarea
               placeholder="Type product description here."
-              {...form.register("description")}
-              defaultValue={product.description ?? ""}
+              {...form.register('description')}
+              defaultValue={product.description ?? ''}
             />
           </FormControl>
           <UncontrolledFormMessage
@@ -239,7 +239,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
                 type="number"
                 inputMode="numeric"
                 placeholder="Type product price here."
-                {...form.register("price")}
+                {...form.register('price')}
                 defaultValue={product.price}
               />
             </FormControl>
@@ -254,7 +254,7 @@ export function UpdateProductForm({ product }: UpdateProductFormProps) {
                 type="number"
                 inputMode="numeric"
                 placeholder="Type product inventory here."
-                {...form.register("inventory", {
+                {...form.register('inventory', {
                   valueAsNumber: true,
                 })}
                 defaultValue={product.inventory}

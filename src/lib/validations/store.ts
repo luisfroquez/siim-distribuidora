@@ -1,4 +1,4 @@
-import * as z from "zod"
+import * as z from 'zod'
 
 export const storeSchema = z.object({
   name: z.string().min(3).max(50),

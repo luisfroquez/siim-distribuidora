@@ -1,15 +1,16 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { isClerkAPIResponseError, useSignIn } from "@clerk/nextjs"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import type { z } from "zod"
+import { isClerkAPIResponseError, useSignIn } from '@clerk/nextjs'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import type { z } from 'zod'
 
-import { resetPasswordSchema } from "@/lib/validations/auth"
-import { Button } from "@/components/ui/button"
+import { Icons } from '@/components/icons'
+import { PasswordInput } from '@/components/password-input'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -17,10 +18,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Icons } from "@/components/icons"
-import { PasswordInput } from "@/components/password-input"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { resetPasswordSchema } from '@/lib/validations/auth'
 
 type Inputs = z.infer<typeof resetPasswordSchema>
 
@@ -33,9 +33,9 @@ export function ResetPasswordStep2Form() {
   const form = useForm<Inputs>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      password: "",
-      confirmPassword: "",
-      code: "",
+      password: '',
+      confirmPassword: '',
+      code: '',
     },
   })
 
@@ -45,24 +45,24 @@ export function ResetPasswordStep2Form() {
     startTransition(async () => {
       try {
         const attemptFirstFactor = await signIn.attemptFirstFactor({
-          strategy: "reset_password_email_code",
+          strategy: 'reset_password_email_code',
           code: data.code,
           password: data.password,
         })
 
-        if (attemptFirstFactor.status === "needs_second_factor") {
+        if (attemptFirstFactor.status === 'needs_second_factor') {
           // TODO: implement 2FA (requires clerk pro plan)
-        } else if (attemptFirstFactor.status === "complete") {
+        } else if (attemptFirstFactor.status === 'complete') {
           await setActive({
             session: attemptFirstFactor.createdSessionId,
           })
           router.push(`${window.location.origin}/`)
-          toast.success("Password reset successfully.")
+          toast.success('Password reset successfully.')
         } else {
           console.error(attemptFirstFactor)
         }
       } catch (error) {
-        const unknownError = "Something went wrong, please try again."
+        const unknownError = 'Something went wrong, please try again.'
 
         isClerkAPIResponseError(error)
           ? toast.error(error.errors[0]?.longMessage ?? unknownError)

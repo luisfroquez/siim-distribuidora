@@ -1,21 +1,22 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import type { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import type { z } from 'zod'
 
-import { storeSchema } from "@/lib/validations/store"
-import { Button } from "@/components/ui/button"
+import { addStoreAction } from '@/app/_actions/store'
+import { Icons } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -23,11 +24,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Icons } from "@/components/icons"
-import { addStoreAction } from "@/app/_actions/store"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { storeSchema } from '@/lib/validations/store'
 
 interface AddStoreFormProps {
   userId: string
@@ -43,8 +43,8 @@ export function AddStoreForm({ userId }: AddStoreFormProps) {
   const form = useForm<Inputs>({
     resolver: zodResolver(storeSchema),
     defaultValues: {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     },
   })
 
@@ -54,13 +54,13 @@ export function AddStoreForm({ userId }: AddStoreFormProps) {
         await addStoreAction({ ...data, userId })
 
         form.reset()
-        toast.success("Store added successfully.")
-        router.push("/dashboard/stores")
+        toast.success('Store added successfully.')
+        router.push('/dashboard/stores')
         router.refresh() // Workaround for the inconsistency of cache revalidation
       } catch (error) {
         error instanceof Error
           ? toast.error(error.message)
-          : toast.error("Something went wrong, please try again.")
+          : toast.error('Something went wrong, please try again.')
       }
     })
   }

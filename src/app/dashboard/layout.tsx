@@ -1,11 +1,11 @@
-import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
+import { currentUser } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
 
-import { dashboardConfig } from "@/config/dashboard"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { SidebarNav } from "@/components/layouts/sidebar-nav"
-import { SiteFooter } from "@/components/layouts/site-footer"
-import { SiteHeader } from "@/components/layouts/site-header"
+import { SidebarNav } from '@/components/layouts/sidebar-nav'
+import { SiteFooter } from '@/components/layouts/site-footer'
+import { SiteHeader } from '@/components/layouts/site-header'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { dashboardConfig } from '@/config/dashboard'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -17,7 +17,7 @@ export default async function DashboardLayout({
   const user = await currentUser()
 
   if (!user) {
-    redirect("/signin")
+    redirect('/signin')
   }
 
   return (

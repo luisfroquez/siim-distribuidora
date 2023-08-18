@@ -1,9 +1,8 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { db } from "@/db"
-import { products, type Product } from "@/db/schema"
-import type { StoredFile } from "@/types"
+import { db } from '@/db'
+import { products, type Product } from '@/db/schema'
+import type { StoredFile } from '@/types'
 import {
   and,
   asc,
@@ -17,18 +16,19 @@ import {
   lte,
   not,
   sql,
-} from "drizzle-orm"
-import { type z } from "zod"
+} from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
+import { type z } from 'zod'
 
 import type {
   getProductSchema,
   getProductsSchema,
   productSchema,
-} from "@/lib/validations/product"
+} from '@/lib/validations/product'
 
 export async function filterProductsAction(query: string) {
-  if (typeof query !== "string") {
-    throw new Error("Invalid input.")
+  if (typeof query !== 'string') {
+    throw new Error('Invalid input.')
   }
 
   if (query.length === 0) return null
@@ -60,15 +60,15 @@ export async function getProductsAction(
   input: z.infer<typeof getProductsSchema>
 ) {
   const [column, order] =
-    (input.sort?.split(".") as [
+    (input.sort?.split('.') as [
       keyof Product | undefined,
-      "asc" | "desc" | undefined
+      'asc' | 'desc' | undefined
     ]) ?? []
-  const [minPrice, maxPrice] = input.price_range?.split("-") ?? []
+  const [minPrice, maxPrice] = input.price_range?.split('-') ?? []
   const categories =
-    (input.categories?.split(".") as Product["category"][]) ?? []
-  const subcategories = input.subcategories?.split(".") ?? []
-  const storeIds = input.store_ids?.split(".").map(Number) ?? []
+    (input.categories?.split('.') as Product['category'][]) ?? []
+  const subcategories = input.subcategories?.split('.') ?? []
+  const storeIds = input.store_ids?.split('.').map(Number) ?? []
 
   const { items, total } = await db.transaction(async (tx) => {
     const items = await tx
@@ -91,7 +91,7 @@ export async function getProductsAction(
       )
       .orderBy(
         column && column in products
-          ? order === "asc"
+          ? order === 'asc'
             ? asc(products[column])
             : desc(products[column])
           : desc(products.createdAt)
@@ -129,8 +129,8 @@ export async function getProductsAction(
 }
 
 export async function checkProductAction(input: { name: string; id?: number }) {
-  if (typeof input.name !== "string") {
-    throw new Error("Invalid input.")
+  if (typeof input.name !== 'string') {
+    throw new Error('Invalid input.')
   }
 
   const productWithSameName = await db.query.products.findFirst({
@@ -140,7 +140,7 @@ export async function checkProductAction(input: { name: string; id?: number }) {
   })
 
   if (productWithSameName) {
-    throw new Error("Product name already taken.")
+    throw new Error('Product name already taken.')
   }
 }
 
@@ -155,7 +155,7 @@ export async function addProductAction(
   })
 
   if (productWithSameName) {
-    throw new Error("Product name already taken.")
+    throw new Error('Product name already taken.')
   }
 
   await db.insert(products).values({
@@ -174,8 +174,8 @@ export async function updateProductAction(
     images: StoredFile[] | null
   }
 ) {
-  if (typeof input.id !== "number") {
-    throw new Error("Invalid input.")
+  if (typeof input.id !== 'number') {
+    throw new Error('Invalid input.')
   }
 
   const product = await db.query.products.findFirst({
@@ -183,7 +183,7 @@ export async function updateProductAction(
   })
 
   if (!product) {
-    throw new Error("Product not found.")
+    throw new Error('Product not found.')
   }
 
   await db.update(products).set(input).where(eq(products.id, input.id))
@@ -194,8 +194,8 @@ export async function updateProductAction(
 export async function deleteProductAction(
   input: z.infer<typeof getProductSchema>
 ) {
-  if (typeof input.storeId !== "number" || typeof input.id !== "number") {
-    throw new Error("Invalid input.")
+  if (typeof input.storeId !== 'number' || typeof input.id !== 'number') {
+    throw new Error('Invalid input.')
   }
 
   and(eq(products.id, input.id), eq(products.storeId, input.storeId)),
@@ -212,12 +212,12 @@ export async function deleteProductsAction(input: {
   storeId: number
   ids: number[]
 }) {
-  if (typeof input.storeId !== "number") {
-    throw new Error("Invalid input.")
+  if (typeof input.storeId !== 'number') {
+    throw new Error('Invalid input.')
   }
 
-  if (input.ids.some((id) => typeof id !== "number")) {
-    throw new Error("Invalid input.")
+  if (input.ids.some((id) => typeof id !== 'number')) {
+    throw new Error('Invalid input.')
   }
 
   await db
@@ -235,8 +235,8 @@ export async function deleteProductsAction(input: {
 export async function getNextProductIdAction(
   input: z.infer<typeof getProductSchema>
 ) {
-  if (typeof input.storeId !== "number" || typeof input.id !== "number") {
-    throw new Error("Invalid input.")
+  if (typeof input.storeId !== 'number' || typeof input.id !== 'number') {
+    throw new Error('Invalid input.')
   }
 
   const product = await db.query.products.findFirst({
@@ -245,7 +245,7 @@ export async function getNextProductIdAction(
   })
 
   if (!product) {
-    throw new Error("Product not found.")
+    throw new Error('Product not found.')
   }
 
   return product.id
@@ -254,8 +254,8 @@ export async function getNextProductIdAction(
 export async function getPreviousProductIdAction(
   input: z.infer<typeof getProductSchema>
 ) {
-  if (typeof input.storeId !== "number" || typeof input.id !== "number") {
-    throw new Error("Invalid input.")
+  if (typeof input.storeId !== 'number' || typeof input.id !== 'number') {
+    throw new Error('Invalid input.')
   }
 
   const product = await db.query.products.findFirst({
@@ -264,7 +264,7 @@ export async function getPreviousProductIdAction(
   })
 
   if (!product) {
-    throw new Error("Product not found.")
+    throw new Error('Product not found.')
   }
 
   return product.id

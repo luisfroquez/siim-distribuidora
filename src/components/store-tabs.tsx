@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter } from 'next/navigation'
 
-import { cn } from "@/lib/utils"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { cn } from '@/lib/utils'
 
 interface StoreTabsProps extends React.ComponentPropsWithoutRef<typeof Tabs> {
   storeId: number
@@ -15,23 +15,23 @@ export function StoreTabs({ className, storeId, ...props }: StoreTabsProps) {
 
   const tabs = [
     {
-      title: "Store",
+      title: 'Store',
       href: `/dashboard/stores/${storeId}`,
     },
     {
-      title: "Products",
+      title: 'Products',
       href: `/dashboard/stores/${storeId}/products`,
     },
     {
-      title: "Orders",
+      title: 'Orders',
       href: `/dashboard/stores/${storeId}/orders`,
     },
     {
-      title: "Payments",
+      title: 'Payments',
       href: `/dashboard/stores/${storeId}/payments`,
     },
     {
-      title: "Analytics",
+      title: 'Analytics',
       href: `/dashboard/stores/${storeId}/analytics`,
     },
   ]
@@ -39,7 +39,7 @@ export function StoreTabs({ className, storeId, ...props }: StoreTabsProps) {
   return (
     <Tabs
       {...props}
-      className={cn("w-full overflow-x-auto overflow-y-hidden", className)}
+      className={cn('w-full overflow-x-auto overflow-y-hidden', className)}
       onValueChange={(value) => router.push(value)}
     >
       <TabsList>
@@ -48,7 +48,7 @@ export function StoreTabs({ className, storeId, ...props }: StoreTabsProps) {
             key={tab.title}
             value={tab.href}
             className={cn(
-              pathname === tab.href && "bg-background text-foreground shadow-sm"
+              pathname === tab.href && 'bg-background text-foreground shadow-sm'
             )}
             onClick={() => router.push(tab.href)}
           >

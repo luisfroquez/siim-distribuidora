@@ -1,36 +1,36 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { redirect } from "next/navigation"
-import { db } from "@/db"
-import { stores } from "@/db/schema"
-import { currentUser } from "@clerk/nextjs"
-import { eq } from "drizzle-orm"
+import { db } from '@/db'
+import { stores } from '@/db/schema'
+import { currentUser } from '@clerk/nextjs'
+import { eq } from 'drizzle-orm'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { Header } from '@/components/header'
+import { Shell } from '@/components/shell'
+import { buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Header } from "@/components/header"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 // Running out of edge function execution units on vercel free plan
 // export const runtime = "edge"
 
 export const metadata: Metadata = {
-  title: "Stores",
-  description: "Manage your stores",
+  title: 'Stores',
+  description: 'Manage your stores',
 }
 
 export default async function StoresPage() {
   const user = await currentUser()
 
   if (!user) {
-    redirect("/signin")
+    redirect('/signin')
   }
 
   const userStores = await db.query.stores.findMany({
@@ -61,8 +61,8 @@ export default async function StoresPage() {
                 <div
                   className={cn(
                     buttonVariants({
-                      size: "sm",
-                      className: "h-8 w-full",
+                      size: 'sm',
+                      className: 'h-8 w-full',
                     })
                   )}
                 >
@@ -86,8 +86,8 @@ export default async function StoresPage() {
                 <div
                   className={cn(
                     buttonVariants({
-                      size: "sm",
-                      className: "h-8 w-full",
+                      size: 'sm',
+                      className: 'h-8 w-full',
                     })
                   )}
                 >

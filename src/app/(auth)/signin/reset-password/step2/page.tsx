@@ -1,18 +1,18 @@
-import { type Metadata } from "next"
+import { type Metadata } from 'next'
 
+import { ResetPasswordStep2Form } from '@/components/forms/reset-password-form-step2'
+import { Shell } from '@/components/shell'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { ResetPasswordStep2Form } from "@/components/forms/reset-password-form-step2"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: "Reset Password",
-  description: "Enter your email to reset your password",
+  title: 'Reset Password',
+  description: 'Enter your email to reset your password',
 }
 
 export default function ResetPasswordStep2Page() {

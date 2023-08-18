@@ -1,7 +1,7 @@
 'use client'
 
-import { useTransition } from 'react'
 import { SelectGroup } from '@radix-ui/react-select'
+import { useTransition } from 'react'
 
 import {
   Select,

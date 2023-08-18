@@ -1,11 +1,12 @@
-import type { Metadata } from "next"
-import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
+import { currentUser } from '@clerk/nextjs'
+import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-import { getUserSubscriptionPlan } from "@/lib/subscription"
-import { formatDate } from "@/lib/utils"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
+import { Header } from '@/components/header'
+import { Icons } from '@/components/icons'
+import { Shell } from '@/components/shell'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -13,21 +14,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Header } from "@/components/header"
-import { Icons } from "@/components/icons"
-import { Shell } from "@/components/shell"
+} from '@/components/ui/card'
+import { getUserSubscriptionPlan } from '@/lib/subscription'
+import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: "Billing",
-  description: "Manage your billing and subscription",
+  title: 'Billing',
+  description: 'Manage your billing and subscription',
 }
 
 export default async function BillingPage() {
   const user = await currentUser()
 
   if (!user) {
-    redirect("/signin")
+    redirect('/signin')
   }
 
   const subscriptionPlan = await getUserSubscriptionPlan(user.id)
@@ -70,8 +70,8 @@ export default async function BillingPage() {
               {true ? (
                 <p className="rounded-full text-xs font-medium">
                   {true
-                    ? "Your plan will be canceled on "
-                    : "Your plan renews on "}
+                    ? 'Your plan will be canceled on '
+                    : 'Your plan renews on '}
                   {formatDate(
                     new Date(new Date().setDate(new Date().getDate() + 14))
                   )}

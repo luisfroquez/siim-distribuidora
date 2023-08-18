@@ -1,13 +1,13 @@
-import { notFound, redirect } from "next/navigation"
-import { db } from "@/db"
-import { stores } from "@/db/schema"
-import { currentUser } from "@clerk/nextjs"
-import { eq } from "drizzle-orm"
+import { db } from '@/db'
+import { stores } from '@/db/schema'
+import { currentUser } from '@clerk/nextjs'
+import { eq } from 'drizzle-orm'
+import { notFound, redirect } from 'next/navigation'
 
-import { Header } from "@/components/header"
-import { Shell } from "@/components/shell"
-import { StoreNavigator } from "@/components/store-navigator"
-import { StoreTabs } from "@/components/store-tabs"
+import { Header } from '@/components/header'
+import { Shell } from '@/components/shell'
+import { StoreNavigator } from '@/components/store-navigator'
+import { StoreTabs } from '@/components/store-tabs'
 
 interface StoreLayoutProps {
   children: React.ReactNode
@@ -25,7 +25,7 @@ export default async function StoreLayout({
   const user = await currentUser()
 
   if (!user) {
-    redirect("/signin")
+    redirect('/signin')
   }
 
   const store = await db.query.stores.findFirst({

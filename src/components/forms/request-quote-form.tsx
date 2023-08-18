@@ -25,6 +25,31 @@ import {
 import filtrarCaracteres from '@/utils/filtrar-caracteres'
 import { Textarea } from '../ui/textarea'
 
+interface ValidateRutResponse {
+  data: {
+    rut: string
+    valid: boolean
+  }
+  status: string
+}
+
+interface RutDataResponse {
+  data: {
+    activities: [
+      {
+        name: string
+        code: number
+        category: string
+        subject_to_vat: boolean
+        date: string
+      }
+    ]
+    name: string
+    rut: string
+  }
+  status: string
+}
+
 const url = 'https://api.libreapi.cl'
 
 export function RequestQuoteForm() {
@@ -58,26 +83,24 @@ export function RequestQuoteForm() {
         method: 'get',
       })
         .then((response) => response.json()) // pass the data as promise to next then block
-        .then((data) => {
+        .then((data: ValidateRutResponse) => {
           if (data.data.valid) {
             form.clearErrors('rut')
             fetch(`https://api.libreapi.cl/rut/activities?rut=${filteredValue}`)
               .then((response) => response.json())
-              .then((e) => {
-                form.setValue(
-                  'razonSocial',
-                  (e.data.name as string).toUpperCase()
-                )
+              .then((e: RutDataResponse) => {
+                form.setValue('razonSocial', e.data.name.toUpperCase())
               })
+              .catch((e) => console.log(e))
           } else {
             form.setError('rut', { message: 'RUT No válido' })
           }
-
-          fetch(`https://api.libreapi.cl/rut/activities?rut=${rutValue}`) // make a 2nd request and return a promise
         })
+        .catch((e) => console.log(e))
     } else if (filteredValue.length > 0) {
       form.setError('rut', { message: 'El RUT debe ser de 9 caracteres' })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rutValue])
 
   function onSubmit(data: RequestQuoteInputTypes) {

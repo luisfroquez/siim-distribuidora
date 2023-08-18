@@ -1,17 +1,18 @@
 'use client'
 
-import * as React from 'react'
 import { products } from '@/db/schema'
 import type { FileWithPreview } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { generateReactHelpers } from '@uploadthing/react/hooks'
+import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { type z } from 'zod'
 
-import { getSubcategories } from '@/config/products'
-import { isArrayOfFile } from '@/lib/utils'
-import { productSchema } from '@/lib/validations/product'
+import { addProductAction, checkProductAction } from '@/app/_actions/product'
+import type { OurFileRouter } from '@/app/api/uploadthing/core'
+import { FileDialog } from '@/components/file-dialog'
+import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -32,10 +33,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { FileDialog } from '@/components/file-dialog'
-import { Icons } from '@/components/icons'
-import { addProductAction, checkProductAction } from '@/app/_actions/product'
-import type { OurFileRouter } from '@/app/api/uploadthing/core'
+import { getSubcategories } from '@/config/products'
+import { isArrayOfFile } from '@/lib/utils'
+import { productSchema } from '@/lib/validations/product'
 
 interface AddProductFormProps {
   storeId: number

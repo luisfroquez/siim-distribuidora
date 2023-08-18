@@ -1,12 +1,12 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { db } from "@/db"
-import { stores } from "@/db/schema"
-import { eq } from "drizzle-orm"
+import { db } from '@/db'
+import { stores } from '@/db/schema'
+import { eq } from 'drizzle-orm'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: "Orders",
-  description: "Manage your orders",
+  title: 'Orders',
+  description: 'Manage your orders',
 }
 
 interface OrdersPageProps {

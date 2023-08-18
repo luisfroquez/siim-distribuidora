@@ -1,27 +1,32 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { products, type Product } from "@/db/schema"
-import dayjs from "dayjs"
-import jsPDF from "jspdf"
-import autoTable from "jspdf-autotable"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { type DateRange } from "react-day-picker"
-import { toast } from "sonner"
+import { products, type Product } from '@/db/schema'
+import dayjs from 'dayjs'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+import { Calendar as CalendarIcon } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import * as React from 'react'
+import { type DateRange } from 'react-day-picker'
+import { toast } from 'sonner'
 import {
   Table as ShadcnTable,
   type ColumnDef,
   type ColumnSort,
   type PaginationState,
-} from "unstyled-table"
+} from 'unstyled-table'
 
-import { cn, formatDate, formatPrice } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Checkbox } from "@/components/ui/checkbox"
+import {
+  deleteProductAction,
+  deleteProductsAction,
+} from '@/app/_actions/product'
+import { DebounceInput } from '@/components/debounce-input'
+import { Icons } from '@/components/icons'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -30,20 +35,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from '@/components/ui/popover'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
+} from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -51,13 +56,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { DebounceInput } from "@/components/debounce-input"
-import { Icons } from "@/components/icons"
-import {
-  deleteProductAction,
-  deleteProductsAction,
-} from "@/app/_actions/product"
+} from '@/components/ui/table'
+import { cn, formatDate, formatPrice } from '@/lib/utils'
 
 interface ProductsTableProps {
   data: Product[]
@@ -83,7 +83,7 @@ export function ProductsTable({
     () => [
       {
         // Column for row selection
-        id: "select",
+        id: 'select',
         header: ({ table }) => (
           <Checkbox
             checked={table.getIsAllPageRowsSelected()}
@@ -106,13 +106,13 @@ export function ProductsTable({
         enableSorting: false,
         enableHiding: false,
       },
-      { accessorKey: "name", header: "Name" },
+      { accessorKey: 'name', header: 'Name' },
       {
-        accessorKey: "category",
-        header: "Category",
+        accessorKey: 'category',
+        header: 'Category',
         cell: ({ cell }) => {
           const categories = Object.values(products.category.enumValues)
-          const category = cell.getValue() as Product["category"]
+          const category = cell.getValue() as Product['category']
 
           if (!categories.includes(category)) return null
 
@@ -124,27 +124,27 @@ export function ProductsTable({
         },
       },
       {
-        accessorKey: "price",
-        header: "Price",
+        accessorKey: 'price',
+        header: 'Price',
         cell: ({ cell }) => formatPrice(cell.getValue() as number),
       },
       {
-        accessorKey: "inventory",
-        header: "Inventory",
+        accessorKey: 'inventory',
+        header: 'Inventory',
       },
       {
-        accessorKey: "rating",
-        header: "Rating",
+        accessorKey: 'rating',
+        header: 'Rating',
       },
       {
-        accessorKey: "createdAt",
-        header: "Created At",
+        accessorKey: 'createdAt',
+        header: 'Created At',
         cell: ({ cell }) => formatDate(cell.getValue() as Date),
         enableColumnFilter: false,
       },
       {
         // Column for row actions
-        id: "actions",
+        id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
           const product = row.original
@@ -192,7 +192,7 @@ export function ProductsTable({
                         storeId,
                         id: product.id,
                       })
-                      toast.success("Product deleted")
+                      toast.success('Product deleted')
                     })
                   }}
                 >
@@ -212,12 +212,12 @@ export function ProductsTable({
   )
 
   // Search params
-  const page = searchParams?.get("page") ?? "1"
-  const per_page = searchParams?.get("per_page") ?? "10"
-  const sort = searchParams?.get("sort")
-  const [column, order] = sort?.split(".") ?? []
-  const name = searchParams?.get("name")
-  const date_range = searchParams?.get("date_range")
+  const page = searchParams?.get('page') ?? '1'
+  const per_page = searchParams?.get('per_page') ?? '10'
+  const sort = searchParams?.get('sort')
+  const [column, order] = sort?.split('.') ?? []
+  const name = searchParams?.get('name')
+  const date_range = searchParams?.get('date_range')
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -238,14 +238,14 @@ export function ProductsTable({
   )
 
   // Handle server-side column (name) filtering
-  const [nameFilter, setNameFilter] = React.useState(name ?? "")
+  const [nameFilter, setNameFilter] = React.useState(name ?? '')
 
   // Handle server-side column (date) filtering
   const [dateFilter, setDateFilter] = React.useState<DateRange | undefined>(
     date_range
       ? {
-          from: dayjs(date_range.split("to")[0]).toDate(),
-          to: dayjs(date_range.split("to")[1]).toDate(),
+          from: dayjs(date_range.split('to')[0]).toDate(),
+          to: dayjs(date_range.split('to')[1]).toDate(),
         }
       : undefined
   )
@@ -254,8 +254,8 @@ export function ProductsTable({
   // Handle server-side column sorting
   const [sorting, setSorting] = React.useState<ColumnSort[]>([
     {
-      id: column ?? "createdAt",
-      desc: order === "desc" ? true : false,
+      id: column ?? 'createdAt',
+      desc: order === 'desc' ? true : false,
     },
   ])
 
@@ -265,7 +265,7 @@ export function ProductsTable({
         `${pathname}?${createQueryString({
           page,
           sort: sorting[0]?.id
-            ? `${sorting[0]?.id}.${sorting[0]?.desc ? "desc" : "asc"}`
+            ? `${sorting[0]?.id}.${sorting[0]?.desc ? 'desc' : 'asc'}`
             : null,
         })}`
       )
@@ -281,7 +281,7 @@ export function ProductsTable({
 
   return (
     <div className="w-full overflow-hidden">
-      <div className={cn("grid gap-2 px-1 pb-1")}>
+      <div className={cn('grid gap-2 px-1 pb-1')}>
         <Popover
           // update start_date and end_date when the popover is closed
           onOpenChange={(isOpen) => {
@@ -292,9 +292,9 @@ export function ProductsTable({
                     page: 1,
                     date_range: dateFilter
                       ? `${dayjs(dateFilter?.from).format(
-                          "YYYY-MM-DD HH:mm:ss.SSS"
+                          'YYYY-MM-DD HH:mm:ss.SSS'
                         )}to${dayjs(dateFilter?.to).format(
-                          "YYYY-MM-DD HH:mm:ss.SSS"
+                          'YYYY-MM-DD HH:mm:ss.SSS'
                         )}`
                       : null,
                   })}`
@@ -307,10 +307,10 @@ export function ProductsTable({
           <PopoverTrigger asChild>
             <Button
               id="date"
-              variant={"outline"}
+              variant={'outline'}
               className={cn(
-                "h-8 justify-start text-left font-normal lg:w-[280px]",
-                !dateFilter && "text-muted-foreground"
+                'h-8 justify-start text-left font-normal lg:w-[280px]',
+                !dateFilter && 'text-muted-foreground'
               )}
             >
               <CalendarIcon className="mr-2 h-4 w-4" />
@@ -411,7 +411,7 @@ export function ProductsTable({
                             } catch (error) {
                               error instanceof Error
                                 ? toast.error(error.message)
-                                : toast.error("Something went wrong")
+                                : toast.error('Something went wrong')
                             }
                             // Reset row selection
                             tableInstance.resetRowSelection()
@@ -455,16 +455,16 @@ export function ProductsTable({
                                   row.original.price,
                                   row.original.inventory,
                                   row.original.rating,
-                                ].join(",")
+                                ].join(',')
                               })
-                              .join("\n")
+                              .join('\n')
 
-                            const blob = new Blob([csv], { type: "text/csv" })
+                            const blob = new Blob([csv], { type: 'text/csv' })
                             const url = window.URL.createObjectURL(blob)
-                            const a = document.createElement("a")
-                            a.setAttribute("hidden", "")
-                            a.setAttribute("href", url)
-                            a.setAttribute("download", "products.csv")
+                            const a = document.createElement('a')
+                            a.setAttribute('hidden', '')
+                            a.setAttribute('href', url)
+                            a.setAttribute('download', 'products.csv')
                             document.body.appendChild(a)
                             a.click()
                             document.body.removeChild(a)
@@ -485,7 +485,7 @@ export function ProductsTable({
                               .getAllColumns()
                               .filter(
                                 (column) =>
-                                  typeof column.accessorFn !== "undefined" &&
+                                  typeof column.accessorFn !== 'undefined' &&
                                   column.getCanHide()
                               )
 
@@ -508,7 +508,7 @@ export function ProductsTable({
                                 ]
                               }),
                             })
-                            doc.save("products.pdf")
+                            doc.save('products.pdf')
                           }}
                         >
                           Download PDF
@@ -533,7 +533,7 @@ export function ProductsTable({
                           .getAllColumns()
                           .filter(
                             (column) =>
-                              typeof column.accessorFn !== "undefined" &&
+                              typeof column.accessorFn !== 'undefined' &&
                               column.getCanHide()
                           )
                           .map((column) => {
@@ -593,7 +593,7 @@ export function ProductsTable({
             return (
               <div className="flex flex-col-reverse items-center gap-4 py-2 md:flex-row">
                 <div className="flex-1 text-sm font-medium">
-                  {tableInstance.getFilteredSelectedRowModel().rows.length} of{" "}
+                  {tableInstance.getFilteredSelectedRowModel().rows.length} of{' '}
                   {per_page} row(s) selected.
                 </div>
                 <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">

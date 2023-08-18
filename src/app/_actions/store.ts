@@ -1,25 +1,25 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { db } from "@/db"
-import { products, stores, type Store } from "@/db/schema"
-import { and, asc, desc, eq, gt, lt, sql } from "drizzle-orm"
-import { type z } from "zod"
+import { db } from '@/db'
+import { products, stores, type Store } from '@/db/schema'
+import { and, asc, desc, eq, gt, lt, sql } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
+import { type z } from 'zod'
 
-import { slugify } from "@/lib/utils"
-import type { getStoreSchema, storeSchema } from "@/lib/validations/store"
+import { slugify } from '@/lib/utils'
+import type { getStoreSchema, storeSchema } from '@/lib/validations/store'
 
 export async function getStoresAction(input: {
   limit?: number
   offset?: number
-  sort?: `${keyof Store | "productCount"}.${"asc" | "desc"}`
+  sort?: `${keyof Store | 'productCount'}.${'asc' | 'desc'}`
 }) {
   const limit = input.limit ?? 10
   const offset = input.offset ?? 0
   const [column, order] =
-    (input.sort?.split("-") as [
+    (input.sort?.split('-') as [
       keyof Store | undefined,
-      "asc" | "desc" | undefined
+      'asc' | 'desc' | undefined
     ]) ?? []
 
   const { items, total } = await db.transaction(async (tx) => {
@@ -35,12 +35,12 @@ export async function getStoresAction(input: {
       .leftJoin(products, eq(stores.id, products.storeId))
       .groupBy(stores.id)
       .orderBy(
-        input.sort === "productCount.asc"
+        input.sort === 'productCount.asc'
           ? asc(sql<number>`count(${products.id})`)
-          : input.sort === "productCount.desc"
+          : input.sort === 'productCount.desc'
           ? desc(sql<number>`count(${products.id})`)
           : column && column in stores
-          ? order === "asc"
+          ? order === 'asc'
             ? asc(stores[column])
             : desc(stores[column])
           : desc(stores.createdAt)
@@ -72,7 +72,7 @@ export async function addStoreAction(
   })
 
   if (storeWithSameName) {
-    throw new Error("Store name already taken.")
+    throw new Error('Store name already taken.')
   }
 
   await db.insert(stores).values({
@@ -82,14 +82,14 @@ export async function addStoreAction(
     slug: slugify(input.name),
   })
 
-  revalidatePath("/dashboard/stores")
+  revalidatePath('/dashboard/stores')
 }
 
 export async function getNextStoreIdAction(
   input: z.infer<typeof getStoreSchema>
 ) {
-  if (typeof input.id !== "number" || typeof input.userId !== "string") {
-    throw new Error("Invalid input.")
+  if (typeof input.id !== 'number' || typeof input.userId !== 'string') {
+    throw new Error('Invalid input.')
   }
 
   const nextStore = await db.query.stores.findFirst({
@@ -104,7 +104,7 @@ export async function getNextStoreIdAction(
     })
 
     if (!firstStore) {
-      throw new Error("Store not found.")
+      throw new Error('Store not found.')
     }
 
     return firstStore.id
@@ -116,8 +116,8 @@ export async function getNextStoreIdAction(
 export async function getPreviousStoreIdAction(
   input: z.infer<typeof getStoreSchema>
 ) {
-  if (typeof input.id !== "number" || typeof input.userId !== "string") {
-    throw new Error("Invalid input.")
+  if (typeof input.id !== 'number' || typeof input.userId !== 'string') {
+    throw new Error('Invalid input.')
   }
 
   const previousStore = await db.query.stores.findFirst({
@@ -132,7 +132,7 @@ export async function getPreviousStoreIdAction(
     })
 
     if (!lastStore) {
-      throw new Error("Store not found.")
+      throw new Error('Store not found.')
     }
 
     return lastStore.id
