@@ -86,7 +86,7 @@ export function RequestQuoteForm() {
         .then((data: ValidateRutResponse) => {
           if (data.data.valid) {
             form.clearErrors('rut')
-            fetch(`https://api.libreapi.cl/rut/activities?rut=${filteredValue}`)
+            fetch(`${url}/rut/activities?rut=${filteredValue}`)
               .then((response) => response.json())
               .then((e: RutDataResponse) => {
                 form.setValue('razonSocial', e.data.name.toUpperCase())
@@ -129,7 +129,7 @@ export function RequestQuoteForm() {
 
       if (response.ok) {
         toast.success('¡Cotización solicitada con éxito!')
-        router.push('/')
+        router.push('/tienda/cotizar/cotizacion-exitosa')
       }
     })
   }
