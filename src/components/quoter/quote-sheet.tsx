@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { getQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { UpdateQuote } from './update-quote'
 
@@ -47,7 +48,9 @@ export async function QuoteSheet() {
       </SheetTrigger>
       <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
         <SheetHeader className="px-1">
-          <SheetTitle>Cotizador {itemCount > 0 && `(${itemCount})`}</SheetTitle>
+          <SheetTitle>
+            Cotizador {itemCount > 0 && `(${itemCount} items)`}
+          </SheetTitle>
         </SheetHeader>
         <Separator className="-ml-6 w-[calc(100%+24px)]" />
         {itemCount > 0 ? (
@@ -123,15 +126,24 @@ export async function QuoteSheet() {
                 </div>
               </ScrollArea>
             </div>
+
+            {/* FOOTER */}
             <div className="grid gap-1.5 pr-6 text-sm">
               <SheetFooter className="mt-1.5">
-                <Button
-                  aria-label="Solicitar cotización"
-                  size="lg"
-                  className="w-full h-12"
-                >
-                  Solicitar cotización
-                </Button>
+                <Link href="/tienda/cotizar" className="w-full">
+                  <div
+                    className={cn(
+                      buttonVariants({
+                        size: 'lg',
+                        className: 'w-full h-12 smooth-500',
+                      })
+                    )}
+                    aria-label="Ir a solicitar cotización"
+                  >
+                    Cotizar
+                    <span className="sr-only">Ir a cotizar</span>
+                  </div>
+                </Link>
               </SheetFooter>
             </div>
           </>

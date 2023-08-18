@@ -1,21 +1,27 @@
 'use server'
 
 import { db } from '@/db'
-import { quotes } from '@/db/schema'
+import { quotes, type Quote } from '@/db/schema'
 import type { QuoteItem, QuoteLineItem } from '@/types'
 import { getMultipleProductsById } from '@/wp/get-multiple-products-by-id'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
-export async function getQuoteAction(): Promise<QuoteLineItem[]> {
+export async function getQuote(): Promise<Quote | undefined> {
   const quoteId = cookies().get('quoteId')?.value
 
-  if (!quoteId || isNaN(Number(quoteId))) return []
+  if (!quoteId || isNaN(Number(quoteId))) return undefined
 
   const quote = await db.query.quotes.findFirst({
     where: eq(quotes.id, Number(quoteId)),
   })
+
+  return quote
+}
+
+export async function getQuoteAction(): Promise<QuoteLineItem[]> {
+  const quote = await getQuote()
 
   const productIds = quote?.items?.map((item) => item.productId) ?? []
 

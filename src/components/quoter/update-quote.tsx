@@ -24,12 +24,37 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
 
   return (
     // plus and minus buttons, input field, delete button
-    <div className="flex items-center space-x-1">
-      <div className="flex items-center space-x-1">
+    <div className="flex flex-col gap-1 max-w-min h-full">
+      <Input
+        type="number"
+        min="0"
+        className="h-full w-full"
+        value={quoteLineItem.quantity}
+        onChange={(e) => {
+          startTransition(() => {
+            addToQuoteAction({
+              productId: quoteLineItem.id,
+              quantity: Number(e.target.value),
+            })
+              .then(() => {
+                toast.success('Producto agregado correctamente')
+              })
+              .catch((error) => {
+                if (error instanceof Error) {
+                  toast.error(error.message)
+                } else {
+                  toast.error('Ocurrió un error, intenta nuevamente.')
+                }
+              })
+          })
+        }}
+        disabled={isPending}
+      />
+      <div className="flex items-center gap-1 h-full">
         <Button
           variant="outline"
           size="icon"
-          className="h-8 w-8"
+          className="h-full w-8"
           onClick={() => {
             startTransition(() => {
               addToQuoteAction({
@@ -53,35 +78,11 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
           <Icons.remove className="h-3 w-3" aria-hidden="true" />
           <span className="sr-only">Eliminar un producto</span>
         </Button>
-        <Input
-          type="number"
-          min="0"
-          className="h-8 w-14"
-          value={quoteLineItem.quantity}
-          onChange={(e) => {
-            startTransition(() => {
-              addToQuoteAction({
-                productId: quoteLineItem.id,
-                quantity: Number(e.target.value),
-              })
-                .then(() => {
-                  toast.success('Producto agregado correctamente')
-                })
-                .catch((error) => {
-                  if (error instanceof Error) {
-                    toast.error(error.message)
-                  } else {
-                    toast.error('Ocurrió un error, intenta nuevamente.')
-                  }
-                })
-            })
-          }}
-          disabled={isPending}
-        />
+
         <Button
           variant="outline"
           size="icon"
-          className="h-8 w-8"
+          className="h-full w-8"
           onClick={() => {
             startTransition(() => {
               addToQuoteAction({
@@ -105,29 +106,30 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
           <Icons.add className="h-3 w-3" aria-hidden="true" />
           <span className="sr-only">Agregar un producto</span>
         </Button>
+
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-full w-8"
+          onClick={() => {
+            startTransition(async () => {
+              try {
+                await deleteQuoteItemAction({
+                  productId: quoteLineItem.id,
+                })
+              } catch (error) {
+                error instanceof Error
+                  ? toast.error(error.message)
+                  : toast.error('Ocurrió un error, intenta nuevamente.')
+              }
+            })
+          }}
+          disabled={isPending}
+        >
+          <Icons.trash className="h-3 w-3" aria-hidden="true" />
+          <span className="sr-only">Delete item</span>
+        </Button>
       </div>
-      <Button
-        variant="outline"
-        size="icon"
-        className="h-8 w-8"
-        onClick={() => {
-          startTransition(async () => {
-            try {
-              await deleteQuoteItemAction({
-                productId: quoteLineItem.id,
-              })
-            } catch (error) {
-              error instanceof Error
-                ? toast.error(error.message)
-                : toast.error('Ocurrió un error, intenta nuevamente.')
-            }
-          })
-        }}
-        disabled={isPending}
-      >
-        <Icons.trash className="h-3 w-3" aria-hidden="true" />
-        <span className="sr-only">Delete item</span>
-      </Button>
     </div>
   )
 }

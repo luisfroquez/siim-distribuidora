@@ -46,6 +46,13 @@ export default function NewsletterWelcomeEmail({
                 className="aspect-[2.43/1] w-40 object-cover mx-auto"
               />
             </Section>
+            <Section className="bg-gray-100 w-full p-8 rounded">
+              <Img
+                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/Logo-Horizontal.png"
+                alt="Logo SIIM Distribuidora"
+                className="aspect-[2.43/1] w-40 object-cover mx-auto"
+              />
+            </Section>
             <Section className="text-gray-900 px-8">
               <Heading className="text-center text-3xl mt-8 font-bold text-blue-600">
                 ¡Bienvenid@ a nuestro Boletín Informativo!

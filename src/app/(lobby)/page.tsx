@@ -7,9 +7,6 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-import { IwsProductCard } from '@/components/product-card/iws-product-card'
-import { getExtendedCatalog } from '@/iws/get-extended-catalog'
-import { createTwoAleatoryNumbers } from '@/utils/create-two-aleatory-numbers'
 import Categories from './(modules)/Categories'
 import FeaturedProducts from './(modules)/FeaturedProducts'
 import Features from './(modules)/Features'
@@ -20,16 +17,16 @@ import Hero from './(modules)/Hero'
 // export const runtime = "edge"
 
 export default async function IndexPage() {
-  const extendedData = await getExtendedCatalog()
-  const allIwsProductsWithImages = extendedData
-    .filter((e) => e.DescripcionFabrica === 'Hikvision')
-    .filter((e) => e.Imagenes.length > 0)
+  // const extendedData = await getExtendedCatalog()
+  // const allIwsProductsWithImages = extendedData
+  //   .filter((e) => e.DescripcionFabrica === 'Hikvision')
+  //   .filter((e) => e.Imagenes.length > 0)
 
-  const lenght = allIwsProductsWithImages.length ?? 0
+  // const lenght = allIwsProductsWithImages.length ?? 0
 
-  const [min, max] = createTwoAleatoryNumbers(lenght, 8)
+  // const [min, max] = createTwoAleatoryNumbers(lenght, 8)
 
-  const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
+  // const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
   return (
     <div>
       <Shell>
@@ -82,11 +79,11 @@ export default async function IndexPage() {
               </div>
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {slicedIwsProductsWithImages.map((iwsProduct, i) => (
               <IwsProductCard key={i} product={iwsProduct} />
             ))}
-          </div>
+          </div> */}
         </div>
 
         <Card className="mt-4 grid place-items-center gap-4 px-6 py-16 text-center">

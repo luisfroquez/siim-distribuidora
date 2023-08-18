@@ -30,7 +30,7 @@ export interface WpProduct {
     nodes: {
       attributeId: number
     }[]
-  }
+  } | null
   productCategories: {
     nodes: {
       name
