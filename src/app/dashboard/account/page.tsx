@@ -5,16 +5,16 @@ import { Header } from '@/components/header'
 import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
-  title: 'Account',
-  description: 'Manage your account settings',
+  title: 'Cuenta',
+  description: 'Gestiona la configuración de tu cuenta SIIM',
 }
 
 export default function AccountPage() {
   return (
     <Shell layout="dashboard">
       <Header
-        title="Account"
-        description="Manage your account settings."
+        title="Cuenta"
+        description="Gestiona la configuración de tu cuenta SIIM"
         size="sm"
       />
       <div className="w-full overflow-hidden rounded-lg">
@@ -22,6 +22,7 @@ export default function AccountPage() {
           appearance={{
             variables: {
               borderRadius: '0.25rem',
+              colorBackground: '#00000000',
             },
             elements: {
               card: 'shadow-none',

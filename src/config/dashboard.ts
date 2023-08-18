@@ -7,28 +7,28 @@ export type DashboardConfig = {
 export const dashboardConfig: DashboardConfig = {
   sidebarNav: [
     {
-      title: 'Account',
+      title: 'Cuenta',
       href: '/dashboard/account',
       icon: 'user',
       items: [],
     },
     {
-      title: 'Stores',
-      href: '/dashboard/stores',
-      icon: 'store',
+      title: 'Cotizaciones',
+      href: '/dashboard/quotes',
+      icon: 'calculator',
       items: [],
     },
-    {
-      title: 'Billing',
-      href: '/dashboard/billing',
-      icon: 'billing',
-      items: [],
-    },
-    {
-      title: 'Purchases',
-      href: '/dashboard/purchases',
-      icon: 'dollarSign',
-      items: [],
-    },
+    // {
+    //   title: 'Billing',
+    //   href: '/dashboard/billing',
+    //   icon: 'billing',
+    //   items: [],
+    // },
+    // {
+    //   title: 'Purchases',
+    //   href: '/dashboard/purchases',
+    //   icon: 'dollarSign',
+    //   items: [],
+    // },
   ],
 }

@@ -2,16 +2,15 @@ import { currentUser } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { AddStoreForm } from '@/components/forms/add-store-form'
 import { Header } from '@/components/header'
 import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
-  title: 'New Store',
-  description: 'Add a new store',
+  title: 'Cotizaciones',
+  description: 'Revisa las cotizaciones que nos has solicitado',
 }
 
-export default async function NewStorePage() {
+export default async function PurchasesPage() {
   const user = await currentUser()
 
   if (!user) {
@@ -21,11 +20,11 @@ export default async function NewStorePage() {
   return (
     <Shell layout="dashboard">
       <Header
-        title="New Store"
-        description="New store for your account."
+        title="Cotizaciones"
+        description="Revisa las cotizaciones que nos has solicitado"
         size="sm"
       />
-      <AddStoreForm userId={user.id} />
+      <div>Tabla de cotizaciones</div>
     </Shell>
   )
 }

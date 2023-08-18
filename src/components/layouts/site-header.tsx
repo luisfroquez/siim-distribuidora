@@ -1,7 +1,6 @@
 import type { User } from '@clerk/nextjs/dist/types/server'
 import Link from 'next/link'
 
-import { CartSheet } from '@/components/cart/cart-sheet'
 import { Combobox } from '@/components/combobox'
 import { Icons } from '@/components/icons'
 import { MainNav } from '@/components/layouts/main-nav'
@@ -48,7 +47,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
             <Combobox />
-            <CartSheet />
+            {/* <CartSheet /> */}
             <QuoteSheet />
             {user ? (
               <DropdownMenu>
@@ -85,28 +84,18 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                           className="mr-2 h-4 w-4"
                           aria-hidden="true"
                         />
-                        Account
-                        <DropdownMenuShortcut>⇧⌘A</DropdownMenuShortcut>
+                        Cuenta
+                        <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/dashboard/stores">
-                        <Icons.terminal
+                      <Link href="/dashboard/quotes">
+                        <Icons.calculator
                           className="mr-2 h-4 w-4"
                           aria-hidden="true"
                         />
-                        Dashboard
-                        <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild disabled>
-                      <Link href="/dashboard/settings">
-                        <Icons.settings
-                          className="mr-2 h-4 w-4"
-                          aria-hidden="true"
-                        />
-                        Settings
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                        Cotizaciones
+                        <DropdownMenuShortcut>⌘Q</DropdownMenuShortcut>
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
@@ -117,8 +106,8 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                         className="mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
-                      Log out
-                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                      Cerrar sesión
+                      <DropdownMenuShortcut>⇧⌘E</DropdownMenuShortcut>
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
