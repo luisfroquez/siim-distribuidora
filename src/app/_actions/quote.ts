@@ -33,11 +33,11 @@ export async function getQuoteAction(): Promise<QuoteLineItem[]> {
 
   const allQuoteLineItems = quoteLineItems.map((item) => {
     const quantity = quote?.items?.find(
-      (quoteItem) => quoteItem.productId == item.data.product.id
+      (quoteItem) => quoteItem.productId == item.id
     )?.quantity
 
     return {
-      ...item.data.product,
+      ...item,
       quantity,
     }
   })

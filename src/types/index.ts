@@ -82,6 +82,7 @@ export interface CartLineItem
 export type QuoteItem = {
   productId: string
   quantity: number
+  isVariable?: boolean
 }
 
 export interface QuoteLineItem extends WpProduct {

@@ -24,7 +24,7 @@ export interface WpCategoryWithAncestors {
 export interface WpProduct {
   id: string
   name: string
-  sku: string
+  sku: string | null
   slug: string
   attributes: {
     nodes: {
@@ -33,8 +33,8 @@ export interface WpProduct {
   } | null
   productCategories: {
     nodes: {
-      name
-      uri
+      name: string
+      uri: string
     }[]
   }
   featuredImage: {
@@ -44,6 +44,44 @@ export interface WpProduct {
       guid: string
     }
   }
+}
+
+export interface WpProductVariation {
+  id: string
+  name: string
+  sku: string
+  parent: {
+    node: {
+      slug: string
+      productCategories: {
+        nodes: {
+          name: string
+          uri: string
+        }[]
+      }
+      featuredImage: {
+        node: {
+          id: string
+          altText: string
+          guid: string
+        }
+      }
+    }
+  }
+  attributes: {
+    nodes: {
+      attributeId: number
+      label: string
+      value: string
+    }[]
+  }
+  featuredImage: {
+    node: {
+      id: string
+      altText: string
+      guid: string
+    }
+  } | null
 }
 
 export interface WpProducts {
@@ -160,6 +198,8 @@ export interface AttributeNode {
 
 export interface Variations {
   nodes: {
+    id: string
+    name: string
     sku: string
     featuredImage: {
       node: WpImageNode

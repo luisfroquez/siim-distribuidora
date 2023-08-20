@@ -255,6 +255,48 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 `
+
+export const GET_PRODUCT_VARIATION_BY_ID = gql`
+  query ProducVariationtById($id: ID!) {
+    productVariation(id: $id) {
+      id
+      name
+      sku
+      parent {
+        node {
+          slug
+          productCategories {
+            nodes {
+              name
+              uri
+            }
+          }
+          featuredImage {
+            node {
+              id
+              altText
+              guid
+            }
+          }
+        }
+      }
+      attributes {
+        nodes {
+          attributeId
+          label
+          value
+        }
+      }
+      featuredImage {
+        node {
+          id
+          altText
+          guid
+        }
+      }
+    }
+  }
+`
 export const GET_PRODUCT_BY_SLUG = gql`
   query GetProductBySlug($slug: [String]) {
     products(where: { slugIn: $slug }) {
@@ -304,6 +346,7 @@ export const GET_PRODUCT_BY_SLUG = gql`
         ... on VariableProduct {
           variations {
             nodes {
+              id
               name
               sku
               featuredImage {

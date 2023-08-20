@@ -1,3 +1,5 @@
+'use client'
+
 import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
 import parse from 'html-react-parser'
 import Link from 'next/link'
@@ -5,9 +7,13 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text'
 
+import { addToQuoteAction } from '@/app/_actions/quote'
+import { useTransition } from 'react'
+import { toast } from 'sonner'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
 
 const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
+  const [isPending, startTransition] = useTransition()
   const mappedProduct = product.products.nodes[0]
   const category = mappedProduct.productCategories
     .nodes[0] as WpCategoryWithAncestors
@@ -71,7 +77,29 @@ const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
             </div>
           </div>
 
-          <Button className="w-fit">Agregar al cotizador</Button>
+          <Button
+            className="w-fit"
+            onClick={() => {
+              startTransition(async () => {
+                try {
+                  await addToQuoteAction({
+                    productId: mappedProduct.id,
+                    quantity: 1,
+                  })
+                  toast.success('¡Agregado al Cotizador!')
+                } catch (error) {
+                  error instanceof Error
+                    ? toast.error(error.message)
+                    : toast.error(
+                        'Ocurrió un error, por favor intente nuevamente.'
+                      )
+                }
+              })
+            }}
+            disabled={isPending}
+          >
+            Agregar al cotizador
+          </Button>
         </div>
       </div>
     </div>

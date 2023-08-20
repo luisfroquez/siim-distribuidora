@@ -34,7 +34,7 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
         sku.attributes.nodes.some((node) => node.attributeId.toString() === id)
       )
     })
-    .map((e) => ({ sku: e.sku, img: e.featuredImage }))
+    .map((e) => ({ sku: e.sku, img: e.featuredImage, id: e.id }))
 
   const selectedSKUs = selected.map((s) => s.sku)
   const selectedImage = selected.map((s) => s.img)[0]
@@ -151,7 +151,7 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
               setIsLoading(true)
 
               addToQuoteAction({
-                productId: mappedProduct.id,
+                productId: selected[0]?.id ?? '',
                 quantity: 1,
               })
                 .then(() => {
