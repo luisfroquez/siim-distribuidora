@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { getQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { Badge } from '@/components/ui/badge'
@@ -16,7 +14,7 @@ import {
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { UpdateQuote } from './update-quote'
+import RenderQuotLineItems from './render-quoteline-items'
 
 export async function QuoteSheet() {
   const quoteLineItems = await getQuoteAction()
@@ -46,118 +44,46 @@ export async function QuoteSheet() {
           <Icons.calculator className="h-4 w-4" aria-hidden="true" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-0 sm:max-w-2xl">
+      <SheetContent className="flex w-full flex-col sm:max-w-2xl">
         <SheetHeader className="px-1">
-          <SheetTitle>
-            Cotizador {itemCount > 0 && `(${itemCount} items)`}
+          <SheetTitle className="flex gap-2 items-center">
+            <h2>Cotizador</h2>
+            {itemCount > 0 && (
+              <Badge variant="secondary">{itemCount} items</Badge>
+            )}
           </SheetTitle>
         </SheetHeader>
-        <Separator className="-ml-6 w-[calc(100%+24px)]" />
+        <Separator />
         {itemCount > 0 ? (
           <>
-            <div className="flex flex-1 flex-col gap-5 overflow-hidden">
+            <div className="flex flex-1 flex-col overflow-hidden">
               <ScrollArea className="h-full">
-                <div className="flex flex-col gap-5 pr-6">
-                  {quoteLineItems.map((item) => {
-                    const category =
-                      item.productCategories.nodes[
-                        item.productCategories.nodes.length - 1
-                      ]
-                    return (
-                      <div key={item.id} className="space-y-3">
-                        <div className="flex items-center space-x-4">
-                          <div className="relative h-16 w-16 overflow-hidden rounded">
-                            {item?.featuredImage ? (
-                              <Link href={`/tienda/producto/${item.slug}`}>
-                                <Image
-                                  src={
-                                    item.featuredImage.node.guid ??
-                                    '/images/product-placeholder.webp'
-                                  }
-                                  alt={
-                                    item.featuredImage.node.altText ?? item.name
-                                  }
-                                  fill
-                                  className="absolute object-cover"
-                                  loading="lazy"
-                                />
-                              </Link>
-                            ) : (
-                              <div className="flex h-full items-center justify-center bg-secondary">
-                                <Icons.placeholder
-                                  className="h-4 w-4 text-muted-foreground"
-                                  aria-hidden="true"
-                                />
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex flex-1 flex-col gap-1 self-start text-sm">
-                            <Link
-                              href={`/tienda/producto/${item.slug}`}
-                              aria-label={`Ir a ${item.name}`}
-                              className="hover:underline font-bold"
-                            >
-                              <span className="line-clamp-2 ">{item.name}</span>
-                            </Link>
-
-                            <div className="flex gap-2">
-                              <div className="flex content-start gap-1 text-muted-foreground text-xs">
-                                <p>
-                                  <strong>SKU:</strong> {item.sku}
-                                </p>
-                              </div>
-
-                              <div className="flex content-start gap-1 text-muted-foreground text-xs">
-                                <p className="font-bold">Categoría:</p>
-                                <Link
-                                  href={`/tienda${category?.uri as string}`}
-                                  aria-label={`Ir a ${
-                                    category?.name as string
-                                  }`}
-                                  className="hover:underline"
-                                >
-                                  {category?.name}
-                                </Link>
-                              </div>
-                            </div>
-
-                            {item.attributes && (
-                              <div className="flex flex-wrap gap-1">
-                                {item.attributes.nodes.map((a) => (
-                                  <Badge variant="outline">{a.value}</Badge>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                          <UpdateQuote quoteLineItem={item} />
-                        </div>
-                        <Separator />
-                      </div>
-                    )
-                  })}
+                <div className="flex flex-col gap-2">
+                  {quoteLineItems.map((item, i) => (
+                    <RenderQuotLineItems key={i} item={item} />
+                  ))}
                 </div>
               </ScrollArea>
             </div>
 
             {/* FOOTER */}
-            <div className="grid gap-1.5 pr-6 text-sm">
-              <SheetFooter className="mt-1.5">
-                <Link href="/tienda/cotizar" className="w-full">
-                  <div
-                    className={cn(
-                      buttonVariants({
-                        size: 'lg',
-                        className: 'w-full h-12 smooth-500',
-                      })
-                    )}
-                    aria-label="Ir a solicitar cotización"
-                  >
-                    Cotizar
-                    <span className="sr-only">Ir a cotizar</span>
-                  </div>
-                </Link>
-              </SheetFooter>
-            </div>
+
+            <SheetFooter className="mt-1.5">
+              <Link href="/tienda/cotizar" className="w-full">
+                <div
+                  className={cn(
+                    buttonVariants({
+                      size: 'lg',
+                      className: 'w-fit px-12 h-12 smooth-500',
+                    })
+                  )}
+                  aria-label="Ir a solicitar cotización"
+                >
+                  Cotizar
+                  <span className="sr-only">Ir a cotizar</span>
+                </div>
+              </Link>
+            </SheetFooter>
           </>
         ) : (
           <div className="flex h-full flex-col items-center justify-center space-y-2">
