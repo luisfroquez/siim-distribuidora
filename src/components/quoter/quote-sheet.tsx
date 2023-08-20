@@ -46,7 +46,7 @@ export async function QuoteSheet() {
           <Icons.calculator className="h-4 w-4" aria-hidden="true" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
+      <SheetContent className="flex w-full flex-col pr-0 sm:max-w-2xl">
         <SheetHeader className="px-1">
           <SheetTitle>
             Cotizador {itemCount > 0 && `(${itemCount} items)`}
@@ -100,22 +100,34 @@ export async function QuoteSheet() {
                               <span className="line-clamp-2 ">{item.name}</span>
                             </Link>
 
-                            <div className="flex w-full content-start gap-1 text-muted-foreground">
-                              <p>
-                                <strong>SKU:</strong> {item.sku}
-                              </p>
+                            <div className="flex gap-2">
+                              <div className="flex content-start gap-1 text-muted-foreground text-xs">
+                                <p>
+                                  <strong>SKU:</strong> {item.sku}
+                                </p>
+                              </div>
+
+                              <div className="flex content-start gap-1 text-muted-foreground text-xs">
+                                <p className="font-bold">Categoría:</p>
+                                <Link
+                                  href={`/tienda${category?.uri as string}`}
+                                  aria-label={`Ir a ${
+                                    category?.name as string
+                                  }`}
+                                  className="hover:underline"
+                                >
+                                  {category?.name}
+                                </Link>
+                              </div>
                             </div>
 
-                            <div className="flex w-full content-start gap-1 text-muted-foreground">
-                              <p className="font-bold">Categoría:</p>
-                              <Link
-                                href={`/tienda${category?.uri as string}`}
-                                aria-label={`Ir a ${category?.name as string}`}
-                                className="hover:underline"
-                              >
-                                {category?.name}
-                              </Link>
-                            </div>
+                            {item.attributes && (
+                              <div className="flex flex-wrap gap-1">
+                                {item.attributes.nodes.map((a) => (
+                                  <Badge variant="outline">{a.value}</Badge>
+                                ))}
+                              </div>
+                            )}
                           </div>
                           <UpdateQuote quoteLineItem={item} />
                         </div>

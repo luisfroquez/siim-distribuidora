@@ -29,6 +29,8 @@ export interface WpProduct {
   attributes: {
     nodes: {
       attributeId: number
+      label: string
+      value: string
     }[]
   } | null
   productCategories: {

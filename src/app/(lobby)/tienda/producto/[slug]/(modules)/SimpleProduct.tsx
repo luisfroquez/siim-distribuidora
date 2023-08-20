@@ -8,12 +8,15 @@ import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text'
 
 import { addToQuoteAction } from '@/app/_actions/quote'
-import { useTransition } from 'react'
+import { Icons } from '@/components/icons'
+import { Input } from '@/components/ui/input'
+import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
 
 const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
   const [isPending, startTransition] = useTransition()
+  const [quantity, setQuantity] = useState(1)
   const mappedProduct = product.products.nodes[0]
   const category = mappedProduct.productCategories
     .nodes[0] as WpCategoryWithAncestors
@@ -77,29 +80,62 @@ const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
             </div>
           </div>
 
-          <Button
-            className="w-fit"
-            onClick={() => {
-              startTransition(async () => {
-                try {
-                  await addToQuoteAction({
-                    productId: mappedProduct.id,
-                    quantity: 1,
-                  })
-                  toast.success('¡Agregado al Cotizador!')
-                } catch (error) {
-                  error instanceof Error
-                    ? toast.error(error.message)
-                    : toast.error(
-                        'Ocurrió un error, por favor intente nuevamente.'
-                      )
-                }
-              })
-            }}
-            disabled={isPending}
-          >
-            Agregar al cotizador
-          </Button>
+          <div className="flex gap-2 items-stretch h-9">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-full w-9"
+              onClick={() => setQuantity((prev) => prev - 1)}
+              disabled={isPending || quantity === 1}
+            >
+              <Icons.remove className="h-3 w-3" aria-hidden="true" />
+              <span className="sr-only">Restar uno a la cantidad</span>
+            </Button>
+
+            <Input
+              type="number"
+              min="1"
+              className="h-full w-[6rem]"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              disabled={isPending}
+            />
+
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-full w-9"
+              onClick={() => setQuantity((prev) => prev + 1)}
+              disabled={isPending}
+            >
+              <Icons.add className="h-3 w-3" aria-hidden="true" />
+              <span className="sr-only">Sumar uno a la cantidad</span>
+            </Button>
+
+            <Button
+              className="h-full w-fit ml-2"
+              onClick={() => {
+                startTransition(async () => {
+                  try {
+                    await addToQuoteAction({
+                      productId: mappedProduct.id,
+                      quantity,
+                    })
+                    toast.success('¡Agregado al Cotizador!')
+                  } catch (error) {
+                    error instanceof Error
+                      ? toast.error(error.message)
+                      : toast.error(
+                          'Ocurrió un error, por favor intente nuevamente.'
+                        )
+                  }
+                })
+              }}
+              disabled={isPending}
+            >
+              Agregar al cotizador
+            </Button>
+          </div>
         </div>
       </div>
     </div>

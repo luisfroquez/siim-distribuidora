@@ -17,11 +17,6 @@ interface UpdateQuoteProps {
 export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
   const [isPending, startTransition] = React.useTransition()
 
-  // function addToQuoteAction(arg: { productId: any; quantity: number }) {
-  //   console.log(arg)
-  //   throw new Error('Function not implemented.')
-  // }
-
   return (
     // plus and minus buttons, input field, delete button
     <div className="flex flex-col gap-1 max-w-min h-full">
@@ -54,7 +49,7 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
         <Button
           variant="outline"
           size="icon"
-          className="h-full w-8"
+          className="h-full min-h-[2rem] w-8"
           onClick={() => {
             startTransition(() => {
               addToQuoteAction({
@@ -82,7 +77,7 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
         <Button
           variant="outline"
           size="icon"
-          className="h-full w-8"
+          className="h-full min-h-[2rem] w-8"
           onClick={() => {
             startTransition(() => {
               addToQuoteAction({
@@ -110,7 +105,7 @@ export function UpdateQuote({ quoteLineItem }: UpdateQuoteProps) {
         <Button
           variant="outline"
           size="icon"
-          className="h-full w-8"
+          className="h-full min-h-[2rem] w-8"
           onClick={() => {
             startTransition(async () => {
               try {

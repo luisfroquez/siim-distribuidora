@@ -4,18 +4,21 @@ import { convertVariationsToAttributeNode } from '@/utils/convert-variations-to-
 import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
 import parse from 'html-react-parser'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text/Text'
 
 import { addToQuoteAction } from '@/app/_actions/quote'
+import { Icons } from '@/components/icons'
+import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import AttributeSelect from './AttributeSelect'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
 
 const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isPending, startTransition] = useTransition()
+  const [quantity, setQuantity] = useState(1)
 
   const mappedProduct = product.products.nodes[0]
   const category = mappedProduct.productCategories
@@ -86,8 +89,10 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
         </div>
       </div>
 
-      {/* RIGHT SIDE */}
+      {/* DIVIDER */}
       <div className=" h-full w-[1px] bg-border" />
+
+      {/* RIGHT SIDE */}
       <div className="relative h-full w-[40%] p-8">
         <div className="sticky top-32 flex w-full flex-col gap-4">
           <ProductCategoryBreadcrumb category={category} />
@@ -138,40 +143,68 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
           {selectedSKUs.length > 1 && (
             <p className="opacity-80 text-xs">
               Hay {selectedSKUs.length} variaciones diferentes de este producto
-              la combinación de atributos seleccionada. Si deseas cotizar varios
-              o todas las variaciones de este, debes agregar al cotizador cada
-              variacion de forma individual.
+              con la combinación de atributos seleccionada. Si deseas cotizar
+              varios o todas las variaciones de este, debes agregar al cotizador
+              cada variacion de forma individual.
             </p>
           )}
 
-          <Button
-            className="w-fit"
-            disabled={!hasSKUs || selectedSKUs.length > 1 || isLoading}
-            onClick={() => {
-              setIsLoading(true)
+          <div className="flex gap-2 items-stretch h-9">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-full w-9"
+              onClick={() => setQuantity((prev) => prev - 1)}
+              disabled={isPending || quantity === 1}
+            >
+              <Icons.remove className="h-3 w-3" aria-hidden="true" />
+              <span className="sr-only">Restar uno a la cantidad</span>
+            </Button>
 
-              addToQuoteAction({
-                productId: selected[0]?.id ?? '',
-                quantity: 1,
-              })
-                .then(() => {
-                  toast.success('¡Agregado al Cotizador!')
-                  setIsLoading(false)
-                })
-                .catch((error) => {
-                  if (error instanceof Error) {
-                    toast.error(error.message)
-                  } else {
-                    toast.error(
-                      'Ocurrió un error, por favor intente nuevamente.'
-                    )
+            <Input
+              type="number"
+              min="1"
+              className="h-full w-[6rem]"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              disabled={isPending}
+            />
+
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-full w-9"
+              onClick={() => setQuantity((prev) => prev + 1)}
+              disabled={isPending}
+            >
+              <Icons.add className="h-3 w-3" aria-hidden="true" />
+              <span className="sr-only">Sumar uno a la cantidad</span>
+            </Button>
+
+            <Button
+              className="h-full w-fit ml-2"
+              disabled={!hasSKUs || selectedSKUs.length > 1 || isPending}
+              onClick={() => {
+                startTransition(async () => {
+                  try {
+                    await addToQuoteAction({
+                      productId: selected[0]?.id ?? '',
+                      quantity,
+                    })
+                    toast.success('¡Agregado al Cotizador!')
+                  } catch (error) {
+                    error instanceof Error
+                      ? toast.error(error.message)
+                      : toast.error(
+                          'Ocurrió un error, por favor intente nuevamente.'
+                        )
                   }
-                  setIsLoading(false)
                 })
-            }}
-          >
-            Agregar al cotizador
-          </Button>
+              }}
+            >
+              Agregar al cotizador
+            </Button>
+          </div>
         </div>
       </div>
     </div>
