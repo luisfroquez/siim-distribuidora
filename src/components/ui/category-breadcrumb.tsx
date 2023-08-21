@@ -1,7 +1,7 @@
 import { client } from '@/lib/apollo/apollo'
 import { GET_CATEGORY_BY_SLUG } from '@/wp/queries'
-import { WpProductCategory } from '@/wp/types'
-import { ApolloQueryResult } from '@apollo/client'
+import { type WpProductCategory } from '@/wp/types'
+import { type ApolloQueryResult } from '@apollo/client'
 import Link from 'next/link'
 
 interface CategoryBreadcrumbProps {
@@ -24,9 +24,7 @@ const CategoryBreadcrumb = async ({ uri }: CategoryBreadcrumbProps) => {
         variables: { slug },
       })
 
-      promisesArray.push(
-        promise as Promise<ApolloQueryResult<WpProductCategory>>
-      )
+      promisesArray.push(promise)
     })
   }
 

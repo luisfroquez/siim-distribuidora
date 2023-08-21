@@ -1,6 +1,6 @@
 'use client'
 import { addToQuoteAction, deleteQuoteItemAction } from '@/app/_actions/quote'
-import { QuoteLineItem } from '@/types'
+import { type QuoteLineItem } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTransition } from 'react'

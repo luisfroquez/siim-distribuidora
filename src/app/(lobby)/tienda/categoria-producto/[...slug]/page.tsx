@@ -9,7 +9,7 @@ import CategoryBreadcrumb from '@/components/ui/category-breadcrumb'
 import { client } from '@/lib/apollo/apollo'
 import { toTitleCase } from '@/lib/utils'
 import { GET_CATEGORY_BY_SLUG } from '@/wp/queries'
-import { WpProductCategory } from '@/wp/types'
+import { type WpProductCategory } from '@/wp/types'
 import { WpProducts } from '../../(modules)/wp-products'
 
 interface Params {
