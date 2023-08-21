@@ -3,11 +3,11 @@ import { type WpCategories } from '@/wp/types'
 import Link from 'next/link'
 
 interface CategoryBreadcrumbProps {
-  category: WpCategories | null
+  uri: string
 }
 
-const CategoryBreadcrumb = async ({ category }: CategoryBreadcrumbProps) => {
-  const items = category?.uri
+const CategoryBreadcrumb = async ({ uri }: CategoryBreadcrumbProps) => {
+  const items = uri
     .slice(20)
     .split('/')
     .filter((e) => e !== '/')

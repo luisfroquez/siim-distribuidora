@@ -219,3 +219,24 @@ export interface Variations {
 export interface Attributes {
   nodes: AttributeNode[]
 }
+
+// GET CATEGORY BY SLUG
+export interface WpProductCategory {
+  productCategory: Category
+}
+
+interface Category {
+  name: string
+  slug: string
+  uri: string
+  databaseId: number
+  parentDatabaseId: number | null
+  image: Image | null
+  children: { nodes: Category[] | [] }
+}
+
+export interface Image {
+  uri: string
+  altText: string
+  guid: string
+}

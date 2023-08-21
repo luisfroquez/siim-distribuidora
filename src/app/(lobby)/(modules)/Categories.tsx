@@ -8,26 +8,31 @@ const homeCategories = [
     name: 'Sistemas de Protección Contra Incendio',
     slug: 'sistemas-de-proteccion-contra-incendio',
     uri: '/categoria-producto/sistemas-de-proteccion-contra-incendio/',
+    image: '/images/sistemas-de-proteccion-contraincendios.webp',
   },
   {
     name: 'Electricidad',
     slug: 'electricidad',
     uri: '/categoria-producto/electricidad/',
+    image: '/images/insumos-de-electricidad.webp',
   },
   {
     name: 'Electrónica',
     slug: 'electronica',
     uri: '/categoria-producto/electronica/',
+    image: '/images/control-de-acceso.webp',
   },
   {
     name: 'Ferretería',
     slug: 'ferreteria',
     uri: '/categoria-producto/ferreteria/',
+    image: '/images/ferreteria.webp',
   },
   {
     name: 'Medicina',
     slug: 'medicina',
     uri: '/categoria-producto/medicina/',
+    image: '/images/insumos-medicos.webp',
   },
 ]
 
@@ -48,7 +53,7 @@ const Categories = () => {
               <>
                 <div className="smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 to-blue-900/10 group-hover:bg-blue-900/90 " />
                 <Image
-                  src={`https://source.unsplash.com/featured/?${category.name}`}
+                  src={category.image}
                   alt={category.name}
                   fill
                   className="smooth-1000 object-cover group-hover:scale-105"
@@ -59,7 +64,7 @@ const Categories = () => {
               <AspectRatio ratio={4 / 5}>
                 <div className="smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 to-blue-900/10 group-hover:bg-blue-900/90 " />
                 <Image
-                  src={`https://source.unsplash.com/featured/?${category.name}`}
+                  src={category.image}
                   alt={category.name}
                   fill
                   className="smooth-1000 object-cover group-hover:scale-105"

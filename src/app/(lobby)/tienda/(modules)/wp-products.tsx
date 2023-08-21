@@ -30,7 +30,6 @@ import { GET_ALL_PRODUCTS } from '@/wp/queries'
 import Switch from '@/components/ui/switch/switch'
 import { wpSortOptions } from '@/config/wp-products'
 import {
-  type WpCategories,
   type WpGetAllProducts,
   type WpGetAllProductsVariables,
 } from '@/wp/types'
@@ -39,10 +38,10 @@ import { WpProductCard } from '../../../../components/product-card/wp-product-ca
 import WpProductsSkeleton from './wp-products-skeleton'
 
 interface WpProductsProps {
-  category?: WpCategories | null
+  categoryId?: number
 }
 
-export function WpProducts({ category }: WpProductsProps) {
+export function WpProducts({ categoryId }: WpProductsProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -54,7 +53,6 @@ export function WpProducts({ category }: WpProductsProps) {
   const sort = searchParams?.get('sort') ?? 'ASC'
   const sortField = searchParams.get('sortField') ?? 'NAME'
   const featured = searchParams.get('featured') === 'true' ? true : undefined
-  const categoryId = category?.databaseId
   const size = Number(per_page)
   const offset = (Number(page) - 1) * size
 

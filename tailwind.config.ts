@@ -11,6 +11,9 @@ module.exports = {
       },
     },
     extend: {
+      objectPosition: {
+        'top--2': '0 -14rem',
+      },
       colors: {
         border: 'rgb(var(--border))',
         input: 'rgb(var(--input))',

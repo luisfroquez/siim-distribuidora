@@ -44,6 +44,36 @@ export const GET_CATEGORIES = gql`
     }
   }
 `
+export const GET_CATEGORY_BY_SLUG = gql`
+  query GetCategoryBySlug($slug: ID!) {
+    productCategory(id: $slug, idType: SLUG) {
+      name
+      slug
+      uri
+      databaseId
+      parentDatabaseId
+      image {
+        uri
+        altText
+        guid
+      }
+      children {
+        nodes {
+          name
+          slug
+          uri
+          parentDatabaseId
+          image {
+            uri
+            altText
+            guid
+          }
+        }
+      }
+    }
+  }
+`
+
 export const GET_FEATURED_PRODUCTS = gql`
   query GetFeaturedProducts {
     products(where: { featured: true }, first: 8) {
@@ -168,7 +198,6 @@ export const GET_ALL_PRODUCTS = gql`
     }
   }
 `
-
 export const SEARCH_PRODUCTS = gql`
   query searchProducts($search: String!) {
     products(where: { search: $search }) {
@@ -255,7 +284,6 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 `
-
 export const GET_PRODUCT_VARIATION_BY_ID = gql`
   query ProducVariationtById($id: ID!) {
     productVariation(id: $id) {
