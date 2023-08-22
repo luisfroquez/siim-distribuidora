@@ -1,4 +1,4 @@
-import { Image } from '@/wp/types'
+import { type Image } from '@/wp/types'
 
 export function getSingleWpImageUrl(node: Image | null | undefined): string {
   if (node) {

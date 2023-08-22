@@ -26,16 +26,7 @@ export default function convertVariationToProduct(
     attributes:
       attributes.nodes.length > 0 ? { nodes: attributes.nodes } : null,
     productCategories: { nodes: productCategoriesNodes },
-    featuredImage: {
-      node: {
-        id: variationFeaturedImage?.node.id || parentFeaturedImage.node.id,
-        altText:
-          variationFeaturedImage?.node.altText ||
-          parentFeaturedImage.node.altText,
-        guid:
-          variationFeaturedImage?.node.guid || parentFeaturedImage.node.guid,
-      },
-    },
+    featuredImage: variationFeaturedImage ?? parentFeaturedImage,
   }
 
   return product

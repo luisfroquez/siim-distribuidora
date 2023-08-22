@@ -92,7 +92,9 @@ export default function NewsletterWelcomeEmail({
             </Section>
             <Section>
               <Img
-                src={`${NEXT_PUBLIC_CONTENT_URL}/uploads/2023/08/newsletter-image.png`}
+                src={`${
+                  NEXT_PUBLIC_CONTENT_URL ?? 'http://wp.siim.cl'
+                }/uploads/2023/08/newsletter-image.png`}
                 alt="SIIM Imagen de Boletin Informativo"
                 height={424}
                 className="aspect-video w-full object-cover mb-0 mt-4 rounded-t"
