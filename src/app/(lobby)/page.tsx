@@ -63,7 +63,7 @@ export default function IndexPage() {
         </div>
 
         {/* HIKVISION */}
-        <div className="space-y-5 pt-8">
+        {/* <div className="space-y-5 pt-8">
           <div className="flex items-center">
             <h2 className="flex-1 text-2xl font-medium">Hikvision</h2>
             <Link href="/tienda/hikvision">
@@ -79,12 +79,12 @@ export default function IndexPage() {
               </div>
             </Link>
           </div>
-          {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {slicedIwsProductsWithImages.map((iwsProduct, i) => (
               <IwsProductCard key={i} product={iwsProduct} />
             ))}
-          </div> */}
-        </div>
+          </div>
+        </div> */}
 
         <Card className="mt-4 grid place-items-center gap-4 px-6 py-16 text-center">
           <h2 className="text-2xl font-medium">

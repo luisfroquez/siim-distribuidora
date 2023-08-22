@@ -26,15 +26,21 @@ export const siteConfig = {
           items: [],
         },
         {
-          title: 'Electricidad',
-          description: 'Ver todos los productos de electricidad',
-          href: '/tienda/categoria-producto/electricidad/',
+          title: 'Sistemas de Protección Contra Incendio',
+          description: 'Ver todos los productos contra incendios',
+          href: '/tienda/categoria-producto/sistemas-de-proteccion-contra-incendio/',
           items: [],
         },
         {
-          title: 'Electrónica',
-          description: 'Ver todos los productos de electrónica',
+          title: 'Control de Acceso',
+          description: 'Ver todos los productos de Control de Acceso',
           href: '/tienda/categoria-producto/electronica/',
+          items: [],
+        },
+        {
+          title: 'Electricidad',
+          description: 'Ver todos los productos de electricidad',
+          href: '/tienda/categoria-producto/electricidad/',
           items: [],
         },
         {
@@ -49,18 +55,12 @@ export const siteConfig = {
           href: '/tienda/categoria-producto/medicina/',
           items: [],
         },
-        {
-          title: 'Sistemas de Protección Contra Incendio',
-          description: 'Ver todos los productos contra incendios',
-          href: '/tienda/categoria-producto/sistemas-de-proteccion-contra-incendio/',
-          items: [],
-        },
       ],
     },
-    {
-      title: 'Hikvision',
-      href: '/hikvision',
-    },
+    // {
+    //   title: 'Hikvision',
+    //   href: '/hikvision',
+    // },
     {
       title: 'Instalaciones y Proyectos',
       href: 'https://ingenieria.siim.cl/',

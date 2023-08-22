@@ -18,17 +18,5 @@ export const dashboardConfig: DashboardConfig = {
       icon: 'calculator',
       items: [],
     },
-    // {
-    //   title: 'Billing',
-    //   href: '/dashboard/billing',
-    //   icon: 'billing',
-    //   items: [],
-    // },
-    // {
-    //   title: 'Purchases',
-    //   href: '/dashboard/purchases',
-    //   icon: 'dollarSign',
-    //   items: [],
-    // },
   ],
 }
