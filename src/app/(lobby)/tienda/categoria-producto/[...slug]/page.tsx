@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import CategoryBreadcrumb from '@/components/ui/category-breadcrumb'
 import { client } from '@/lib/apollo/apollo'
 import { toTitleCase } from '@/lib/utils'
+import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import { GET_CATEGORY_BY_SLUG } from '@/wp/queries'
 import { type WpProductCategory } from '@/wp/types'
 import { WpProducts } from '../../(modules)/wp-products'
@@ -27,12 +28,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { productCategory } = data
 
   return {
-    title: productCategory.name,
+    title: productCategory?.name,
     description: `Consigue lo mejor en ${
-      productCategory.name ?? '-'
+      productCategory?.name ?? '-'
     } con SIIM Distribuidora`,
     openGraph: {
-      images: [productCategory.image?.uri ?? ''],
+      images: [productCategory?.image?.uri ?? ''],
     },
   }
 }
@@ -70,7 +71,7 @@ export default async function Page({ params }: Params) {
           <div className="h-40 w-full">
             <div className="absolute inset-0 z-10 bg-blue-900/50 transition-colors group-hover:bg-blue-900/70" />
             <Image
-              src={productCategory.image?.guid ?? ''}
+              src={getSingleWpImageUrl(productCategory?.image)}
               alt={productCategory?.name || 'Categoría'}
               fill
               className="object-cover object-top--2 transition-transform group-hover:scale-105"

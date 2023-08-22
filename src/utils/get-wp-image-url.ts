@@ -1,6 +1,10 @@
-export function getWpImageUrl(guid: string | null | undefined) {
-  const url = guid ?? '/images/product-placeholder.webp'
+import { Image } from '@/wp/types'
 
-  //   return `${NEXT_PUBLIC_WORDPRESS_API_URL}${url}`
-  return url
+export function getSingleWpImageUrl(node: Image | null | undefined): string {
+  if (node) {
+    console.log(node.uri)
+    return node.guid.replace('//distribuidora', '//wp')
+  } else {
+    return '/images/product-placeholder.webp'
+  }
 }

@@ -1,6 +1,7 @@
 'use client'
 import { addToQuoteAction, deleteQuoteItemAction } from '@/app/_actions/quote'
 import { type QuoteLineItem } from '@/types'
+import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTransition } from 'react'
@@ -26,10 +27,7 @@ const RenderQuotLineItems = ({ item }: RenderQuotLineItemsProps) => {
           <div className="relative w-[10rem] self-start aspect-square overflow-hidden rounded">
             <Link href={`/tienda/producto/${item.slug}`}>
               <Image
-                src={
-                  item.featuredImage.node.guid ??
-                  '/images/product-placeholder.webp'
-                }
+                src={getSingleWpImageUrl(item.featuredImage.node)}
                 alt={item.featuredImage.node.altText ?? item.name}
                 fill
                 className="absolute object-cover"

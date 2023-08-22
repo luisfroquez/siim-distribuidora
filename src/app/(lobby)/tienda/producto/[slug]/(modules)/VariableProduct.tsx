@@ -12,6 +12,7 @@ import Text from '@/components/ui/text/Text'
 import { addToQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { Input } from '@/components/ui/input'
+import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import { toast } from 'sonner'
 import AttributeSelect from './AttributeSelect'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
@@ -51,18 +52,22 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
     <div className="flex flex-1">
       {/* LEFT SIDE */}
       <div className="flex h-full w-[60%] gap-4 p-8">
-        {mappedProduct.galleryImages.nodes.length > 0 && (
-          <div className="flex w-32 flex-col gap-4 ">
-            {mappedProduct.galleryImages.nodes.map((img, i) => (
-              <div key={i} className="aspect-square w-full rounded-xl bg-white">
-                <img
-                  src={img.guid}
-                  alt={img.altText ?? 'Imagen de producto SIIM'}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        {mappedProduct.galleryImages?.nodes &&
+          mappedProduct.galleryImages.nodes.length > 0 && (
+            <div className="flex w-32 flex-col gap-4 ">
+              {mappedProduct.galleryImages.nodes.map((img, i) => (
+                <div
+                  key={i}
+                  className="aspect-square w-full rounded-xl bg-white"
+                >
+                  <img
+                    src={getSingleWpImageUrl(img)}
+                    alt={img?.altText ?? 'Imagen de producto SIIM'}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
         {/* FEATURED IMAGE */}
         <div className="flex  aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-white p-16">
@@ -72,18 +77,18 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
             <img
               width="100%"
               className="aspect-square object-contain"
-              alt={selectedImage?.node.altText ?? 'Imagen de producto SIIM'}
-              src={selectedImage?.node.guid}
+              alt={selectedImage?.node?.altText ?? 'Imagen de producto SIIM'}
+              src={getSingleWpImageUrl(selectedImage?.node)}
             />
           ) : (
             <img
               width="100%"
               className="aspect-square"
               alt={
-                mappedProduct.featuredImage.node.altText ??
+                mappedProduct?.featuredImage?.node?.altText ??
                 'Imagen de producto SIIM'
               }
-              src={mappedProduct.featuredImage.node.guid}
+              src={getSingleWpImageUrl(mappedProduct.featuredImage?.node)}
             />
           )}
         </div>

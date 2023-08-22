@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { getWpImageUrl } from '@/utils/get-wp-image-url'
+import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import type { WpProduct } from '@/wp/types'
 import Link from 'next/link'
 import { useTransition } from 'react'
@@ -32,7 +32,7 @@ export function WpProductCard({
 }: WpProductCardProps) {
   const [isPending, startTransition] = useTransition()
 
-  const image = product?.featuredImage.node
+  const image = product?.featuredImage?.node
 
   return (
     <Card className="smooth-700 flex h-full flex-col justify-between overflow-hidden rounded-xl hover:bg-border/20">
@@ -43,8 +43,8 @@ export function WpProductCard({
         <CardHeader className="border-b bg-white p-0">
           <AspectRatio ratio={4 / 3}>
             <img
-              src={getWpImageUrl(image.guid)}
-              alt={image.altText ?? product.name}
+              src={getSingleWpImageUrl(image)}
+              alt={image?.altText ?? product.name}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="h-full w-full object-contain"
               loading="lazy"

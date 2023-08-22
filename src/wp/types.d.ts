@@ -40,12 +40,8 @@ export interface WpProduct {
     }[]
   }
   featuredImage: {
-    node: {
-      id: string
-      altText: string
-      guid: string
-    }
-  }
+    node: Image
+  } | null
 }
 
 export interface WpProductVariation {
@@ -62,12 +58,8 @@ export interface WpProductVariation {
         }[]
       }
       featuredImage: {
-        node: {
-          id: string
-          altText: string
-          guid: string
-        }
-      }
+        node: Image
+      } | null
     }
   }
   attributes: {
@@ -78,11 +70,7 @@ export interface WpProductVariation {
     }[]
   }
   featuredImage: {
-    node: {
-      id: string
-      altText: string
-      guid: string
-    }
+    node: Image
   } | null
 }
 
@@ -121,11 +109,8 @@ export interface WpSearchResult {
         name: string
         slug: string
         featuredImage: {
-          node: {
-            altText: string
-            guid: string
-          }
-        }
+          node: Image
+        } | null
       }
     ]
   }
@@ -168,11 +153,11 @@ export interface WpProductBySlug {
         featured: boolean
         sku: string | null
         featuredImage: {
-          node: WpImageNode
-        }
+          node: Image
+        } | null
         galleryImages: {
-          nodes: WpImageNode[]
-        }
+          nodes: Image[]
+        } | null
         attributes: {
           nodes: WpAttributeNode[]
         }
@@ -188,11 +173,6 @@ export interface WpProductBySlug {
   }
 }
 
-export interface WpImageNode {
-  altText: string
-  guid: string
-}
-
 export interface AttributeNode {
   name: string
   options: { label: string; value: string }[]
@@ -204,7 +184,7 @@ export interface Variations {
     name: string
     sku: string
     featuredImage: {
-      node: WpImageNode
+      node: Image
     }
     attributes: {
       nodes: {

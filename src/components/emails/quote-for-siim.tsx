@@ -1,5 +1,7 @@
+import { NEXT_PUBLIC_CONTENT_URL } from '@/app/config'
 import { type Quote } from '@/db/schema'
 import { type QuoteLineItem } from '@/types'
+import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import { type User } from '@clerk/nextjs/dist/types/server'
 import {
   Body,
@@ -24,9 +26,7 @@ interface QuoteForSIIMProps {
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ''
-const contentUrl =
-  process.env.NEXT_PUBLIC_CONTENT_URL ??
-  'https://distribuidora.siim.cl/wp-content'
+const contentUrl = NEXT_PUBLIC_CONTENT_URL ?? ''
 
 const prueba = [
   {
@@ -45,9 +45,9 @@ const prueba = [
     },
     featuredImage: {
       node: {
-        id: 'cG9zdDoxMzI1',
+        uri: 'cG9zdDoxMzI1',
         altText: '',
-        guid: 'https://distribuidora.siim.cl/wp-content/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
+        guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
       },
     },
 
@@ -69,9 +69,9 @@ const prueba = [
     },
     featuredImage: {
       node: {
-        id: 'cG9zdDoxMzI1',
+        uri: 'cG9zdDoxMzI1',
         altText: '',
-        guid: 'https://distribuidora.siim.cl/wp-content/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
+        guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
       },
     },
 
@@ -116,16 +116,7 @@ export const QuoteForSIIM = ({
               <Text style={heading}>Solicitud de Cotización</Text>
             </Column>
           </Section>
-          {/* <Section>
-            <Text style={cupomText}>
-              Save 3% on all your Apple purchases with Apple Card.
-              <sup style={supStyle}>1</sup>{' '}
-              <Link href="https://www.apple.com/apple-card">
-                Apply and use in minutes
-              </Link>
-              <sup style={supStyle}>2</sup>
-            </Text>
-          </Section> */}
+
           <Section style={informationTable}>
             <Row style={informationTableRow}>
               <Column colSpan={2}>
@@ -188,10 +179,10 @@ export const QuoteForSIIM = ({
             >
               <Column style={{ width: '64px' }}>
                 <Img
-                  src={q.featuredImage.node.guid}
+                  src={getSingleWpImageUrl(q.featuredImage?.node)}
                   width="64"
                   height="64"
-                  alt={q.featuredImage.node.altText}
+                  alt={q.featuredImage?.node?.altText ?? q.name}
                   style={productIcon}
                 />
               </Column>
@@ -232,15 +223,13 @@ export const QuoteForSIIM = ({
           <Hr style={productPriceLineBottom} />
 
           <Text style={footerLinksWrapper}>
-            <Link href="https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/accountSummary?mt=8">
-              Configurar cuenta
-            </Link>{' '}
+            <Link href="https://distribuidora.siim.cl/">Configurar cuenta</Link>{' '}
             •{' '}
-            <Link href="https://www.apple.com/legal/itunes/us/sales.html">
+            <Link href="https://distribuidora.siim.cl/">
               Términos y condiciones
             </Link>{' '}
             •{' '}
-            <Link href="https://www.apple.com/legal/privacy/">
+            <Link href="https://distribuidora.siim.cl/">
               Políticas de privacidad{' '}
             </Link>
           </Text>

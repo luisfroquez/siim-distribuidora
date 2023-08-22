@@ -1,3 +1,4 @@
+import { NEXT_PUBLIC_CONTENT_URL } from '@/app/config'
 import {
   Body,
   Container,
@@ -41,14 +42,18 @@ export default function NewsletterWelcomeEmail({
           <Container className="mx-auto my-[40px] max-w-2xl rounded-2xl p-4 bg-white">
             <Section className="bg-gray-100 w-full p-8 rounded">
               <Img
-                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/Logo-Horizontal.png"
+                src={`${
+                  NEXT_PUBLIC_CONTENT_URL ?? 'http://wp.siim.cl'
+                }/uploads/2023/08/Logo-Horizontal.png`}
                 alt="Logo SIIM Distribuidora"
                 className="aspect-[2.43/1] w-40 object-cover mx-auto"
               />
             </Section>
             <Section className="bg-gray-100 w-full p-8 rounded">
               <Img
-                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/Logo-Horizontal.png"
+                src={`${
+                  NEXT_PUBLIC_CONTENT_URL ?? 'http://wp.siim.cl'
+                }/uploads/2023/08/Logo-Horizontal.png`}
                 alt="Logo SIIM Distribuidora"
                 className="aspect-[2.43/1] w-40 object-cover mx-auto"
               />
@@ -87,7 +92,7 @@ export default function NewsletterWelcomeEmail({
             </Section>
             <Section>
               <Img
-                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/newsletter-image.png"
+                src={`${NEXT_PUBLIC_CONTENT_URL}/uploads/2023/08/newsletter-image.png`}
                 alt="SIIM Imagen de Boletin Informativo"
                 height={424}
                 className="aspect-video w-full object-cover mb-0 mt-4 rounded-t"

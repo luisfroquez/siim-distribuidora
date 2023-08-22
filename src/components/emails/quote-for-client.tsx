@@ -1,6 +1,8 @@
+import { NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_CONTENT_URL } from '@/app/config'
 import { type Quote } from '@/db/schema'
 import { type RequestQuoteInputTypes } from '@/lib/validations/quote'
 import { type QuoteLineItem } from '@/types'
+import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import {
   Body,
   Column,
@@ -22,10 +24,8 @@ interface QuoteForClientProps {
   quoteLineItems: QuoteLineItem[]
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ''
-const contentUrl =
-  process.env.NEXT_PUBLIC_CONTENT_URL ??
-  'https://distribuidora.siim.cl/wp-content'
+const baseUrl = NEXT_PUBLIC_APP_URL ?? ''
+const contentUrl = NEXT_PUBLIC_CONTENT_URL ?? ''
 
 const prueba = [
   {
@@ -44,9 +44,9 @@ const prueba = [
     },
     featuredImage: {
       node: {
-        id: 'cG9zdDoxMzI1',
+        uri: 'cG9zdDoxMzI1',
         altText: '',
-        guid: 'https://distribuidora.siim.cl/wp-content/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
+        guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
       },
     },
 
@@ -68,9 +68,9 @@ const prueba = [
     },
     featuredImage: {
       node: {
-        id: 'cG9zdDoxMzI1',
+        uri: 'cG9zdDoxMzI1',
         altText: '',
-        guid: 'https://distribuidora.siim.cl/wp-content/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
+        guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
       },
     },
 
@@ -114,16 +114,7 @@ export const QuoteForClient = ({
               <Text style={heading}>Solicitud de Cotización</Text>
             </Column>
           </Section>
-          {/* <Section>
-            <Text style={cupomText}>
-              Save 3% on all your Apple purchases with Apple Card.
-              <sup style={supStyle}>1</sup>{' '}
-              <Link href="https://www.apple.com/apple-card">
-                Apply and use in minutes
-              </Link>
-              <sup style={supStyle}>2</sup>
-            </Text>
-          </Section> */}
+
           <Section style={informationTable}>
             <Row style={informationTableRow}>
               <Column colSpan={2}>
@@ -222,10 +213,10 @@ export const QuoteForClient = ({
             >
               <Column style={{ width: '64px' }}>
                 <Img
-                  src={q.featuredImage.node.guid}
+                  src={getSingleWpImageUrl(q.featuredImage?.node)}
                   width="64"
                   height="64"
-                  alt={q.featuredImage.node.altText}
+                  alt={q.featuredImage?.node?.altText ?? q.name}
                   style={productIcon}
                 />
               </Column>
