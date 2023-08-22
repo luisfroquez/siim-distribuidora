@@ -13,6 +13,7 @@ import { fontMono, fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://distribuidora.siim.cl"),
   title: {
     default: siteConfig.title,
     template: `%s - ${siteConfig.title}`,
