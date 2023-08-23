@@ -1,12 +1,7 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+import { NEXT_PUBLIC_GRAPHQL_URL } from '@/app/config'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 export const client = new ApolloClient({
-  link: new HttpLink({
-    uri: 'http://wp.siim.cl/graphql',
-    credentials: 'include',
-    fetchOptions: {
-      mode: 'no-cors',
-    },
-  }),
+  uri: NEXT_PUBLIC_GRAPHQL_URL ?? 'http://wp.siim.cl',
   cache: new InMemoryCache(),
 })
