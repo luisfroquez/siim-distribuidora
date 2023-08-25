@@ -1,10 +1,13 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 
+const clientSide = typeof window === 'undefined'
+
 export const client = new ApolloClient({
-  // uri: 'https://wp.siim.cl/graphql',
-  ssrMode: true,
+  ssrMode: clientSide,
+  headers: { 'Content-Type': 'application/json' },
   link: createHttpLink({
     uri: 'http://wp.siim.cl/graphql',
+    fetch,
     credentials: 'same-origin',
   }),
   cache: new InMemoryCache(),
