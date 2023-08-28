@@ -28,61 +28,61 @@ interface QuoteForSIIMProps {
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ''
 const contentUrl = NEXT_PUBLIC_CONTENT_URL ?? ''
 
-const prueba = [
-  {
-    id: 'cHJvZHVjdDoxMzMx',
-    name: 'Palanca Manual Direccionable Doble Acción',
-    sku: '91076',
-    slug: 'palanca-manual-direccionable-doble-accion',
-    attributes: null,
-    productCategories: {
-      nodes: [
-        {
-          name: 'Palancas',
-          uri: '/categoria-producto/sistemas-de-proteccion-contra-incendio/deteccion-de-incendio/palancas/',
-        },
-      ],
-    },
-    featuredImage: {
-      node: {
-        uri: 'cG9zdDoxMzI1',
-        altText: '',
-        guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
-      },
-    },
+// const prueba = [
+//   {
+//     id: 'cHJvZHVjdDoxMzMx',
+//     name: 'Palanca Manual Direccionable Doble Acción',
+//     sku: '91076',
+//     slug: 'palanca-manual-direccionable-doble-accion',
+//     attributes: null,
+//     productCategories: {
+//       nodes: [
+//         {
+//           name: 'Palancas',
+//           uri: '/categoria-producto/sistemas-de-proteccion-contra-incendio/deteccion-de-incendio/palancas/',
+//         },
+//       ],
+//     },
+//     featuredImage: {
+//       node: {
+//         uri: 'cG9zdDoxMzI1',
+//         altText: '',
+//         guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
+//       },
+//     },
 
-    quantity: 1,
-  },
-  {
-    id: 'cHJvZHVjdDoxMzMx',
-    name: 'Palanca Manual Direccionable Doble Acción',
-    sku: '91076',
-    slug: 'palanca-manual-direccionable-doble-accion',
-    attributes: null,
-    productCategories: {
-      nodes: [
-        {
-          name: 'Palancas',
-          uri: '/categoria-producto/sistemas-de-proteccion-contra-incendio/deteccion-de-incendio/palancas/',
-        },
-      ],
-    },
-    featuredImage: {
-      node: {
-        uri: 'cG9zdDoxMzI1',
-        altText: '',
-        guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
-      },
-    },
+//     quantity: 1,
+//   },
+//   {
+//     id: 'cHJvZHVjdDoxMzMx',
+//     name: 'Palanca Manual Direccionable Doble Acción',
+//     sku: '91076',
+//     slug: 'palanca-manual-direccionable-doble-accion',
+//     attributes: null,
+//     productCategories: {
+//       nodes: [
+//         {
+//           name: 'Palancas',
+//           uri: '/categoria-producto/sistemas-de-proteccion-contra-incendio/deteccion-de-incendio/palancas/',
+//         },
+//       ],
+//     },
+//     featuredImage: {
+//       node: {
+//         uri: 'cG9zdDoxMzI1',
+//         altText: '',
+//         guid: '`${NEXT_PUBLIC_CONTENT_URL}/uploads/2022/06/Palanca-Manual-Direccionable-Doble-Accion.png',
+//       },
+//     },
 
-    quantity: 25,
-  },
-] satisfies QuoteLineItem[]
+//     quantity: 25,
+//   },
+// ] satisfies QuoteLineItem[]
 
 export const QuoteForSIIM = ({
   user,
   quote,
-  quoteLineItems = prueba,
+  quoteLineItems,
 }: QuoteForSIIMProps) => {
   const previewText = `¡Nueva solicitud de cotización recibida!`
 
