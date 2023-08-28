@@ -11,7 +11,7 @@ export function SiteFooter() {
     <footer className="h-32 w-full border-t bg-background">
       <div className="container flex flex-col items-center justify-between space-y-1 py-5 md:h-16 md:flex-row md:py-0">
         <div className="text-center text-base text-muted-foreground">
-          Copyright © 2023 SIIM Ingeniería, empresa de{' '}
+          Copyright © 2023 SIIM Distribuidora, empresa de{' '}
           <a
             aria-label="Link a página de SIIM Group"
             href="https://siim-group.vercel.app/"

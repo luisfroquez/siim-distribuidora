@@ -1,20 +1,20 @@
-import { Icons } from '@/components/icons'
+import { Box, Calculator, Truck } from 'lucide-react'
 
 const items = [
   {
     title: 'Distribuidores de las mejores marcas y equipos',
     description: '',
-    icon: <Icons.check />,
+    icon: <Box />,
   },
   {
     title: 'Cotizaciones rápidas y despachos a todo Chile',
     description: '',
-    icon: <Icons.check />,
+    icon: <Calculator />,
   },
   {
     title: 'Envío gratis dentro del anillo de vespucio',
     description: 'Compras mayores a $150.000',
-    icon: <Icons.check />,
+    icon: <Truck />,
   },
 ]
 

@@ -26,6 +26,7 @@ export interface WpProduct {
   name: string
   sku: string | null
   slug: string
+  featured: boolean
   attributes: {
     nodes: {
       attributeId: number

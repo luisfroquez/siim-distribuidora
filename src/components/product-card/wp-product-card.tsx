@@ -13,9 +13,11 @@ import {
 } from '@/components/ui/card'
 import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import type { WpProduct } from '@/wp/types'
+import { Star } from 'lucide-react'
 import Link from 'next/link'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
+import { Badge } from '../ui/badge'
 
 interface WpProductCardProps {
   product: WpProduct
@@ -40,7 +42,12 @@ export function WpProductCard({
         aria-label={`Ver detalles del producto:  ${product.name}`}
         href={`/tienda/producto/${product.slug}`}
       >
-        <CardHeader className="border-b bg-white p-0">
+        <CardHeader className="border-b bg-white p-0 relative">
+          {product.featured && (
+            <Badge variant="accent" className="absolute top-2 left-2 px-2 z-30">
+              <Star className="w-4" />
+            </Badge>
+          )}
           <AspectRatio ratio={4 / 3}>
             <img
               src={getSingleWpImageUrl(image)}

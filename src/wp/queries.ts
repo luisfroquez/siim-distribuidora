@@ -81,6 +81,7 @@ export const GET_FEATURED_PRODUCTS = gql`
         name
         sku
         slug
+        featured
         attributes {
           nodes {
             attributeId
@@ -120,6 +121,7 @@ export const GET_ALL_PRODUCTS_NO_FILTERS = gql`
           name
           sku
           slug
+          featured
           attributes {
             nodes {
               attributeId
@@ -174,6 +176,7 @@ export const GET_ALL_PRODUCTS = gql`
           name
           sku
           slug
+          featured
           attributes {
             nodes {
               attributeId
@@ -205,6 +208,7 @@ export const SEARCH_PRODUCTS = gql`
         name
         sku
         slug
+        featured
         attributes {
           nodes {
             attributeId
@@ -262,6 +266,7 @@ export const GET_PRODUCT_BY_ID = gql`
       name
       sku
       slug
+      featured
       attributes {
         nodes {
           attributeId

@@ -1,6 +1,5 @@
 'use client'
 
-// import PinIcon from "public/icons/PinIcon";
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -10,9 +9,7 @@ import {
   PushpinOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
-import { Map, Marker, NavigationControl } from 'react-map-gl'
 
-import { NEXT_PUBLIC_MAPBOX_API_TOKEN } from '@/app/config'
 import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import Text from '@/components/ui/text'
@@ -20,87 +17,19 @@ import Text from '@/components/ui/text'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Contacto = () => {
-  const LATITUDE = -33.44797
-  const LONGITUDE = -70.64559
   return (
-    <div className="relative flex min-h-[80vh] w-full flex-col-reverse overflow-hidden md:flex-row">
-      <Map
-        initialViewState={{
-          latitude: LATITUDE,
-          longitude: LONGITUDE,
-          zoom: 12,
-          bearing: 0,
-          pitch: 0,
-        }}
-        style={{ width: '100%', height: '100%' }}
-        crossSourceCollisions
-        mapStyle="mapbox://styles/mapbox/light-v9"
-        mapboxAccessToken={NEXT_PUBLIC_MAPBOX_API_TOKEN}
-        attributionControl={false}
-        scrollZoom={false}
-      >
-        <NavigationControl position="bottom-left" />
-
-        <Marker
-          key={1}
-          longitude={LONGITUDE}
-          latitude={LATITUDE}
-          anchor="top"
-          // onClick={(e) => {
-          //   // If we let the click event propagates to the map, it will immediately close the popup
-          //   // with `closeOnClick: true`
-          //   e.originalEvent.stopPropagation()
-          //   setShowPopup(true)
-          // }}
-        >
-          <Icons.check transform={'scale(2)'} />
-        </Marker>
-
-        {/* {showPopup && (
-          <Popup
-            longitude={LONGITUDE}
-            latitude={LATITUDE}
-            anchor="top"
-            closeButton={false}
-            closeOnClick={false}
-            offset={[0, 24] as Offset}
-            onClose={() => setShowPopup(false)}
-            style={{ minWidth: '350px' }}
-          >
-            <HStack lineHeight="0.9rem" p={4}>
-              <VStack w="100%" spacing={1}>
-                <Text fontWeight="bold" textAlign="left" w="100%">
-                  Eleuterio Ramírez 731, Local A.
-                </Text>
-                <Text>8330253 Santiago, Región Metropolitana, Chile</Text>
-              </VStack>
-              <Link
-                href="https://www.google.com/maps/place/Eleuterio+Ram%C3%ADrez+731,+8330253+Santiago,+Regi%C3%B3n+Metropolitana,+Chile/@-33.448038,-70.646019,18z/data=!4m5!3m4!1s0x9662c50b2c987881:0x7bb9883a07ee293!8m2!3d-33.4480591!4d-70.645584?hl=en-US"
-                target="_blank"
-              >
-                <VStack>
-                  <Text minW="max-content" lineHeight="none" textAlign="center">
-                    ¿Cómo llegar?
-                  </Text>
-                </VStack>
-              </Link>
-            </HStack>
-
-            <Button
-              variant="secondary"
-              size="xs"
-              lineHeight="none"
-              pos="absolute"
-              top={2}
-              fontSize="0.5rem"
-              right={2}
-              onClick={() => setShowPopup(false)}
-            >
-              X
-            </Button>
-          </Popup>
-        )} */}
-      </Map>
+    <div className="relative flex min-h-[80vh] w-full flex-col-reverse overflow-hidden md:flex-row items-center gap-16">
+      <div className="relative w-full h-[700px] rounded-xl overflow-clip ">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.0480521645595!2d-70.64815892353478!3d-33.44805459739081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5737cbe894d%3A0xdb2ee09bc925e3f4!2sSIIM!5e0!3m2!1sen!2scl!4v1693238655384!5m2!1sen!2scl"
+          width="100%"
+          height="700"
+          allowFullScreen={false}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          lang="es"
+        ></iframe>
+      </div>
 
       <div className="flex h-full w-full flex-col justify-between bg-background py-24 text-left md:py-32 md:text-right ">
         <div className=" flex flex-col items-start gap-6 md:items-end md:gap-6">
@@ -162,8 +91,6 @@ const Contacto = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="bg-[linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%)] md:bg-[linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%)] absolute right-0 top-0 z-10 h-full w-full" /> */}
     </div>
   )
 }
