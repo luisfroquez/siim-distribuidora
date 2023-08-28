@@ -6,6 +6,7 @@ export default function convertVariationToProduct(
   const {
     id,
     name,
+    featured,
     parent: {
       node: { slug, productCategories, featuredImage: parentFeaturedImage },
     },
@@ -21,6 +22,7 @@ export default function convertVariationToProduct(
   const product: WpProduct = {
     id,
     name,
+    featured,
     sku: variation.sku,
     slug,
     attributes:

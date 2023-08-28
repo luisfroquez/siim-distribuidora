@@ -48,7 +48,8 @@ export interface WpProduct {
 export interface WpProductVariation {
   id: string
   name: string
-  sku: string
+  sku: string  
+  featured: boolean
   parent: {
     node: {
       slug: string
