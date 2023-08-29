@@ -200,6 +200,15 @@ export const GET_ALL_PRODUCTS = gql`
     }
   }
 `
+export const GET_ALL_PRODUCTS_SLUG = gql`
+  query GetAllProductsSlug {
+    products(first: 1000) {
+      nodes {
+        slug
+      }
+    }
+  }
+`
 export const SEARCH_PRODUCTS = gql`
   query searchProducts($search: String!) {
     products(where: { search: $search }) {
@@ -401,6 +410,13 @@ export const GET_PRODUCT_BY_SLUG = gql`
           }
         }
       }
+    }
+  }
+`
+export const GET_ATTATCHMENT_BY_URI = gql`
+  query GetAttatchment($uri: ID!) {
+    contentNode(id: $uri, idType: URI) {
+      guid
     }
   }
 `

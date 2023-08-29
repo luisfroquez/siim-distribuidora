@@ -48,7 +48,7 @@ export interface WpProduct {
 export interface WpProductVariation {
   id: string
   name: string
-  sku: string  
+  sku: string
   featured: boolean
   parent: {
     node: {
@@ -79,6 +79,14 @@ export interface WpProductVariation {
 export interface WpProducts {
   products: {
     nodes: WpFeaturedProduct[]
+  }
+}
+
+export interface WpGetAllProductsSlug {
+  products: {
+    nodes: {
+      slug: string
+    }[]
   }
 }
 
@@ -173,6 +181,11 @@ export interface WpProductBySlug {
       }
     ]
   }
+}
+export interface Attatchment {
+  contentNode: {
+    guid: string
+  } | null
 }
 
 export interface AttributeNode {

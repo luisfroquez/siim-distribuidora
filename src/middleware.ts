@@ -15,6 +15,8 @@ export default authMiddleware({
     '/tienda(.*)',
     '/blog(.*)',
     '/email-preferences(.*)',
+    '/sitemap(.*)',
+
   ],
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {

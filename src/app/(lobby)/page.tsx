@@ -16,7 +16,7 @@ import Hero from './(modules)/Hero'
 // Running out of edge function execution units on vercel free plan
 // export const runtime = "edge"
 
-export default function IndexPage() {
+export default async function IndexPage() {
   // const extendedData = await getExtendedCatalog()
   // const allIwsProductsWithImages = extendedData
   //   .filter((e) => e.DescripcionFabrica === 'Hikvision')
@@ -27,6 +27,7 @@ export default function IndexPage() {
   // const [min, max] = createTwoAleatoryNumbers(lenght, 8)
 
   // const slicedIwsProductsWithImages = allIwsProductsWithImages.slice(min, max)
+
   return (
     <div>
       <Shell>

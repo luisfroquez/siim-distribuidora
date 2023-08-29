@@ -1,0 +1,22 @@
+#productDescription > h2 {
+  @apply pt-8 text-2xl font-bold;
+}
+
+#productDescription > h3,
+#productDescription > .list > h3 {
+  @apply pt-6 text-xl font-bold;
+}
+
+#productDescription > .list {
+  @apply mt-6 rounded-xl bg-border px-8 pb-8 pt-2;
+}
+
+.list > ul {
+  list-style-type: circle;
+  list-style-position: inside;
+  padding-top: 1rem;
+}
+
+.list > ul > li {
+  @apply pl-4;
+}

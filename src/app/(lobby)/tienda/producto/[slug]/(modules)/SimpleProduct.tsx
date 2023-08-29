@@ -1,21 +1,33 @@
 'use client'
 
-import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
+import {
+  type Attatchment,
+  type WpCategoryWithAncestors,
+  type WpProductBySlug,
+} from '@/wp/types'
 import parse from 'html-react-parser'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import Text from '@/components/ui/text'
 
 import { addToQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
+import { FileText } from 'lucide-react'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
 
-const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
+const SimpleProduct = ({
+  product,
+  attatchment,
+}: {
+  product: WpProductBySlug
+  attatchment: Attatchment
+}) => {
   const [isPending, startTransition] = useTransition()
   const [quantity, setQuantity] = useState(1)
   const mappedProduct = product.products.nodes[0]
@@ -25,36 +37,48 @@ const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
   return (
     <div className="flex flex-1">
       {/* LEFT SIDE */}
-      <div className="flex h-full w-[60%] gap-4 p-8">
-        {mappedProduct.galleryImages?.nodes &&
-          mappedProduct.galleryImages.nodes.length > 0 && (
-            <div className="flex w-32 flex-col gap-4 ">
-              {mappedProduct.galleryImages.nodes.map((img, i) => (
-                <div
-                  key={i}
-                  className="aspect-square w-full rounded-xl bg-white"
-                >
-                  <img
-                    src={img.guid}
-                    alt={img.altText ?? 'Imagen de producto SIIM'}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+      <div className="flex flex-col w-[60%] gap-4 p-8">
+        {/* GALLERY */}
+        <div className="flex h-full w-full gap-4">
+          {mappedProduct.galleryImages?.nodes &&
+            mappedProduct.galleryImages.nodes.length > 0 && (
+              <div className="flex w-32 flex-col gap-4 ">
+                {mappedProduct.galleryImages.nodes.map((img, i) => (
+                  <div
+                    key={i}
+                    className="aspect-square w-full rounded-xl bg-white"
+                  >
+                    <img
+                      src={img.guid}
+                      alt={img.altText ?? 'Imagen de producto SIIM'}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
 
-        {/* FEATURED IMAGE */}
-        <div className="flex  aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-white p-16">
-          <img
-            width="100%"
-            className="aspect-square"
-            alt={
-              mappedProduct.featuredImage?.node?.altText ??
-              'Imagen de producto SIIM'
-            }
-            src={getSingleWpImageUrl(mappedProduct.featuredImage?.node)}
-          />
+          {/* FEATURED IMAGE */}
+          <div className="flex  aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-white p-16">
+            <img
+              width="100%"
+              className="aspect-square"
+              alt={
+                mappedProduct.featuredImage?.node?.altText ??
+                'Imagen de producto SIIM'
+              }
+              src={getSingleWpImageUrl(mappedProduct.featuredImage?.node)}
+            />
+          </div>
         </div>
+
+        {mappedProduct.description && (
+          <section
+            className="w-full flex flex-col gap-4"
+            id="productDescription"
+          >
+            {parse(mappedProduct.description)}
+          </section>
+        )}
       </div>
 
       {/* RIGHT SIDE */}
@@ -63,9 +87,7 @@ const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
         <div className="sticky top-32 flex w-full flex-col gap-4">
           <ProductCategoryBreadcrumb category={category} />
           <Text variant="heading">{mappedProduct.name}</Text>
-          <article className="prose">
-            {parse(mappedProduct.shortDescription)}
-          </article>
+          <p>{parse(mappedProduct.shortDescription)}</p>
 
           <div className="flex w-full flex-col">
             <div className="flex w-full content-start gap-1">
@@ -141,6 +163,20 @@ const SimpleProduct = ({ product }: { product: WpProductBySlug }) => {
               Agregar al cotizador
             </Button>
           </div>
+          {attatchment.contentNode && (
+            <Link href={attatchment.contentNode?.guid} target="_blank">
+              <div
+                className={cn(
+                  buttonVariants({
+                    size: 'lg',
+                    variant: 'secondary',
+                  })
+                )}
+              >
+                <FileText className="pr-2" /> Ver ficha técnica
+              </div>
+            </Link>
+          )}
         </div>
       </div>
     </div>
