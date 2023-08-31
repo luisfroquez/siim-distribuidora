@@ -1,7 +1,7 @@
 import { client } from '@/lib/apollo/apollo'
 import { GET_ALL_PRODUCTS_SLUG } from '@/wp/queries'
-import { WpGetAllProductsSlug } from '@/wp/types'
-import { MetadataRoute } from 'next'
+import { type WpGetAllProductsSlug } from '@/wp/types'
+import { type MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data } = await client.query<WpGetAllProductsSlug>({
@@ -9,8 +9,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
 
   return [
-    ...data.products.nodes.map((slug) => ({
-      url: `https://distribuidora.siim.cl/tienda/producto/${slug}`,
+    ...data.products.nodes.map(({ slug }) => ({
+      url: `https://distribuidora.siim.cl/tienda/producto/${slug ?? ''}`,
       lastModified: new Date(),
     })),
   ]

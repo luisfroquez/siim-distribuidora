@@ -19,7 +19,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 const Contacto = () => {
   return (
     <div className="relative flex min-h-[80vh] w-full flex-col-reverse overflow-hidden md:flex-row items-center gap-16">
-      <div className="relative w-full h-[700px] rounded-xl overflow-clip ">
+      <div className="relative w-full h-[700px] rounded-xl overflow-hidden ">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.0480521645595!2d-70.64815892353478!3d-33.44805459739081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5737cbe894d%3A0xdb2ee09bc925e3f4!2sSIIM!5e0!3m2!1sen!2scl!4v1693238655384!5m2!1sen!2scl"
           width="100%"
