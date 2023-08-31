@@ -1,20 +1,28 @@
 'use client'
 
 import { convertVariationsToAttributeNode } from '@/utils/convert-variations-to-attribute-node'
-import { type WpCategoryWithAncestors, type WpProductBySlug } from '@/wp/types'
+import {
+  type Attatchment,
+  type WpCategoryWithAncestors,
+  type WpProductBySlug,
+} from '@/wp/types'
 import parse from 'html-react-parser'
 import Link from 'next/link'
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import Text from '@/components/ui/text/Text'
 
 import { addToQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { Input } from '@/components/ui/input'
-import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
+import { cn } from '@/lib/utils'
+import { GET_ATTATCHMENT_BY_URI } from '@/wp/queries'
+import { useQuery } from '@apollo/client'
+import { FileText } from 'lucide-react'
 import { toast } from 'sonner'
 import AttributeSelect from './AttributeSelect'
+import LeftSideProduct from './LeftSideProduct'
 import ProductCategoryBreadcrumb from './ProductCategoryBreadcrumb'
 
 const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
@@ -45,54 +53,35 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
 
   const hasSKUs = selectedSKUs.length > 0
   const hasSelectedAttribute = cleanSelectedAttributes.length > 0
+  const isOnlyOneSKUSelected = selectedSKUs.length === 1
+  const selectedSKU = selectedSKUs[0]
 
   const attributesNodes = convertVariationsToAttributeNode(variations)
+
+  const { data: attatchment, refetch } = useQuery<Attatchment>(
+    GET_ATTATCHMENT_BY_URI,
+    {
+      variables: { uri: selectedSKU ?? '' },
+    }
+  )
+
+  useEffect(() => {
+    if (isOnlyOneSKUSelected && selected[0]?.sku) {
+      refetch()
+        .then()
+        .catch((e) => alert(e))
+    }
+  }, [selectedSKU])
+
+  const imageToShow =
+    hasSelectedAttribute && hasSKUs && selectedImage?.node?.guid !== undefined
+      ? selectedImage?.node
+      : mappedProduct.featuredImage?.node
 
   return (
     <div className="flex flex-1">
       {/* LEFT SIDE */}
-      <div className="flex h-full w-[60%] gap-4 p-8">
-        {mappedProduct.galleryImages?.nodes &&
-          mappedProduct.galleryImages.nodes.length > 0 && (
-            <div className="flex w-32 flex-col gap-4 ">
-              {mappedProduct.galleryImages.nodes.map((img, i) => (
-                <div
-                  key={i}
-                  className="aspect-square w-full rounded-xl bg-white"
-                >
-                  <img
-                    src={getSingleWpImageUrl(img)}
-                    alt={img?.altText ?? 'Imagen de producto SIIM'}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-
-        {/* FEATURED IMAGE */}
-        <div className="flex  aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-white p-16">
-          {hasSelectedAttribute &&
-          hasSKUs &&
-          selectedImage?.node?.guid !== undefined ? (
-            <img
-              width="100%"
-              className="aspect-square object-contain"
-              alt={selectedImage?.node?.altText ?? 'Imagen de producto SIIM'}
-              src={getSingleWpImageUrl(selectedImage?.node)}
-            />
-          ) : (
-            <img
-              width="100%"
-              className="aspect-square"
-              alt={
-                mappedProduct?.featuredImage?.node?.altText ??
-                'Imagen de producto SIIM'
-              }
-              src={getSingleWpImageUrl(mappedProduct.featuredImage?.node)}
-            />
-          )}
-        </div>
-      </div>
+      <LeftSideProduct product={product} image={imageToShow} />
 
       {/* DIVIDER */}
       <div className=" h-full w-[1px] bg-border" />
@@ -102,9 +91,7 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
         <div className="sticky top-32 flex w-full flex-col gap-4">
           <ProductCategoryBreadcrumb category={category} />
           <Text variant="heading">{mappedProduct.name}</Text>
-          <article className="text-gray-900 dark:text-white">
-            {parse(mappedProduct.shortDescription)}
-          </article>
+          <p>{parse(mappedProduct.shortDescription)}</p>
 
           <div className="flex flex-col gap-2 pb-4">
             {attributesNodes.nodes.map((attr, i) => {
@@ -121,6 +108,7 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
               )
             })}
           </div>
+
           <div className="flex w-full flex-col">
             <div className="flex w-full content-start gap-1">
               <p>
@@ -188,7 +176,7 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
 
             <Button
               className="h-full w-fit ml-2"
-              disabled={!hasSKUs || selectedSKUs.length > 1 || isPending}
+              disabled={!isOnlyOneSKUSelected || isPending}
               onClick={() => {
                 startTransition(async () => {
                   try {
@@ -210,6 +198,22 @@ const VariableProduct = ({ product }: { product: WpProductBySlug }) => {
               Agregar al cotizador
             </Button>
           </div>
+
+          {/* ATTATCHMENT */}
+          {attatchment?.contentNode && (
+            <Link href={attatchment.contentNode?.guid} target="_blank">
+              <div
+                className={cn(
+                  buttonVariants({
+                    size: 'lg',
+                    variant: 'secondary',
+                  })
+                )}
+              >
+                <FileText className="pr-2" /> Ver ficha técnica
+              </div>
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@ export default async function ProductPage({ params }: Props) {
     variables: { slug },
   })
 
-  const uri = data.products.nodes[0].sku
+  const uri = data.products.nodes[0].sku ?? 'no-sku'
   const { data: attatchment } = await client.query<Attatchment>({
     query: GET_ATTATCHMENT_BY_URI,
     variables: { uri },
