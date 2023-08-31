@@ -1,9 +1,16 @@
 import { client } from '@/lib/apollo/apollo'
-import { GET_ALL_PRODUCTS_SLUG } from '@/wp/queries'
-import { type WpGetAllProductsSlug } from '@/wp/types'
+import { GET_ALL_CATEGORIES_SLUG, GET_ALL_PRODUCTS_SLUG } from '@/wp/queries'
+import {
+  type WpGetAllCategoriesSlug,
+  type WpGetAllProductsSlug,
+} from '@/wp/types'
 import { type MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { data: categories } = await client.query<WpGetAllCategoriesSlug>({
+    query: GET_ALL_CATEGORIES_SLUG,
+  })
+
   const { data } = await client.query<WpGetAllProductsSlug>({
     query: GET_ALL_PRODUCTS_SLUG,
   })
@@ -29,6 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: 'https://distribuidora.siim.cl/signup',
       lastModified: new Date(),
     },
+    ...categories.productCategories.nodes.map(({ uri }) => ({
+      url: `https://distribuidora.siim.cl/tienda/categoria-producto${
+        uri ?? ''
+      }`,
+      lastModified: new Date(),
+    })),
     ...data.products.nodes.map(({ slug }) => ({
       url: `https://distribuidora.siim.cl/tienda/producto/${slug ?? ''}`,
       lastModified: new Date(),

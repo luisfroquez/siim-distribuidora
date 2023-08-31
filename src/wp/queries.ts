@@ -209,6 +209,16 @@ export const GET_ALL_PRODUCTS_SLUG = gql`
     }
   }
 `
+
+export const GET_ALL_CATEGORIES_SLUG = gql`
+  query GetAllCategoriesSlug {
+    productCategories(first: 1000) {
+      nodes {
+        uri
+      }
+    }
+  }
+`
 export const SEARCH_PRODUCTS = gql`
   query searchProducts($search: String!) {
     products(where: { search: $search }) {

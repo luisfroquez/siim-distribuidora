@@ -90,6 +90,14 @@ export interface WpGetAllProductsSlug {
   }
 }
 
+export interface WpGetAllCategoriesSlug {
+  productCategories: {
+    nodes: {
+      uri: string
+    }[]
+  }
+}
+
 export interface WpGetAllProducts {
   products: {
     pageInfo: {
