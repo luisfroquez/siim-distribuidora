@@ -170,6 +170,8 @@ export interface WpProductBySlug {
         description: string | null
         featured: boolean
         sku: string | null
+        related: { nodes: WpProduct[] }
+        upsell: { nodes: WpProduct[] }
         featuredImage: {
           node: Image
         } | null

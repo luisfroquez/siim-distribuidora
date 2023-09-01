@@ -396,6 +396,60 @@ export const GET_PRODUCT_BY_SLUG = gql`
             slug
           }
         }
+        related(first: 4) {
+          nodes {
+            id
+            name
+            sku
+            slug
+            featured
+            attributes {
+              nodes {
+                attributeId
+              }
+            }
+            productCategories {
+              nodes {
+                name
+                uri
+              }
+            }
+            featuredImage {
+              node {
+                id
+                altText
+                guid
+              }
+            }
+          }
+        }
+        upsell {
+          nodes {
+            id
+            name
+            sku
+            slug
+            featured
+            attributes {
+              nodes {
+                attributeId
+              }
+            }
+            productCategories {
+              nodes {
+                name
+                uri
+              }
+            }
+            featuredImage {
+              node {
+                id
+                altText
+                guid
+              }
+            }
+          }
+        }
         ... on VariableProduct {
           variations {
             nodes {

@@ -1,7 +1,9 @@
-import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
 import { type Image, type WpProductBySlug } from '@/wp/types'
 
+import { WpProductCard } from '@/components/product-card/wp-product-card'
+import Text from '@/components/ui/text'
 import parse from 'html-react-parser'
+import ProductGallery from './ProductGallery'
 
 const LeftSideProduct = ({
   product,
@@ -12,43 +14,45 @@ const LeftSideProduct = ({
 }) => {
   const mappedProduct = product.products.nodes[0]
 
+  const relatedProducts = mappedProduct.related.nodes
+  const upSellProducts = mappedProduct.upsell.nodes
+  console.log(upSellProducts)
+
+  const images = [
+    mappedProduct.featuredImage?.node,
+    ...(mappedProduct.galleryImages?.nodes ?? []),
+  ].filter((e) => e) as Image[]
+
   return (
     <div className="flex flex-col w-[60%] gap-4 p-8">
-      {/* GALLERY */}
-      <div className="flex h-full w-full gap-4">
-        {mappedProduct.galleryImages?.nodes &&
-          mappedProduct.galleryImages.nodes.length > 0 && (
-            <div className="flex w-32 flex-col gap-4 ">
-              {mappedProduct.galleryImages.nodes.map((img, i) => (
-                <div
-                  key={i}
-                  className="aspect-square w-full rounded-xl bg-white"
-                >
-                  <img
-                    src={img.guid}
-                    alt={img.altText ?? 'Imagen de producto SIIM'}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-
-        {/* FEATURED IMAGE */}
-        <div className="flex  aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-white p-16">
-          <img
-            width="100%"
-            className="aspect-square"
-            alt={image?.altText ?? 'Imagen de producto SIIM'}
-            src={getSingleWpImageUrl(image)}
-          />
-        </div>
-      </div>
+      <ProductGallery images={images} />
 
       {mappedProduct.description && (
         <section className="w-full flex flex-col gap-4" id="productDescription">
           {parse(mappedProduct.description)}
         </section>
       )}
+
+      {/* Opcion similar */}
+      {upSellProducts?.length > 0 && (
+        <div className="flex flex-col w-full items-start gap-2 mt-8">
+          <Text variant="sectionHeading">Productos que te recomendamos</Text>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {upSellProducts.map((rp, i) => (
+              <WpProductCard product={rp} key={i} variant="switchable" />
+            ))}
+          </div>
+        </div>
+      )}
+      {/* PRODUCTOS RELACIONADOS */}
+      <div className="flex flex-col w-full items-start gap-2 mt-8">
+        <Text variant="sectionHeading">Productos Relacionados</Text>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {relatedProducts.map((rp, i) => (
+            <WpProductCard product={rp} key={i} variant="switchable" />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
