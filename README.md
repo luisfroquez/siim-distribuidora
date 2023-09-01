@@ -4,11 +4,6 @@ This is an open-source e-commerce build with everything new in Next.js 13. It is
 
 [![SIIM Distribuidora](./public/screenshot.png)](https://distribuidora.siim.cl/)
 
-> **Warning**
-> This project is still in development and is not ready for production use.
->
-> It uses new technologies (server actions, drizzle ORM) which are subject to change and may break your application.
-
 ## Tech Stack
 
 - [Next.js](https://nextjs.org)
@@ -18,6 +13,7 @@ This is an open-source e-commerce build with everything new in Next.js 13. It is
 - [Clerk Auth](https://clerk.dev)
 - [Drizzle ORM](https://orm.drizzle.team)
 - [React Email](https://react.email)
+- [Resend](https://resend.com)
 
 
 ## Features
