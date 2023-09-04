@@ -36,6 +36,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: 'https://distribuidora.siim.cl/signup',
       lastModified: new Date(),
     },
+    {
+      url: 'https://distribuidora.siim.cl/ayuda',
+      lastModified: new Date(),
+    },
+    {
+      url: 'https://distribuidora.siim.cl/ayuda/como-cotizar',
+      lastModified: new Date(),
+    },
     ...categories.productCategories.nodes.map(({ uri }) => ({
       url: `https://distribuidora.siim.cl/tienda${uri ?? ''}`,
       lastModified: new Date(),

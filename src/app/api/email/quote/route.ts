@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     const quoteLineItems = await getQuoteAction()
 
     await resend.emails.send({
-      from: 'no-reply@email.siim.cl',
+      from: 'Cotizaciones SIIM Distribudora <no-reply@email.siim.cl>',
       to: 'ventas@siim.cl',
       subject: `Nueva solicitud de cotización N°${quote?.id ?? '-'}`,
       react: QuoteForSIIM({
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     })
 
     await resend.emails.send({
-      from: 'no-reply@email.siim.cl',
+      from: 'Cotizaciones SIIM Distribudora <no-reply@email.siim.cl>',
       to: input.email,
       subject: `Recibimos tu solicitud de cotización N°${quote?.id ?? '-'}`,
       react: QuoteForClient({

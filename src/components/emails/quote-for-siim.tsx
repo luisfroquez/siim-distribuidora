@@ -84,7 +84,7 @@ export const QuoteForSIIM = ({
   quote,
   quoteLineItems,
 }: QuoteForSIIMProps) => {
-  const previewText = `¡Nueva solicitud de cotización recibida!`
+  const previewText = `¡Nueva solicitud de cotización recibida desde distribudora.siim.cl!`
 
   const objectDate = quote?.createdAt ?? new Date()
   const day = objectDate.getDate()
@@ -105,7 +105,7 @@ export const QuoteForSIIM = ({
           <Section>
             <Column>
               <Img
-                src={`${contentUrl}/uploads/2023/08/distribuidora.svg`}
+                src="https://wp.siim.cl/wp-content/uploads/2023/08/distribuidora.svg"
                 width="42"
                 height="42"
                 alt="SIIM Logo"
@@ -123,10 +123,10 @@ export const QuoteForSIIM = ({
                 <Row>
                   <Column style={informationTableColumn}>
                     <Text style={informationTableLabel}>Nombre</Text>
-                    <Link style={informationTableValue}>
+                    <Text style={informationTableValue}>
                       {user?.firstName ?? 'Nombre'}{' '}
                       {user?.lastName ?? 'Apellido'}
-                    </Link>
+                    </Text>
                   </Column>
                 </Row>
 

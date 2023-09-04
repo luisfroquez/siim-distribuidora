@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_CONTENT_URL } from '@/app/config'
+import { NEXT_PUBLIC_APP_URL } from '@/app/config'
 import { type Quote } from '@/db/schema'
 import { type RequestQuoteInputTypes } from '@/lib/validations/quote'
 import { type QuoteLineItem } from '@/types'
@@ -25,7 +25,6 @@ interface QuoteForClientProps {
 }
 
 const baseUrl = NEXT_PUBLIC_APP_URL ?? ''
-const contentUrl = NEXT_PUBLIC_CONTENT_URL ?? ''
 
 // const prueba = [
 //   {
@@ -85,7 +84,7 @@ export const QuoteForClient = ({
   quote,
   quoteLineItems,
 }: QuoteForClientProps) => {
-  const previewText = `¡Haz solicitado una cotización!`
+  const previewText = `Hola ${input.name}. En los próximos momentos, le enviaré una cotización formal y me aseguraré de brindarle la atención personalizada que merece.`
   const objectDate = quote?.createdAt ?? new Date()
   const day = objectDate.getDate()
   const month = objectDate.getMonth()
@@ -105,7 +104,7 @@ export const QuoteForClient = ({
           <Section>
             <Column>
               <Img
-                src={`${contentUrl}/uploads/2023/08/distribuidora.svg`}
+                src="https://wp.siim.cl/wp-content/uploads/2023/08/distribuidora.svg"
                 width="42"
                 height="42"
                 alt="SIIM Logo"
@@ -123,9 +122,9 @@ export const QuoteForClient = ({
                 <Row>
                   <Column style={informationTableColumn}>
                     <Text style={informationTableLabel}>Nombre</Text>
-                    <Link style={informationTableValue}>
+                    <Text style={informationTableValue}>
                       {input?.name ?? '-'} {input?.lastName ?? '-'}
-                    </Link>
+                    </Text>
                   </Column>
                 </Row>
 
@@ -273,7 +272,7 @@ export const QuoteForClient = ({
           <Section style={{ padding: '24px 0' }}>
             <Column align="center" style={block}>
               <Img
-                src="https://distribuidora.siim.cl/wp-content/uploads/2023/08/Logo-Horizontal.png"
+                src="https://wp.siim.cl/wp-content/uploads/2023/08/Logo-Horizontal.png"
                 width="60"
                 height="24"
                 alt="Logo SIIM Horizontal"
