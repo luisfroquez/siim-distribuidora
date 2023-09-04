@@ -1,4 +1,3 @@
-import { currentUser } from '@clerk/nextjs'
 import { type ErrorResponse } from 'resend'
 import { z } from 'zod'
 
@@ -13,7 +12,6 @@ export async function POST(req: Request) {
 
   try {
     const quote = await getQuote()
-    const user = await currentUser()
     const quoteLineItems = await getQuoteAction()
 
     await resend.emails.send({
@@ -21,9 +19,9 @@ export async function POST(req: Request) {
       to: 'ventas@siim.cl',
       subject: `Nueva solicitud de cotización N°${quote?.id ?? '-'}`,
       react: QuoteForSIIM({
+        input,
         quote,
         quoteLineItems,
-        user,
       }),
     })
 

@@ -1,8 +1,7 @@
-import { NEXT_PUBLIC_CONTENT_URL } from '@/app/config'
 import { type Quote } from '@/db/schema'
+import { RequestQuoteInputTypes } from '@/lib/validations/quote'
 import { type QuoteLineItem } from '@/types'
 import { getSingleWpImageUrl } from '@/utils/get-wp-image-url'
-import { type User } from '@clerk/nextjs/dist/types/server'
 import {
   Body,
   Column,
@@ -19,14 +18,12 @@ import {
 } from '@react-email/components'
 
 interface QuoteForSIIMProps {
-  firstName?: string
+  input: RequestQuoteInputTypes
   quote?: Quote
-  user: User | null
   quoteLineItems: QuoteLineItem[]
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ''
-const contentUrl = NEXT_PUBLIC_CONTENT_URL ?? ''
 
 // const prueba = [
 //   {
@@ -80,7 +77,7 @@ const contentUrl = NEXT_PUBLIC_CONTENT_URL ?? ''
 // ] satisfies QuoteLineItem[]
 
 export const QuoteForSIIM = ({
-  user,
+  input,
   quote,
   quoteLineItems,
 }: QuoteForSIIMProps) => {
@@ -105,10 +102,11 @@ export const QuoteForSIIM = ({
           <Section>
             <Column>
               <Img
-                src="https://wp.siim.cl/wp-content/uploads/2023/08/distribuidora.svg"
+                src="https://wp.siim.cl/wp-content/uploads/2023/09/Isotipo-Distribuidora.png"
                 width="42"
                 height="42"
                 alt="SIIM Logo"
+                style={{ objectFit: 'contain' }}
               />
             </Column>
 
@@ -124,8 +122,7 @@ export const QuoteForSIIM = ({
                   <Column style={informationTableColumn}>
                     <Text style={informationTableLabel}>Nombre</Text>
                     <Text style={informationTableValue}>
-                      {user?.firstName ?? 'Nombre'}{' '}
-                      {user?.lastName ?? 'Apellido'}
+                      {input?.name ?? '-'} {input?.lastName ?? '-'}
                     </Text>
                   </Column>
                 </Row>
@@ -151,24 +148,27 @@ export const QuoteForSIIM = ({
                         textDecoration: 'underline',
                       }}
                     >
-                      {quote?.id ?? '123456'}
+                      {quote?.id ?? '-'}
                     </Link>
                   </Column>
                   <Column style={informationTableColumn}>
                     <Text style={informationTableLabel}>Teléfono</Text>
-                    <Text style={informationTableValue}>+56 9 7423 4063</Text>
+                    <Text style={informationTableValue}>
+                      {input?.phone ?? '-'}
+                    </Text>
                   </Column>
                 </Row>
               </Column>
               <Column style={informationTableColumn} colSpan={2}>
                 <Text style={informationTableLabel}>Cotizar a</Text>
-                <Text style={informationTableValue}>Nombre Empresa</Text>
-                <Text style={informationTableValue}>RUT</Text>
-                <Text style={informationTableValue}>Dirección empresa</Text>
-                <Text style={informationTableValue}>Telefono</Text>
+                <Text style={informationTableValue}>
+                  {input?.razonSocial ?? '-'}
+                </Text>
+                <Text style={informationTableValue}>{input?.rut ?? '-'}</Text>
               </Column>
             </Row>
           </Section>
+
           <Section style={productTitleTable}>
             <Text style={productsTitle}>Items</Text>
           </Section>

@@ -84,7 +84,7 @@ export const QuoteForClient = ({
   quote,
   quoteLineItems,
 }: QuoteForClientProps) => {
-  const previewText = `Hola ${input.name}. En los próximos momentos, le enviaré una cotización formal y me aseguraré de brindarle la atención personalizada que merece.`
+  const previewText = `Hola ${input.name}. En los próximos momentos, le enviaremos una cotización formal y le brindaremos la atención personalizada que merece.`
   const objectDate = quote?.createdAt ?? new Date()
   const day = objectDate.getDate()
   const month = objectDate.getMonth()
@@ -104,10 +104,11 @@ export const QuoteForClient = ({
           <Section>
             <Column>
               <Img
-                src="https://wp.siim.cl/wp-content/uploads/2023/08/distribuidora.svg"
+                src="https://wp.siim.cl/wp-content/uploads/2023/09/Isotipo-Distribuidora.png"
                 width="42"
                 height="42"
                 alt="SIIM Logo"
+                style={{ objectFit: 'contain' }}
               />
             </Column>
 
@@ -163,18 +164,14 @@ export const QuoteForClient = ({
               <Column style={informationTableColumn} colSpan={2}>
                 <Text style={informationTableLabel}>Cotizar a</Text>
                 <Text style={informationTableValue}>
-                  Empresa: {input?.razonSocial ?? '-'}
+                  {input?.razonSocial ?? '-'}
                 </Text>
-                <Text style={informationTableValue}>
-                  RUT: {input?.rut ?? '-'}
-                </Text>
+                <Text style={informationTableValue}>{input?.rut ?? '-'}</Text>
               </Column>
             </Row>
           </Section>
 
-          <Text style={footerText}>
-            Hola <strong>{input?.name ?? '-'}</strong>
-          </Text>
+          <Text style={footerText}>Hola {input?.name ?? '-'}.</Text>
           <Text style={footerText}>
             Agradecemos mucho su confianza en nuestros servicios. Queremos
             informarle que hemos recibido su solicitud de cotización{' '}
