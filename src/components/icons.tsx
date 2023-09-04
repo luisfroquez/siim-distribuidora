@@ -24,6 +24,7 @@ import {
   Filter,
   Footprints,
   HardHat,
+  HelpCircle,
   Image,
   Loader2,
   LogOut,
@@ -34,6 +35,7 @@ import {
   MoreHorizontal,
   MoreVertical,
   Package,
+  Phone,
   Plus,
   PlusCircle,
   RefreshCw,
@@ -118,6 +120,8 @@ export const Icons = {
   clothing: Shirt,
   shoes: Footprints,
   accessories: HardHat,
+  helpCircle: HelpCircle,
+  phone: Phone,
   logo: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

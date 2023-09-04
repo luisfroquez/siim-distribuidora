@@ -73,5 +73,9 @@ export const siteConfig = {
       title: 'Contacto',
       href: '/contacto',
     },
+    {
+      title: 'Ayuda',
+      href: '/ayuda',
+    },
   ] satisfies MainNavItem[],
 }

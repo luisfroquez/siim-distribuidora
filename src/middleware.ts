@@ -16,8 +16,9 @@ export default authMiddleware({
     '/blog(.*)',
     '/email-preferences(.*)',
     '/sitemap(.*)',
-
+    '/ayuda(.*)',
   ],
+
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
       //  For public routes, we don't need to do anything
