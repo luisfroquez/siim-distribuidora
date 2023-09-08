@@ -34,6 +34,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
+    "**/*.mdx",
     ".next/types/**/*.ts",
     "src/app/loading.js",
     "src/wp/get-categories.js",

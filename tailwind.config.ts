@@ -11,6 +11,40 @@ module.exports = {
       },
     },
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: { fontFamily: '"Inter",sans-serif' },
+            h2: { fontFamily: '"Inter",sans-serif' },
+            h3: { fontFamily: '"Inter",sans-serif' },
+            h4: { fontFamily: '"Inter",sans-serif' },
+            p: {
+              fontFamily: '"Inter",sans-serif',
+              fontSize: '14px',
+            },
+            a: {
+              fontFamily: '"Inter",sans-serif',
+
+              color: 'rgb(var(--primary))',
+              transition: '0.5s',
+              '&:hover': {
+                color: 'rgba(var(--accent))',
+              },
+            },
+            ul: {
+              '> li': {
+                fontFamily: '"Inter",sans-serif',
+                fontSize: '14px',
+
+                '&::before': {
+                  // more complex example - add before to an li element.
+                  content: '',
+                },
+              },
+            },
+          },
+        },
+      },
       objectPosition: {
         'top--2': '0 -14rem',
       },
