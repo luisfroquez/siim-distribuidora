@@ -1,11 +1,11 @@
 'use client'
 
-import HelloWorld from './hello.mdx'
+import HowToQuote from './como-cotizar.mdx'
 
 const Post = () => {
   return (
     <article className="prose lg:prose-xl dark:prose-invert">
-      <HelloWorld />
+      <HowToQuote />
     </article>
   )
 }

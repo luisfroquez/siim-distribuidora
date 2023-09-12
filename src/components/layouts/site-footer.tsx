@@ -10,8 +10,8 @@ export function SiteFooter() {
   return (
     <footer className="h-32 w-full border-t bg-background pb-12">
       <div className="container flex flex-col items-center justify-between space-y-1 py-5 md:h-16 md:flex-row md:py-0">
-        <div className="flex flex-col">
-          <span className="text-center text-base text-muted-foreground">
+        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0">
+          <span className="text-center text-base text-muted-foreground max-w-[20rem] md:max-w-none">
             Copyright © 2023 SIIM Distribuidora, empresa de{' '}
             <a
               aria-label="Link a página de SIIM Group"
@@ -36,7 +36,7 @@ export function SiteFooter() {
             </a>
           </span>
         </div>
-        <div className="flex flex-col items-end pt-5">
+        <div className="flex flex-col items-center md:items-end gap-2 md:gap-0 pt-5">
           <div className="flex items-center space-x-1">
             <Link
               href={siteConfig.links.linkedin}
@@ -74,7 +74,7 @@ export function SiteFooter() {
             </Link>
             <ThemeToggle />
           </div>
-          <div className="flex flex-col items-end gap-1 text-xs text-muted-foreground">
+          <div className="flex flex-col items-center md:items-end gap-2 md:gap-1 text-xs text-muted-foreground">
             <Link href="/politica_privacidad">Políticas de privacidad</Link>
             <Link href="/reembolso_devoluciones">
               Políticas de devoluciones y reembolsos

@@ -22,9 +22,14 @@ module.exports = {
               fontFamily: '"Inter",sans-serif',
               fontSize: '14px',
             },
+
+            img: {
+              borderRadius: '16px',
+              border: '1px',
+              borderColor: 'rgb(var(--border))',
+            },
             a: {
               fontFamily: '"Inter",sans-serif',
-
               color: 'rgb(var(--primary))',
               transition: '0.5s',
               '&:hover': {

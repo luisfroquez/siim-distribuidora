@@ -38,7 +38,7 @@ const homeCategories = [
 
 const Categories = () => {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-2 xl:grid-cols-5">
+    <div className="grid grid-cols-1 gap-2 md:gap-4 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-2 xl:grid-cols-5">
       {homeCategories?.map((category, i) => (
         <Link
           aria-label={`Go to ${category.name}`}
@@ -48,10 +48,10 @@ const Categories = () => {
             i === 1 ? 'xl:col-span-3' : ''
           }`}
         >
-          <div className="group relative h-full overflow-hidden rounded-xl ">
+          <div className="group relative md:aspect-[unset] aspect-video w-full h-full overflow-hidden rounded-xl ">
             {i < 2 ? (
               <>
-                <div className="smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 to-blue-900/10 group-hover:bg-blue-900/90 " />
+                <div className="smooth-1000 absolute inset-0 z-10 bg-gradient-to-tr from-blue-900 to-blue-900/10 group-hover:bg-blue-900/90" />
                 <Image
                   src={category.image}
                   alt={category.name}
@@ -73,8 +73,8 @@ const Categories = () => {
               </AspectRatio>
             )}
 
-            <div className="absolute inset-0 z-20 flex items-end justify-start p-8">
-              <h3 className="w-[50%] text-left text-2xl font-medium text-slate-100">
+            <div className="absolute inset-0 z-20 flex items-end justify-start p-4 md:p-8">
+              <h3 className="md:w-[50%] text-left text-lg md:text-2xl leading-4 font-medium text-slate-100">
                 {category.name}
               </h3>
             </div>

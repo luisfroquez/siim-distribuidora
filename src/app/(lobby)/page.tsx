@@ -45,7 +45,7 @@ export default function IndexPage() {
 
         {/* FEATURED */}
         <div className="space-y-5 pt-8">
-          <div className="flex items-center">
+          <div className="flex flex-col gap-4 items-center md:flex-row ">
             <h2 className="flex-1 text-2xl font-medium">Selección SIIM</h2>
             <Link href="/tienda">
               <div
@@ -88,7 +88,7 @@ export default function IndexPage() {
         </div> */}
 
         <Card className="mt-4 grid place-items-center gap-4 px-6 py-16 text-center">
-          <h2 className="text-2xl font-medium">
+          <h2 className="text-lg md:text-2xl font-medium ">
             Suscríbete a nuestro boletín para obtener las últimas noticias y
             actualizaciones de SIIM
           </h2>
