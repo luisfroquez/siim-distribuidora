@@ -8,19 +8,33 @@ import { cn } from '@/lib/utils'
 
 export function SiteFooter() {
   return (
-    <footer className="h-32 w-full border-t bg-background">
+    <footer className="h-32 w-full border-t bg-background pb-12">
       <div className="container flex flex-col items-center justify-between space-y-1 py-5 md:h-16 md:flex-row md:py-0">
-        <div className="text-center text-base text-muted-foreground">
-          Copyright © 2023 SIIM Distribuidora, empresa de{' '}
-          <a
-            aria-label="Link a página de SIIM Group"
-            href="https://siim-group.vercel.app/"
-            target="_blank"
-            rel="noreferrer"
-            className="font-semibold transition-colors hover:text-slate-950 dark:hover:text-slate-200"
-          >
-            SIIM Group
-          </a>
+        <div className="flex flex-col">
+          <span className="text-center text-base text-muted-foreground">
+            Copyright © 2023 SIIM Distribuidora, empresa de{' '}
+            <a
+              aria-label="Link a página de SIIM Group"
+              href="https://siim-group.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold transition-colors hover:text-slate-950 dark:hover:text-slate-200"
+            >
+              SIIM Group
+            </a>
+          </span>
+          <span className="text-muted-foreground text-xs">
+            Made with 🖤 by{' '}
+            <a
+              aria-label="Link a página del desarrollador Luis Roque"
+              href="https://www.roque.dev/"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold transition-colors hover:text-slate-950 dark:hover:text-slate-200"
+            >
+              roque.dev
+            </a>
+          </span>
         </div>
         <div className="flex flex-col items-end pt-5">
           <div className="flex items-center space-x-1">

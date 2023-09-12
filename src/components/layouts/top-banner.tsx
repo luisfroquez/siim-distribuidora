@@ -4,7 +4,7 @@ const TopBanner = () => {
       <div className="container flex h-full items-center justify-between">
         <p>Eleuterio Ramírez 731, Santiago, Chile</p>
         <p className="font-semibold">Horario: Lun. a Vie. de 8:00 a 18:00</p>
-        <p>+56 9 8396 3903</p>
+        <p>+56 2 3301 0928</p>
       </div>
     </div>
   )
