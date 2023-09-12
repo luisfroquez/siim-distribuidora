@@ -5,7 +5,7 @@ interface BreadcrumbProps {
   links: { label: string; href: string }[]
 }
 
-const Breadcrumb = async ({ links }: BreadcrumbProps) => {
+const Breadcrumb = ({ links }: BreadcrumbProps) => {
   return (
     <div className="mb-4 flex w-full gap-2 py-2 text-xs">
       {links.map((data, i) => {

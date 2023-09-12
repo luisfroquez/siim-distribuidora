@@ -29,7 +29,7 @@ export async function getMultipleProductsById(ids: string[]) {
 
     return [...mappedVariations, ...mappedProducts]
   } catch (error) {
-    alert('Ocurrió un error')
+    console.log(error)
     return []
   }
 }
