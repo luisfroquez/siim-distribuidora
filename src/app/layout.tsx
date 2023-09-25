@@ -11,9 +11,10 @@ import { siteConfig } from '@/config/site'
 import { ApolloClientProvider } from '@/lib/apollo/apollo-client-provider'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://distribuidora.siim.cl"),
+  metadataBase: new URL('https://distribuidora.siim.cl'),
   title: {
     default: siteConfig.title,
     template: `%s - ${siteConfig.title}`,
@@ -74,6 +75,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ClerkProvider>
           <html lang="en" suppressHydrationWarning>
             <head />
+
+            {/* GOOGLE ANALYTICS */}
+            <Script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-8XD5EK99JX"
+            />
+            <Script id="google-analytics">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-8XD5EK99JX');
+               `}
+            </Script>
+
             <body
               className={cn(
                 'min-h-screen bg-background font-sans antialiased',
