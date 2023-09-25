@@ -85,7 +85,7 @@ export const QuoteForSIIM = ({
 
   const objectDate = quote?.createdAt ?? new Date()
   const day = objectDate.getDate()
-  const month = objectDate.getMonth()
+  const month = objectDate.getMonth() + 1
   const year = objectDate.getFullYear()
   const date = `${day}/${month}/${year}`
 
@@ -158,7 +158,26 @@ export const QuoteForSIIM = ({
                     </Text>
                   </Column>
                 </Row>
+
+                <Row>
+                  <Column style={informationTableColumn}>
+                    <Text style={informationTableLabel}>Correo</Text>
+                    <Text style={informationTableValue}>
+                      {input?.email ?? '-'}
+                    </Text>
+                  </Column>
+                </Row>
+
+                <Row>
+                  <Column style={informationTableColumn}>
+                    <Text style={informationTableLabel}>Comentario</Text>
+                    <Text style={informationTableValue}>
+                      {input?.comments ?? '-'}
+                    </Text>
+                  </Column>
+                </Row>
               </Column>
+
               <Column style={informationTableColumn} colSpan={2}>
                 <Text style={informationTableLabel}>Cotizar a</Text>
                 <Text style={informationTableValue}>

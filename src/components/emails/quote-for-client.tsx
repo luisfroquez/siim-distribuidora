@@ -1,4 +1,3 @@
-import { NEXT_PUBLIC_APP_URL } from '@/app/config'
 import { type Quote } from '@/db/schema'
 import { type RequestQuoteInputTypes } from '@/lib/validations/quote'
 import { type QuoteLineItem } from '@/types'
@@ -23,8 +22,6 @@ interface QuoteForClientProps {
   quote?: Quote
   quoteLineItems: QuoteLineItem[]
 }
-
-const baseUrl = NEXT_PUBLIC_APP_URL ?? ''
 
 // const prueba = [
 //   {
@@ -87,7 +84,7 @@ export const QuoteForClient = ({
   const previewText = `Hola ${input.name}. En los próximos momentos, le enviaremos una cotización formal y le brindaremos la atención personalizada que merece.`
   const objectDate = quote?.createdAt ?? new Date()
   const day = objectDate.getDate()
-  const month = objectDate.getMonth()
+  const month = objectDate.getMonth() + 1
   const year = objectDate.getFullYear()
   const date = `${day}/${month}/${year}`
 
@@ -153,12 +150,6 @@ export const QuoteForClient = ({
                       {quote?.id ?? '-'}
                     </Link>
                   </Column>
-                  <Column style={informationTableColumn}>
-                    <Text style={informationTableLabel}>Teléfono</Text>
-                    <Text style={informationTableValue}>
-                      {input?.phone ?? '-'}
-                    </Text>
-                  </Column>
                 </Row>
               </Column>
               <Column style={informationTableColumn} colSpan={2}>
@@ -186,6 +177,7 @@ export const QuoteForClient = ({
             Si en algún momento surge alguna duda urgente, le animo a que envíe
             su consulta a{' '}
             <Link
+              href="mailto:ventas@siim.cl"
               style={{
                 color: '#15c',
                 textDecoration: 'underline',
@@ -193,7 +185,7 @@ export const QuoteForClient = ({
             >
               ventas@siim.cl
             </Link>{' '}
-            a este correo para que pueda brindarle la ayuda que necesite.
+            para que podamos brindarle la ayuda que necesite.
           </Text>
           <Text style={footerText}>
             No olvide tener en cuenta nuestro horario de atención, el cual es de
@@ -220,7 +212,7 @@ export const QuoteForClient = ({
               </Column>
               <Column style={{ paddingLeft: '22px' }}>
                 <Link
-                  href={`${baseUrl}/tienda/producto/${q.slug}`}
+                  href={`https://distribuidora.siim.cl/tienda/producto/${q.slug}`}
                   aria-label={`Ir a ${q.name}`}
                   style={productTitle}
                 >

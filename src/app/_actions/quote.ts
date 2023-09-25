@@ -188,3 +188,18 @@ export async function deleteQuoteItemsAction(input: { productIds: string[] }) {
 
   revalidatePath('/')
 }
+
+export const clearQuoteAction = (): string | undefined => {
+  const quoteId = cookies().get('quoteId')?.value
+
+  if (!quoteId) {
+    return 'Missing quote ID'
+  }
+
+  try {
+    cookies().delete('quoteId')
+    revalidatePath('/')
+  } catch (e) {
+    return 'Error cleaning quote'
+  }
+}

@@ -7,6 +7,7 @@ import * as React from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import { clearQuoteAction } from '@/app/_actions/quote'
 import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import {
@@ -128,7 +129,15 @@ export function RequestQuoteForm() {
       }
 
       if (response.ok) {
+        const error = clearQuoteAction()
+
+        if (error) {
+          // throw new Error(error.toString())
+          toast.success('Error de cookie')
+        }
+
         toast.success('¡Cotización solicitada con éxito!')
+
         router.push('/tienda/cotizar/cotizacion-exitosa')
       }
     })

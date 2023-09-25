@@ -1,4 +1,3 @@
-import { NEXT_PUBLIC_CONTENT_URL } from '@/app/config'
 import {
   Body,
   Container,
@@ -18,8 +17,6 @@ interface NewsletterWelcomeEmailProps {
   fromEmail: string
   token: string
 }
-
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? ''
 
 // For previewing we need to put images in the .react-email/public folder
 // In production we need to put images in the root public folder
@@ -42,18 +39,14 @@ export default function NewsletterWelcomeEmail({
           <Container className="mx-auto my-[40px] max-w-2xl rounded-2xl p-4 bg-white">
             <Section className="bg-gray-100 w-full p-8 rounded">
               <Img
-                src={`${
-                  NEXT_PUBLIC_CONTENT_URL ?? 'http://wp.siim.cl'
-                }/uploads/2023/08/Logo-Horizontal.png`}
+                src="https://siim.cl/wp-content/uploads/2021/08/Logo-Horizontal.png"
                 alt="Logo SIIM Distribuidora"
                 className="aspect-[2.43/1] w-40 object-cover mx-auto"
               />
             </Section>
             <Section className="bg-gray-100 w-full p-8 rounded">
               <Img
-                src={`${
-                  NEXT_PUBLIC_CONTENT_URL ?? 'http://wp.siim.cl'
-                }/uploads/2023/08/Logo-Horizontal.png`}
+                src="https://siim.cl/wp-content/uploads/2021/08/Logo-Horizontal.png"
                 alt="Logo SIIM Distribuidora"
                 className="aspect-[2.43/1] w-40 object-cover mx-auto"
               />
@@ -92,9 +85,7 @@ export default function NewsletterWelcomeEmail({
             </Section>
             <Section>
               <Img
-                src={`${
-                  NEXT_PUBLIC_CONTENT_URL ?? 'http://wp.siim.cl'
-                }/uploads/2023/08/newsletter-image.png`}
+                src="https://wp.siim.cl/wp-content/uploads/2023/08/newsletter-image.png"
                 alt="SIIM Imagen de Boletin Informativo"
                 height={424}
                 className="aspect-video w-full object-cover mb-0 mt-4 rounded-t"
@@ -117,7 +108,7 @@ export default function NewsletterWelcomeEmail({
               <Text>
                 Si no deseas recibir nuestros correos, puedes{' '}
                 <Link
-                  href={`${baseUrl}/email-preferences?token=${token}`}
+                  href={`https://distribuidora.siim.cl/email-preferences?token=${token}`}
                   className="text-blue-600"
                 >
                   darte de baja aquí
