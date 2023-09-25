@@ -17,6 +17,7 @@ export default authMiddleware({
     '/email-preferences(.*)',
     '/sitemap(.*)',
     '/ayuda(.*)',
+    '/politicas-de-cookies(.*)',
   ],
 
   async afterAuth(auth, req) {

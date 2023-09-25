@@ -9,8 +9,10 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
 import { siteConfig } from '@/config/site'
 import { ApolloClientProvider } from '@/lib/apollo/apollo-client-provider'
+import { ClientCookiesProvider } from '@/lib/client-cookies-provider'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
+import { cookies } from 'next/headers'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
@@ -71,50 +73,52 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <ApolloClientProvider>
-        <ClerkProvider>
-          <html lang="en" suppressHydrationWarning>
-            <head />
+      <ClientCookiesProvider value={cookies().getAll()}>
+        <ApolloClientProvider>
+          <ClerkProvider>
+            <html lang="en" suppressHydrationWarning>
+              <head />
 
-            {/* GOOGLE ANALYTICS */}
-            <Script
-              async
-              src="https://www.googletagmanager.com/gtag/js?id=G-8XD5EK99JX"
-            />
-            <Script id="google-analytics">
-              {`
+              {/* GOOGLE ANALYTICS */}
+              <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-8XD5EK99JX"
+              />
+              <Script id="google-analytics">
+                {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
 
                 gtag('config', 'G-8XD5EK99JX');
                `}
-            </Script>
+              </Script>
 
-            <body
-              className={cn(
-                'min-h-screen bg-background font-sans antialiased',
-                fontSans.variable,
-                fontMono.variable
-              )}
-              suppressHydrationWarning={true}
-            >
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
+              <body
+                className={cn(
+                  'min-h-screen bg-background font-sans antialiased',
+                  fontSans.variable,
+                  fontMono.variable
+                )}
+                suppressHydrationWarning={true}
               >
-                {children}
-                <Suspense fallback={null}>
-                  <NavigationEvents />
-                </Suspense>
-                {/* <TailwindIndicator /> */}
-              </ThemeProvider>
-              <Toaster />
-            </body>
-          </html>
-        </ClerkProvider>
-      </ApolloClientProvider>
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="system"
+                  enableSystem
+                >
+                  {children}
+                  <Suspense fallback={null}>
+                    <NavigationEvents />
+                  </Suspense>
+                  {/* <TailwindIndicator /> */}
+                </ThemeProvider>
+                <Toaster />
+              </body>
+            </html>
+          </ClerkProvider>
+        </ApolloClientProvider>
+      </ClientCookiesProvider>
     </>
   )
 }
