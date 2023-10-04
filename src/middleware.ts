@@ -1,7 +1,7 @@
 import { type UserRole } from '@/types'
 import { clerkClient } from '@clerk/nextjs'
 import { authMiddleware } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, userAgent } from 'next/server'
 
 export default authMiddleware({
   // Public routes are routes that don't require authentication
@@ -23,6 +23,11 @@ export default authMiddleware({
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
       //  For public routes, we don't need to do anything
+      return NextResponse.next()
+    }
+
+    if (userAgent(req).isBot) {
+      // For good bots, we don't need to do anything
       return NextResponse.next()
     }
 
