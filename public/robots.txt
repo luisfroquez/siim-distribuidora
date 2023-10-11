@@ -1,9 +1,4 @@
-# *
 User-agent: *
 Allow: /
 
-# Host
-Host: https://distribuidora.siim.cl/
-
-# Sitemaps
 Sitemap: https://distribuidora.siim.cl/sitemap.xml
