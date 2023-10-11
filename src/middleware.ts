@@ -3,7 +3,6 @@ import { authMiddleware, clerkClient } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
 export default authMiddleware({
-  debug: process.env.NODE_ENV === 'development',
   // Public routes are routes that don't require authentication
   publicRoutes: [
     '/',
@@ -56,5 +55,5 @@ export default authMiddleware({
 
 // Stop Middleware running on static files
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }

@@ -1,9 +1,8 @@
-import { currentUser } from '@clerk/nextjs'
-
 import CookieConsent from '@/components/layouts/cookie-consent'
 import FloatingContactButton from '@/components/layouts/floating-contact-button'
 import { SiteFooter } from '@/components/layouts/site-footer'
 import { SiteHeader } from '@/components/layouts/site-header'
+import { currentUser } from '@clerk/nextjs'
 
 interface LobbyLayoutProps {
   children: React.ReactNode
