@@ -1,9 +1,10 @@
 import { type UserRole } from '@/types'
 import { clerkClient } from '@clerk/nextjs'
 import { authMiddleware } from '@clerk/nextjs/server'
-import { NextResponse, userAgent } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export default authMiddleware({
+  debug: process.env.NODE_ENV === 'development',
   // Public routes are routes that don't require authentication
   publicRoutes: [
     '/',
@@ -23,12 +24,7 @@ export default authMiddleware({
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
       //  For public routes, we don't need to do anything
-      return NextResponse.next()
-    }
-
-    if (userAgent(req).isBot) {
-      // For good bots, we don't need to do anything
-      return NextResponse.next()
+      return NextResponse.next({ status: 200 })
     }
 
     const url = new URL(req.nextUrl.origin)
@@ -59,6 +55,7 @@ export default authMiddleware({
   },
 })
 
+// Stop Middleware running on static files
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)'],
+  matcher: '/((?!_next/image|_next/static|favicon.ico).*)',
 }
